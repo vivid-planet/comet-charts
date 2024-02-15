@@ -1,0 +1,25 @@
+{{- if .Values.route.enabled -}}
+{{- range .Values.hosts }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "comet-site.fullname" $ }}
+  labels:
+    {{- include "comet-site.labels" $ | nindent 4 }}
+  annotations:
+    haproxy.router.openshift.io/disable_cookies: "true"
+    haproxy.router.openshift.io/balance: "roundrobin"
+spec:
+  host: "{{ . }}"
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  port:
+    targetPort: 3000
+  to:
+    kind: Service
+    name: {{ include "comet-site.fullname" $ }}
+    weight: 100
+---
+{{- end }}    
+{{- end }}

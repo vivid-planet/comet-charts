@@ -1,0 +1,133 @@
+nodeEnv: production
+npmRun: start:prod
+timeZone: Europe/Vienna
+
+replicaCount: 1
+
+basePath: "/api"
+
+authproxy:
+  enabled: true
+
+image:
+  repository: nginx
+  hash: ""
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+postgresql:
+  useSSL: "true"
+
+blobStorage:
+  driver: "" # can be "azure" or "s3"
+
+imgproxy:
+  url: "" # Must be overwritten
+  key: "" # Must be overwritten
+  salt: "" # Must be overwritten
+
+dam:
+  cdn:
+    enabled: false
+    domain: ""
+    originHeader: ""
+  secret: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: false
+
+route:
+  enabled: false
+
+resources:
+  limits:
+    cpu: 1
+    memory: 512Mi
+  requests:
+    cpu: 50m
+    memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+livenessProbe:
+  httpGet:
+    path: /.well-known/apollo/server-health
+    port: http
+  initialDelaySeconds: 5
+
+readinessProbe:
+  httpGet:
+    path: /.well-known/apollo/server-health
+    port: http
+  initialDelaySeconds: 5
+
+cronJobs:
+  build-checker:
+    enabled: true
+    command: "npm run console:prod check-changes"
+    schedule: "*/15 * * * *"
+    additionalLabels:
+      comet-dxp.com/build-checker: "true"
+    activeDeadlineSeconds: 600
+    resources:
+      limits:
+        cpu: 100m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+  blck-indx-mgrt-blks:
+    enabled: true
+    command: "npm run console:prod migrateBlocks && npm run console:prod createBlockIndexViews"
+    schedule: "0 0 30 2 0" # 30th of February, will never run automatically
+    activeDeadlineSeconds: 1200
+    resources:
+      limits:
+        cpu: 100m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+
+env: {}
+secrets: {}

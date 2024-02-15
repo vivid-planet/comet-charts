@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "comet-site-preview.fullname" . }}
+  labels:
+    {{- include "comet-site-preview.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "comet-site-preview.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "comet-site-preview.selectorLabels" . | nindent 8 }}
+    spec:
+      imagePullSecrets:
+        - name: {{ include "comet-site-preview.fullname" . }}-image-pull-secret
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: {{ .Chart.Name }}-build
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/bash", "-c", "npm run preview-next-build"]
+          envFrom:
+            - configMapRef:
+                name: {{ include "comet-site-preview.fullname" . }}
+            - secretRef:
+                name: {{ include "comet-site-preview.fullname" . }}
+          volumeMounts:
+            - mountPath: /opt/app-root/src/.next
+              name: document-root
+          resources:
+            {{- toYaml .Values.initContainer.resources | nindent 12 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "comet-site-preview.fullname" . }}
+            - secretRef:
+                name: {{ include "comet-site-preview.fullname" . }}
+          env:
+            - name: NPM_RUN
+              value: "{{ .Values.npmRun }}"
+          volumeMounts:
+            - mountPath: /opt/app-root/src/.next
+              name: document-root
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.livenessProbe.path }}
+              port: http
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.readinessProbe.path }}
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+        - name: document-root
+          emptyDir: {}

@@ -1,0 +1,45 @@
+# Default values for site-preview.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+env: {}
+secrets: {}
+
+replicaCount: 2
+
+image:
+  repository: ""
+  hash: ""
+  pullPolicy: IfNotPresent
+
+npmRun: "serve"
+
+service:
+  type: ClusterIP
+  port: 3000
+
+resources:
+  limits:
+    memory: 400Mi
+    cpu: 1
+  requests:
+    cpu: 50m
+    memory: 200Mi
+
+initContainer:
+  resources:
+    limits:
+      memory: 1024Mi
+      cpu: 1
+    requests:
+      cpu: 50m
+      memory: 512Mi
+
+api:
+  basePath: "/api"
+
+livenessProbe: 
+  path: "/site/api/status"
+
+readinessProbe:
+  path: "/site/api/status"

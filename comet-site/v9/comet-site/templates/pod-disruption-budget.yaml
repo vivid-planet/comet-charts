@@ -1,0 +1,18 @@
+
+{{- if or (and .Values.autoscaling.enabled (gt (.Values.autoscaling.minReplicas | int) 1)) (and (not .Values.autoscaling.enabled) (gt (.Values.replicaCount | int) 1)) }}
+apiVersion: "policy/v1"
+kind: PodDisruptionBudget
+metadata:
+  labels:
+    {{- include "comet-site.labels" . | nindent 4 }}
+  name: {{ include "comet-site.fullname" . }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "comet-site.selectorLabels" . | nindent 6 }}
+  {{ if .Values.autoscaling.enabled }}
+  minAvailable: {{ div .Values.autoscaling.minReplicas 2 }}
+  {{ else }}
+  minAvailable: {{ div .Values.replicaCount 2 }}
+  {{- end }}
+{{- end }}
