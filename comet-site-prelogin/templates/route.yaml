@@ -1,0 +1,25 @@
+{{- if .Values.route.enabled -}}
+{{- range .Values.siteConfigs | fromJsonArray }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "comet-site-prelogin.fullname" $ }}
+  labels:
+    {{- include "comet-site-prelogin.labels" $ | nindent 4 }}
+  annotations:
+    haproxy.router.openshift.io/disable_cookies: "true"
+    haproxy.router.openshift.io/balance: "roundrobin"
+spec:
+  host: "{{ .host }}"
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  port:
+    targetPort: 3000
+  to:
+    kind: Service
+    name: {{ include "comet-site-prelogin.fullname" $ }}
+    weight: 100
+---
+{{- end }}    
+{{- end }}

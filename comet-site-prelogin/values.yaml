@@ -1,0 +1,41 @@
+# Default values for site-prelogin.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+siteConfigs: []
+target: ""
+
+replicaCount: 1
+
+image:
+  repository: "" # will be overwritten by CI
+  hash: v2 # will be overwritten by CI
+  pullPolicy: IfNotPresent
+
+npmRun: "serve"
+
+service:
+  type: ClusterIP
+  port: 3000
+
+resources:
+  limits:
+    memory: 256Mi
+    cpu: "500m"
+  requests:
+    cpu: 50m
+    memory: 128Mi
+
+route:
+  enabled: false
+
+ingress:
+  enabled: false
+
+hosts: []
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80

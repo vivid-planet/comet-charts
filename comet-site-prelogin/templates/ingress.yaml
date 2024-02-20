@@ -1,0 +1,31 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "comet-site-prelogin.fullname" . }}-main
+  labels:
+    {{- include "comet-site-prelogin.labels" . | nindent 4 }}
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+spec:
+  ingressClassName: nginx
+  rules:
+  {{- range .Values.siteConfigs | fromJsonArray }}
+  - host: "{{ .host }}"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "comet-site-prelogin.fullname" $ }}
+            port:
+              number: 3000
+  {{- end }}    
+  tls:
+  - hosts:
+    {{- range .Values.siteConfigs | fromJsonArray }}
+    - "{{ .host }}"
+    {{- end }}    
+    secretName: {{ include "comet-site-prelogin.fullname" . }}-main-cert
+{{- end }}
