@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  comet-admin:
+  - apiVersion: v2
+    created: "2024-02-20T15:59:59.182325515Z"
+    description: A Helm chart for Kubernetes
+    digest: 49d400794d4a84aeb563b869113b971d445069ef37be7b1cd3c1ee0f92c91d73
+    name: comet-admin
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-admin-5.0.0/comet-admin-5.0.0.tgz
+    version: 5.0.0
+generated: "2024-02-20T15:59:59.182330415Z"
