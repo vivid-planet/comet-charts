@@ -1,0 +1,19 @@
+{{- if .Values.route.enabled -}}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "comet-authproxy.fullname" . }}
+  labels:
+    {{- include "comet-authproxy.labels" . | nindent 4 }}
+spec:
+  host: "{{ .Values.domain }}"
+  port:
+    targetPort: http
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: {{ .Release.Name }}-oauth2-proxy
+    weight: 100
+{{- end }}
