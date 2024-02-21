@@ -1,6 +1,7 @@
-nodeEnv: production
-npmRun: start:prod
-timeZone: Europe/Vienna
+global:
+  nodeEnv: production
+  npmRun: start:prod
+  timeZone: Europe/Vienna
 
 replicaCount: 1
 
@@ -19,6 +20,7 @@ fullnameOverride: ""
 
 postgresql:
   useSSL: "true"
+  password: ""
 
 blobStorage:
   driver: "" # can be "azure" or "s3"
@@ -58,6 +60,9 @@ securityContext:
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+
+idp:
+  jwksUri: ""
 
 service:
   type: ClusterIP

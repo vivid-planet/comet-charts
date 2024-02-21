@@ -46,3 +46,6 @@ autoscaling:
 
 api:
   basePath: "/api"
+
+admin:
+  domain: ""

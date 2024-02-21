@@ -100,3 +100,9 @@ autoscaling:
 
 api:
   basePath: "/api"
+
+persistence:
+  existingClaim: ""
+
+admin:
+  domain: ""

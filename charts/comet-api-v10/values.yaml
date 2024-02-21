@@ -1,6 +1,7 @@
-nodeEnv: production
-npmRun: start:prod
-timeZone: Europe/Vienna
+global:
+  nodeEnv: production
+  npmRun: start:prod
+  timeZone: Europe/Vienna
 
 replicaCount: 1
 
@@ -19,6 +20,7 @@ fullnameOverride: ""
 
 postgresql:
   useSSL: "true"
+  password: ""
 
 blobStorage:
   driver: "" # can be "azure" or "s3"
@@ -27,6 +29,9 @@ imgproxy:
   url: "" # Must be overwritten
   key: "" # Must be overwritten
   salt: "" # Must be overwritten
+
+idp:
+  jwksUri: ""
 
 dam:
   cdn:

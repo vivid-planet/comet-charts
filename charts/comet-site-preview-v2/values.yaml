@@ -43,3 +43,6 @@ livenessProbe:
 
 readinessProbe:
   path: "/site/api/status"
+
+admin:
+  domain: ""
