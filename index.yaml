@@ -10,4 +10,66 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/comet-admin-5.0.0/comet-admin-5.0.0.tgz
     version: 5.0.0
-generated: "2024-02-20T15:59:59.182330415Z"
+  comet-api:
+  - apiVersion: v2
+    created: "2024-02-21T07:41:59.047870678Z"
+    description: A Helm chart for Kubernetes
+    digest: 84bf1a1377d09bac97922cf70368171d18627819a9aa046b034891012273a3ac
+    name: comet-api
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-api-10.0.0/comet-api-10.0.0.tgz
+    version: 10.0.0
+  - apiVersion: v2
+    created: "2024-02-21T07:41:59.219757646Z"
+    description: A Helm chart for Kubernetes
+    digest: 4a9e46eaa06bfbe321b2ac80d4e5ffbf43c2e81b2c27ad0b9882d8b0049989d8
+    name: comet-api
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-api-9.0.0/comet-api-9.0.0.tgz
+    version: 9.0.0
+  comet-authproxy:
+  - apiVersion: v2
+    created: "2024-02-21T07:41:59.436993448Z"
+    dependencies:
+    - name: oauth2-proxy
+      repository: https://oauth2-proxy.github.io/manifests
+      version: 6.x
+    description: A Helm chart for Kubernetes
+    digest: 43548d4b9044d73309e53a24bd75105e8e0f3a5e0d9a1fa4b372db0191802d3f
+    name: comet-authproxy
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-authproxy-2.0.0/comet-authproxy-2.0.0.tgz
+    version: 2.0.0
+  comet-site:
+  - apiVersion: v2
+    created: "2024-02-21T07:41:59.818786194Z"
+    description: A Helm chart for Kubernetes
+    digest: c30908a943b5c63cde23ca859cd387466e535ee8483a3fc1f0ba20c6c45ac033
+    name: comet-site
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-9.0.0/comet-site-9.0.0.tgz
+    version: 9.0.0
+  - apiVersion: v2
+    created: "2024-02-21T07:41:59.652681595Z"
+    description: A Helm chart for Kubernetes
+    digest: e62d875460f89d3cdc1c6750dacbbb7de649abeac28a517d5763cfee243ab799
+    name: comet-site
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-8.0.0/comet-site-8.0.0.tgz
+    version: 8.0.0
+  comet-site-preview:
+  - apiVersion: v2
+    created: "2024-02-21T07:42:00.006515619Z"
+    description: A Helm chart for Kubernetes
+    digest: 9bd6fc2d6a63e7273d67aefeacce1b5a68ca10ac1473b123767496cbf971ea0d
+    name: comet-site-preview
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-preview-2.0.0/comet-site-preview-2.0.0.tgz
+    version: 2.0.0
+generated: "2024-02-21T07:42:00.006530997Z"
