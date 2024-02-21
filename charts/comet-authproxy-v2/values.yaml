@@ -14,6 +14,8 @@ oauth2-proxy:
     cookie-secure: true
     cookie-samesite: lax
     cookie-httponly: true
+    cookie-name: __Host-oauth2_proxy
+    cookie-path: /
     skip-provider-button: true
     silence-ping-logging: true
     request-logging: false
