@@ -9,6 +9,7 @@ image:
   repository: nginx
   hash: ""
   pullPolicy: IfNotPresent
+  pullSecret: "" # will be overwritten by CI
 
 api:
   basePath: "/api"

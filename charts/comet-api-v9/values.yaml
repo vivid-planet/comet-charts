@@ -14,6 +14,7 @@ image:
   repository: nginx
   hash: ""
   pullPolicy: IfNotPresent
+  pullSecret: "" # will be overwritten by CI
 
 nameOverride: ""
 fullnameOverride: ""
