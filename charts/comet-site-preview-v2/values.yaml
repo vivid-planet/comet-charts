@@ -11,6 +11,7 @@ image:
   repository: ""
   hash: ""
   pullPolicy: IfNotPresent
+  pullSecret: "" # will be overwritten by CI
 
 npmRun: "serve"
 
@@ -43,3 +44,6 @@ livenessProbe:
 
 readinessProbe:
   path: "/site/api/status"
+
+admin:
+  domain: ""
