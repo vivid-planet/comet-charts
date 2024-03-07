@@ -13,12 +13,14 @@ image:
   repository: nginx
   hash: ""
   pullPolicy: IfNotPresent
+  pullSecret: "" # will be overwritten by CI
 
 nameOverride: ""
 fullnameOverride: ""
 
 postgresql:
   useSSL: "true"
+  password: ""
 
 blobStorage:
   driver: "" # can be "azure" or "s3"
@@ -58,6 +60,9 @@ securityContext:
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+
+idp:
+  jwksUri: ""
 
 service:
   type: ClusterIP
