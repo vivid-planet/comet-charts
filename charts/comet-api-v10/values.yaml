@@ -1,7 +1,6 @@
-global:
-  nodeEnv: production
-  npmRun: start:prod
-  timeZone: Europe/Vienna
+nodeEnv: production
+npmRun: start:prod
+timeZone: Europe/Vienna
 
 replicaCount: 1
 
