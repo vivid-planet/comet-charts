@@ -35,3 +35,21 @@ oauth2-proxy:
       memory: 64Mi
   service:
     portNumber: 3000
+  # Redis is not used by us. This resources are set, because the redis chart doesn't define default resources
+  redis:
+    master:
+      resources:
+        limits:
+          cpu: 1m
+          memory: 1Mi
+        requests:
+          cpu: 1m
+          memory: 1Mi
+    replica:
+      resources:
+        limits:
+          cpu: 1m
+          memory: 1Mi
+        requests:
+          cpu: 1m
+          memory: 1Mi
