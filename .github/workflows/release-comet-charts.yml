@@ -1,14 +1,6 @@
 name: Release Charts
 
 on:
-    pull_request:
-        types:
-            - opened
-            - synchronize
-            - reopened
-            - closed
-        branches:
-            - main
     push:
         branches:
             - main
@@ -43,5 +35,7 @@ jobs:
 
             - name: Run chart-releaser for comet-charts
               uses: helm/chart-releaser-action@v1.5.0
+              with:
+                  skip_upload: true
               env:
                   CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
