@@ -30,6 +30,7 @@ spec:
       ttlSecondsAfterFinished: {{ $job.ttlSecondsAfterFinished | default 604800 }}
       template:
         spec:
+          automountServiceAccountToken: {{ $job.autoMountServiceAccountToken }}
           imagePullSecrets:
             - name: {{ include "comet-api.fullname" . }}-image-pull-secret
           restartPolicy: {{ $job.restartPolicy | default "Never" }}
