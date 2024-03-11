@@ -30,10 +30,13 @@ spec:
       ttlSecondsAfterFinished: {{ $job.ttlSecondsAfterFinished | default 604800 }}
       template:
         spec:
+          automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
           imagePullSecrets:
             - name: {{ include "comet-api.fullname" . }}-image-pull-secret
           restartPolicy: {{ $job.restartPolicy | default "Never" }}
           serviceAccountName: {{ include "comet-api.serviceAccountName" . }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
           containers:
             - name: {{ .Chart.Name }}-cronjob-{{ $name }}
               securityContext:
