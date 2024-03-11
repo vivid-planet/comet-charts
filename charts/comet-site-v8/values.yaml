@@ -52,6 +52,7 @@ builder:
   kubectlVersion: "1.21.14"
   podSecurityContext:
     {}
+    # fsGroup: 2000
   securityContext:
     {}
     # capabilities:
