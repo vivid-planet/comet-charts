@@ -32,6 +32,7 @@ spec:
       ttlSecondsAfterFinished: 604800 # 7 days
       template:
         spec:
+          automountServiceAccountToken: {{ .Values.builder.autoMountServiceAccountToken }}
           imagePullSecrets:
             - name: {{ include "comet-site.fullname" . }}-image-pull-secret
           restartPolicy: "Never"
