@@ -61,6 +61,7 @@ builder:
     # readOnlyRootFilesystem: true
     # runAsNonRoot: true
     # runAsUser: 1000
+  autoMountServiceAccountToken: true
 
   resources:
     limits:
