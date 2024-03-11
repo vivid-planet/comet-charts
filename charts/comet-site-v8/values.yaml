@@ -89,6 +89,7 @@ ingress:
 pvc:
   create: false
   annotations: {}
+  additionalLabels: {}
 
 cdn:
   enabled: false
