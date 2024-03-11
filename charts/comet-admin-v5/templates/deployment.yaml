@@ -36,11 +36,11 @@ spec:
               protocol: TCP
           env:
             - name: NODE_ENV
-              value: "{{ .Values.global.nodeEnv }}"
+              value: "{{ .Values.nodeEnv }}"
             - name: NPM_RUN
               value: "{{ .Values.npmRun }}"
             - name: TZ
-              value: "{{ .Values.global.timeZone }}"
+              value: "{{ .Values.timeZone }}"
             - name: API_URL
               value: https://{{ .Values.api.domain }}{{ .Values.api.basePath }}
             - name: ADMIN_URL

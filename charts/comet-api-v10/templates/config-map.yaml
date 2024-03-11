@@ -5,9 +5,9 @@ metadata:
   labels:
     {{- include "comet-api.labels" . | nindent 4 }}
 data:
-  NODE_ENV: "{{ .Values.global.nodeEnv }}"
+  NODE_ENV: "{{ .Values.nodeEnv }}"
   NPM_RUN: "{{ .Values.npmRun }}"
-  TZ: "{{ .Values.global.timeZone }}"
+  TZ: "{{ .Values.timeZone }}"
   API_URL: "https://{{ .Values.domain }}{{ .Values.basePath }}"
   API_PORT: "3000"
   HELM_RELEASE: "{{ .Release.Name }}"
