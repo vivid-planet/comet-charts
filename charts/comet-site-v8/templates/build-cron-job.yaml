@@ -36,10 +36,14 @@ spec:
             - name: {{ include "comet-site.fullname" . }}-image-pull-secret
           restartPolicy: "Never"
           serviceAccountName: {{ include "comet-site.fullname" . }}
+          securityContext:
+            {{- toYaml .Values.builder.podSecurityContext | nindent 12 }}
           containers:
             - name: {{ .Chart.Name }}-build
               image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
+              securityContext:
+                {{- toYaml .Values.builder.securityContext | nindent 16 }}
               command: ["bash", "-c"]
               args:
                 - set -e;
