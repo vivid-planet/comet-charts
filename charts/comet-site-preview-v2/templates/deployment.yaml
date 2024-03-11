@@ -14,6 +14,7 @@ spec:
       labels:
         {{- include "comet-site-preview.selectorLabels" . | nindent 8 }}
     spec:
+      automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
       imagePullSecrets:
         - name: {{ include "comet-site-preview.fullname" . }}-image-pull-secret
       securityContext:
