@@ -9,7 +9,8 @@ replicaCount: 1
 
 image:
   repository: ""
-  hash: ""
+  hash: "" # will be used, if tag is not set
+  tag: ""
   pullPolicy: IfNotPresent
   pullSecret: "" # will be overwritten by CI
 
