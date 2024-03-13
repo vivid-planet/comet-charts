@@ -29,7 +29,11 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          {{- else }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -50,7 +54,11 @@ spec:
         - name: {{ .Chart.Name }}-migrations
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          {{- else }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["bash", "-c", "npm run db:migrate:prod"]
           envFrom:

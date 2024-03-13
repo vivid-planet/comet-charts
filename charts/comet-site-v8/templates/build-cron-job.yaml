@@ -38,7 +38,13 @@ spec:
           serviceAccountName: {{ include "comet-site.fullname" . }}
           containers:
             - name: {{ .Chart.Name }}-build
+              securityContext:
+                {{- toYaml .Values.builder.securityContext | nindent 16 }}
+              {{- if .Values.image.tag }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              {{- else }}
               image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+              {{- end }}
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               command: ["bash", "-c"]
               args:
