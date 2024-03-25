@@ -21,8 +21,10 @@ spec:
         {{- include "comet-admin.selectorLabels" . | nindent 8 }}
     spec:
       automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
+      {{- if .Values.image.pullSecret -}}
       imagePullSecrets:
         - name: {{ include "comet-admin.fullname" . }}-image-pull-secret
+      {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
