@@ -32,13 +32,24 @@ spec:
       ttlSecondsAfterFinished: 604800 # 7 days
       template:
         spec:
+          automountServiceAccountToken: {{ .Values.builder.autoMountServiceAccountToken }}
+          {{- if .Values.image.pullSecret -}}
           imagePullSecrets:
             - name: {{ include "comet-site.fullname" . }}-image-pull-secret
+          {{- end }}
           restartPolicy: "Never"
           serviceAccountName: {{ include "comet-site.fullname" . }}
+          securityContext:
+            {{- toYaml .Values.builder.podSecurityContext | nindent 12 }}
           containers:
             - name: {{ .Chart.Name }}-build
+              securityContext:
+                {{- toYaml .Values.builder.securityContext | nindent 16 }}
+              {{- if .Values.image.tag }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              {{- else }}
               image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+              {{- end }}
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               command: ["bash", "-c"]
               args:

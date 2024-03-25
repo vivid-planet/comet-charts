@@ -11,9 +11,12 @@ authproxy:
 
 image:
   repository: nginx
-  hash: ""
+  hash: "" # will be used, if tag is not set
+  tag: ""
   pullPolicy: IfNotPresent
   pullSecret: "" # will be overwritten by CI
+
+autoMountServiceAccountToken: true
 
 nameOverride: ""
 fullnameOverride: ""
@@ -77,7 +80,7 @@ route:
 resources:
   limits:
     cpu: 1
-    memory: 512Mi
+    memory: 256Mi
   requests:
     cpu: 50m
     memory: 256Mi
@@ -109,13 +112,14 @@ readinessProbe:
 cronJobs:
   blck-indx-mgrt-blks:
     enabled: true
+    automountServiceAccountToken: true
     command: "npm run console:prod migrateBlocks && npm run console:prod createBlockIndexViews"
     schedule: "0 0 30 2 0" # 30th of February, will never run automatically
     activeDeadlineSeconds: 1200
     resources:
       limits:
         cpu: 100m
-        memory: 512Mi
+        memory: 256Mi
       requests:
         cpu: 100m
         memory: 256Mi

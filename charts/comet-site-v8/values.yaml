@@ -13,11 +13,14 @@ replicaCount: 1
 
 image:
   repository: ""
-  hash: ""
+  hash: "" # will be used, if tag is not set
+  tag: ""
   pullPolicy: IfNotPresent
   pullSecret: "" # will be overwritten by CI
 
 npmRun: "serve"
+
+autoMountServiceAccountToken: true
 
 service:
   type: ClusterIP
@@ -25,7 +28,7 @@ service:
 
 resources:
   limits:
-    memory: 400Mi
+    memory: 200Mi
     cpu: 1
   requests:
     cpu: 50m
@@ -36,7 +39,7 @@ initContainer:
 
   resources:
     limits:
-      memory: 1024Mi
+      memory: 512Mi
       cpu: 1
     requests:
       cpu: 50m
@@ -48,10 +51,22 @@ builder:
   schedule: "0 6 * * *"
 
   kubectlVersion: "1.21.14"
+  podSecurityContext:
+    {}
+    # fsGroup: 2000
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+  autoMountServiceAccountToken: true
 
   resources:
     limits:
-      memory: 1024Mi
+      memory: 512Mi
       cpu: 500m
     requests:
       cpu: 500m
@@ -61,12 +76,21 @@ prelogin:
   enabled: false
   replicaCount: 1
   requiredUserDomain: ""
+  autoMountServiceAccountToken: true
 
   image:
     repository: "" # will be overwritten by CI
     hash: v2 # will be overwritten by CI
     pullPolicy: IfNotPresent
     pullSecret: "" # will be overwritten by CI
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 
   service:
     type: ClusterIP
@@ -74,7 +98,7 @@ prelogin:
 
   resources:
     limits:
-      memory: 256Mi
+      memory: 128Mi
       cpu: "500m"
     requests:
       cpu: 50m
@@ -89,6 +113,7 @@ ingress:
 pvc:
   create: false
   annotations: {}
+  additionalLabels: {}
 
 cdn:
   enabled: false

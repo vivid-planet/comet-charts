@@ -9,11 +9,14 @@ replicaCount: 1
 
 image:
   repository: ""
-  hash: ""
+  hash: "" # will be used, if tag is not set
+  tag: ""
   pullPolicy: IfNotPresent
   pullSecret: "" # will be overwritten by CI
 
 npmRun: "serve"
+
+autoMountServiceAccountToken: true
 
 service:
   type: ClusterIP
@@ -21,7 +24,7 @@ service:
 
 resources:
   limits:
-    memory: 400Mi
+    memory: 200Mi
     cpu: 1
   requests:
     cpu: 50m

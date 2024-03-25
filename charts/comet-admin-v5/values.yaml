@@ -6,7 +6,8 @@ replicaCount: 1
 
 image:
   repository: nginx
-  hash: ""
+  hash: "" # will be used, if tag is not set
+  tag: ""
   pullPolicy: IfNotPresent
   pullSecret: "" # will be overwritten by CI
 
@@ -30,6 +31,8 @@ securityContext:
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+
+autoMountServiceAccountToken: true
 
 service:
   type: ClusterIP
