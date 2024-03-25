@@ -31,8 +31,10 @@ spec:
       template:
         spec:
           automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
+          {{- if .Values.image.pullSecret -}}
           imagePullSecrets:
             - name: {{ include "comet-api.fullname" . }}-image-pull-secret
+          {{- end }}
           restartPolicy: {{ $job.restartPolicy | default "Never" }}
           serviceAccountName: {{ include "comet-api.serviceAccountName" . }}
           securityContext:
