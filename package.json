@@ -1,0 +1,14 @@
+{
+  "name": "comet-charts",
+  "version": "1.0.0",
+  "description": "Helm charts for Comet DXP.",
+  "workspaces": [
+    "charts/*"
+  ],
+  "scripts": {
+    "changeset:version": "changeset version && node sync-versions.js"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.27.1"
+  }
+}

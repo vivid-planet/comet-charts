@@ -23,6 +23,21 @@ jobs:
                   git config user.name "$GITHUB_ACTOR"
                   git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
+            - name: Setup Node.js 20.x
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 20.x
+
+            - name: Install Dependencies
+              run: npm install
+                  
+            - name: Create Release Pull Request
+              uses: changesets/action@v1
+              with:
+                version: npm run changeset:version
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
             - name: Install Helm
               uses: azure/setup-helm@v3
 
