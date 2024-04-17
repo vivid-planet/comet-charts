@@ -77,7 +77,8 @@ prelogin:
   replicaCount: 1
   requiredUserDomain: ""
   autoMountServiceAccountToken: true
-
+  generateSecret:
+    enabled: true
   image:
     repository: "" # will be overwritten by CI
     hash: v2 # will be overwritten by CI
@@ -133,3 +134,6 @@ persistence:
 
 admin:
   domain: ""
+
+generateSecret:
+  enabled: true

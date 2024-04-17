@@ -141,3 +141,6 @@ cronJobs:
 
 env: {}
 secrets: {}
+
+generateSecret:
+  enabled: true
