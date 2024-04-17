@@ -68,6 +68,8 @@ prelogin:
     pullPolicy: IfNotPresent
     pullSecret: "" # will be overwritten by CI
 
+  generateSecret:
+    enabled: true
   service:
     type: ClusterIP
     port: 3000
@@ -108,3 +110,6 @@ persistence:
 
 admin:
   domain: ""
+
+generateSecret:
+  enabled: true

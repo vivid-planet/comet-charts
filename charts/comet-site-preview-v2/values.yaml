@@ -47,3 +47,6 @@ readinessProbe:
 
 admin:
   domain: ""
+
+generateSecret:
+  enabled: true
