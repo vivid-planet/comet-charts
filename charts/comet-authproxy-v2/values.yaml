@@ -8,6 +8,7 @@ route:
 
 oauth2-proxy:
   extraArgs:
+    api-route: /api
     code-challenge-method: S256
     pass-authorization-header: true
     pass-access-token: true
