@@ -20,7 +20,7 @@ oauth2-proxy:
     request-logging: false
     auth-logging: false
     standard-logging: true
-    cookie-refresh: 55m
+    cookie-refresh: 23h
   config:
     configFile: |-
       email_domains = [ "*" ]
