@@ -4,6 +4,7 @@ on:
     push:
         branches:
             - main
+            - new-github-helm-lint-action
 
 jobs:
     release:

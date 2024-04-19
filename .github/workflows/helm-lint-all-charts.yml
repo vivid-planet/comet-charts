@@ -1,0 +1,68 @@
+name: Helm Lint on Merge Request
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  push:
+    branches:
+      - main
+      - master
+      - new-github-helm-lint-action
+
+jobs:
+  helm_lint:
+    name: Helm Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: '3.6.3'
+
+
+      - name: Add Helm Repos if dependencies exist
+        run: |
+          # Loop through chart directories
+          for chart_dir in charts/*/; do
+          
+            # Extract chart name from directory name
+            chart_name=$(basename "$chart_dir")
+
+            # Check if Chart.yaml exists
+            if [ -f "${chart_dir}Chart.yaml" ]; then
+          
+              # Check if dependencies are defined in Chart.yaml
+              if grep -q '^\s*dependencies:' "${chart_dir}Chart.yaml"; then
+          
+                # Extract repository URL from Chart.yaml
+                repo_url=$(yq e '.dependencies[].repository' "${chart_dir}Chart.yaml")
+          
+                # Extract repository name from URL
+                repo_name=$(basename "$repo_url")
+
+                # Check if repository is not already added
+                if ! helm repo list | grep -q "$repo_name"; then
+                  echo "Adding repository $repo_name from $repo_url"
+                  helm repo add "$repo_name" "$repo_url"
+                fi
+              fi
+            fi
+          done
+
+      - name: Install Helm Dependencies
+        run: |
+          for chart_dir in charts/*/; do
+            echo "Linting chart in directory: $chart_dir"
+            helm dependency build "$chart_dir"
+          done
+
+      - name: Lint Helm Charts
+        run: |
+          for chart_dir in charts/*/; do
+            echo "Linting chart in directory: $chart_dir"
+            helm lint "$chart_dir" | grep -i error
+          done
