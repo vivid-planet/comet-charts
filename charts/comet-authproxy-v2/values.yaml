@@ -18,7 +18,7 @@ oauth2-proxy:
     skip-provider-button: true
     silence-ping-logging: true
     request-logging: false
-    auth-logging: false
+    auth-logging: true
     standard-logging: true
     cookie-refresh: 23h
   config:
