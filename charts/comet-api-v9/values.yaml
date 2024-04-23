@@ -135,4 +135,5 @@ cronJobs:
         memory: 256Mi
 
 env: {}
+additionalSecretNames: {}
 secrets: {}
