@@ -4,6 +4,7 @@
 
 env: {}
 secrets: {}
+additionalSecretNames: []
 
 replicaCount: 2
 

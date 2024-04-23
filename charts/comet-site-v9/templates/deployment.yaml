@@ -31,6 +31,10 @@ spec:
                 name: {{ include "comet-site.fullname" . }}
             - secretRef:
                 name: {{ include "comet-site.fullname" . }}
+            {{- range $key, $val := .Values.additionalSecretNames }}
+            - secretRef:
+                name:  {{ $val }}
+            {{- end }}
           env:
             - name: NPM_RUN
               value: "{{ .Values.npmRun }}"
