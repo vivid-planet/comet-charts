@@ -74,6 +74,10 @@ spec:
                     name: {{ include "comet-site.fullname" . }}
                 - secretRef:
                     name: {{ include "comet-site.fullname" . }}
+                {{- range $key, $val := .Values.additionalSecretNames }}
+                - secretRef:
+                    name:  {{ $val }}
+                {{- end }}
               volumeMounts:
                 - mountPath: /mnt/generated-sites/
                   name: generated-sites
