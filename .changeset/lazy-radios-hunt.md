@@ -1,5 +1,5 @@
 ---
-"comet-api-v9": major
+"comet-api-v9": minor
 ---
 
 Add function to iterate over ingress annotations to include whitelist-ranges
