@@ -12,11 +12,21 @@ data:
   API_PORT: "3000"
   HELM_RELEASE: "{{ .Release.Name }}"
   CORS_ALLOWED_ORIGIN: '{{ .Values.corsAllowedOrigin }}'
+  {{- if .Values.postgresql.server }}
   POSTGRESQL_HOST: "{{ .Values.postgresql.server }}"
+  {{- end }}
+  {{- if .Values.postgresql.port }}
   POSTGRESQL_PORT: "{{ .Values.postgresql.port }}"
+  {{- end }}
+  {{- if .Values.postgresql.database }}
   POSTGRESQL_DB: "{{ .Values.postgresql.database }}"
+  {{- end }}
+  {{- if .Values.postgresql.username }}
   POSTGRESQL_USER: "{{ .Values.postgresql.username }}"
+  {{- end }}
+  {{- if .Values.postgresql.useSSL }}
   POSTGRESQL_USE_SSL: "{{ .Values.postgresql.useSSL }}"
+  {{- end }}
   IMGPROXY_URL: "{{ .Values.imgproxy.url }}"
   DAM_CDN_ENABLED: "{{ .Values.dam.cdn.enabled }}"
   {{- if .Values.dam.cdn.enabled }}
