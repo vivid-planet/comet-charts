@@ -1,0 +1,22 @@
+{{- $preemptionPolicyFeature := include "imgproxy.versions.features.priorityClassPreemptionPolicy" $ -}}
+{{- $name := include "imgproxy.resources.explicitPriorityClassName" $ -}}
+{{- if $name -}}
+{{- with .Values.resources.deployment.priority -}}
+---
+apiVersion: {{ include "imgproxy.versions.priorityClass" $ | quote }}
+kind: PriorityClass
+metadata:
+  name: "{{ $name }}"
+  labels:
+    imgproxy: "true"
+    {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
+value: {{ (.level | max 0 | min 1000000000) }}
+globalDefault: false
+description: "This priority class should be used for '{{ template "imgproxy.fullname" $ }}' pods only."
+{{- if (not .preempting | and $preemptionPolicyFeature) }}
+preemptionPolicy: Never
+{{- end }}
+{{- end }}
+{{- end }}
