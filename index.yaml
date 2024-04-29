@@ -165,4 +165,54 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-preview-2.0.0/comet-site-preview-2.0.0.tgz
     version: 2.0.0
-generated: "2024-04-18T10:40:43.555738166Z"
+  imgproxy:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Support for the ArtifactHub
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/images: |
+        - name: impgroxy
+          image: darthsim/imgproxy:v3.20.0
+      artifacthub.io/license: MIT-open-group
+      artifacthub.io/links: |
+        - name: imgproxy-helm chart on Github
+          url: https://github.com/imgproxy/imgproxy-helm
+        - name: the source code of imgproxy on Github
+          url: https://github.com/imgproxy/imgproxy
+        - name: the project documentation
+          url: https://imgproxy.net/
+      artifacthub.io/maintainers: |
+        - name: darthsim
+          email: darthsim@evilmartians.com
+        - name: dragonsmith
+          email: agon.smith@gmail.com
+        - name: nepalez
+          email: nepalez@evilmartians.com
+      artifacthub.io/prerelease: "false"
+    apiVersion: v1
+    appVersion: 3.20.0
+    created: "2024-04-29T12:55:50.590068248Z"
+    description: A fast and secure standalone server for resizing and converting remote
+      images. The main principles of imgproxy are simplicity, speed, and security.
+    digest: 57b803bc91ab4657f65768a1a4b8a1d494344b7a4122a5a13369b16fa9bf8d8a
+    home: https://github.com/imgproxy/imgproxy
+    icon: https://cdn.rawgit.com/imgproxy/imgproxy/master/logo.svg
+    keywords:
+    - imgproxy
+    - image
+    - processing
+    maintainers:
+    - email: darthsim@evilmartians.com
+      name: darthsim
+    - email: agon.smith@gmail.com
+      name: dragonsmith
+    - email: nepalez@evilmartians.com
+      name: nepalez
+    name: imgproxy
+    sources:
+    - https://github.com/imgproxy/imgproxy
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.9.0/imgproxy-0.9.0.tgz
+    version: 0.9.0
+generated: "2024-04-29T12:55:50.590100177Z"
