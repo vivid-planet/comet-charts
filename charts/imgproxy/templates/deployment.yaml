@@ -1,0 +1,162 @@
+{{- $priorityClassName := include "imgproxy.resources.priorityClassName" . }}
+{{- $priorityClassVersion := include "imgproxy.versions.priorityClass" . }}
+{{- $checksumEnv := include (print $.Template.BasePath "/env-secret.yaml") . | sha256sum -}}
+
+{{- $replicas := .Values.resources.deployment.replicas | default dict -}}
+{{- $minCount := $replicas.minCount | default 1 | int }}
+{{- $maxCount := $replicas.maxCount | default $minCount | int }}
+{{- $replicaCount := $replicas.default | default .Values.resources.deployment.replicaCount }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "imgproxy.fullname" $ }}
+  labels:
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    chart: {{ template "imgproxy.chart" $ }}
+    app: {{ template "imgproxy.fullname" $ }}
+    {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
+  annotations: {{ .Values.resources.deployment.annotations | toYaml | nindent 4 }}
+spec:
+  {{- if (eq $minCount $maxCount) }}
+  replicas: {{ $replicaCount | default 1 | int }}
+  {{- end }}
+  {{- if .Values.resources.deployment.minReadySeconds }}
+  minReadySeconds: {{ .Values.resources.deployment.minReadySeconds }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ template "imgproxy.fullname" $ }}
+  strategy: {{ toYaml .Values.resources.deployment.strategy | nindent 4 }}
+  template:
+    metadata:
+      {{- with .Values.resources.pod }}
+      labels:
+        app: {{ template "imgproxy.fullname" $ }}
+        imgproxy: "true"
+        release: {{ $.Release.Name | quote }}
+        {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
+        {{- range $key, $val := (.labels | default dict) }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
+      annotations:
+        checksum/env: {{ $checksumEnv }}
+        {{- if .annotations }}
+        {{- .annotations | toYaml | nindent 8 }}
+        {{- end }}
+      {{- end }}
+    spec:
+      affinity: {{ .Values.resources.deployment.affinity | toYaml | nindent 8 }}
+      tolerations: {{ .Values.resources.deployment.tolerations | toYaml | nindent 8 }}
+      nodeSelector: {{ .Values.resources.deployment.nodeSelector | toYaml | nindent 8 }}
+      {{- if or .Values.image.pullSecrets.enabled .Values.image.addPullSecrets }}
+      imagePullSecrets:
+        {{- if .Values.image.pullSecrets.enabled}}
+        - name: "{{ .Release.Name }}-docker-registry-secret"
+        {{- end }}
+        {{- if .Values.image.addPullSecrets}}
+        {{- range $secretName := .Values.image.addPullSecrets }}
+        - name: {{ $secretName | quote }}
+        {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- if $.Values.resources.deployment.securityContext }}
+      securityContext: {{ $.Values.resources.deployment.securityContext | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if $.Values.resources.serviceAccount.existingName }}
+      serviceAccountName: {{ $.Values.resources.serviceAccount.existingName | quote }}
+      {{- else if (include "serviceAccount.enabled" $) }}
+      serviceAccountName: "{{ template "imgproxy.fullname" $ }}-service-account"
+      {{- end }}
+      {{- if .Values.persistence.enabled }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "imgproxy.pvcName" . }}
+      {{- end }}
+      {{- with .Values.resources.deployment.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- range $constraint := . }}
+        - {{ toYaml $constraint | nindent 10 | trim }}
+        {{- if not $constraint.labelSelector }}
+          labelSelector:
+            matchLabels:
+              app: {{ template "imgproxy.fullname" $ }}
+        {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- if .Values.resources.deployment.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ .Values.resources.deployment.terminationGracePeriodSeconds }}
+      {{- end }}
+      containers:
+        - name: "imgproxy"
+          image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: {{ template "imgproxy.fullname" $ }}-env-secrets
+            {{- range $secretName := .Values.resources.addSecrets }}
+            - secretRef:
+                name: {{ $secretName }}
+            {{- end }}
+          resources: {{ include "imgproxy.podResources" $ | nindent 12 }}
+          {{- if .Values.persistence.enabled }}
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.persistence.mountPath }}
+              {{- if .Values.persistence.subPath }}
+              subPath: {{ .Values.persistence.subPath }}
+              {{- end }}
+          {{- end }}
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+            {{- if .Values.features.prometheus.enabled }}
+            - containerPort: 8081
+              name: metrics
+              protocol: TCP
+            {{- end }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.features.server.pathPrefix }}/health
+              port: 8080
+              scheme: HTTP
+              {{- if .Values.features.security.secret }}
+              httpHeaders:
+              - name: Authorization
+                value: Bearer {{ .Values.features.security.secret }}
+              {{- end }}
+            {{- with .Values.resources.deployment.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds | default 10 }}
+            timeoutSeconds: {{ .timeoutSeconds | default 5 }}
+            successThreshold: {{ .successThreshold | default 1 }}
+            failureThreshold: {{ .failureThreshold | default 5 }}
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.features.server.pathPrefix }}/health
+              port: 8080
+              scheme: HTTP
+              {{- if .Values.features.security.secret }}
+              httpHeaders:
+                - name: Authorization
+                  value: Bearer {{ .Values.features.security.secret }}
+              {{- end }}
+            {{- with .Values.resources.deployment.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds | default 50 }}
+            timeoutSeconds: {{ .timeoutSeconds | default 5 }}
+            successThreshold: {{ .successThreshold | default 1 }}
+            failureThreshold: {{ .failureThreshold | default 5 }}
+            {{- end }}
+          {{- with .Values.resources.deployment.lifecycle }}
+          lifecycle: {{ toYaml . | nindent 12 }}
+          {{- end }}
+      {{- if ($priorityClassName | and $priorityClassVersion) }}
+      priorityClassName: {{ $priorityClassName | quote }}
+      {{- end }}
