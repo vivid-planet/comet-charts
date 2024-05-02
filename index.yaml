@@ -192,6 +192,55 @@ entries:
       artifacthub.io/prerelease: "false"
     apiVersion: v1
     appVersion: 3.20.0
+    created: "2024-05-02T08:09:59.858120186Z"
+    description: A fast and secure standalone server for resizing and converting remote
+      images. The main principles of imgproxy are simplicity, speed, and security.
+    digest: c77996278261642dcf0fae3cc9da2962da1fb42b6770cb50ced73f089e632ca0
+    home: https://github.com/imgproxy/imgproxy
+    icon: https://cdn.rawgit.com/imgproxy/imgproxy/master/logo.svg
+    keywords:
+    - imgproxy
+    - image
+    - processing
+    maintainers:
+    - email: darthsim@evilmartians.com
+      name: darthsim
+    - email: agon.smith@gmail.com
+      name: dragonsmith
+    - email: nepalez@evilmartians.com
+      name: nepalez
+    name: imgproxy
+    sources:
+    - https://github.com/imgproxy/imgproxy
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.10.1/imgproxy-0.10.1.tgz
+    version: 0.10.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Support for the ArtifactHub
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/images: |
+        - name: impgroxy
+          image: darthsim/imgproxy:v3.20.0
+      artifacthub.io/license: MIT-open-group
+      artifacthub.io/links: |
+        - name: imgproxy-helm chart on Github
+          url: https://github.com/imgproxy/imgproxy-helm
+        - name: the source code of imgproxy on Github
+          url: https://github.com/imgproxy/imgproxy
+        - name: the project documentation
+          url: https://imgproxy.net/
+      artifacthub.io/maintainers: |
+        - name: darthsim
+          email: darthsim@evilmartians.com
+        - name: dragonsmith
+          email: agon.smith@gmail.com
+        - name: nepalez
+          email: nepalez@evilmartians.com
+      artifacthub.io/prerelease: "false"
+    apiVersion: v1
+    appVersion: 3.20.0
     created: "2024-04-29T14:25:39.736755746Z"
     description: A fast and secure standalone server for resizing and converting remote
       images. The main principles of imgproxy are simplicity, speed, and security.
@@ -264,4 +313,4 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.9.0/imgproxy-0.9.0.tgz
     version: 0.9.0
-generated: "2024-04-29T14:25:39.736776064Z"
+generated: "2024-05-02T08:09:59.858165751Z"
