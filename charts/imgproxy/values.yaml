@@ -24,6 +24,7 @@ resources:
     labels: {}
 
   deployment:
+    autoMountServiceAccountToken: true
     # https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority
     priority:
 

@@ -406,6 +406,7 @@ Deployment specific options.
 |**image.pullSecrets.registry**|URL of a private registry you want to authorize to| ``          |
 |**image.pullSecrets.username**|Login to your private registry| ``          |
 |**image.addPullSecrets**|List of existing image pull secrets| `[]`        |
+|**resources.deployment.autoMountServiceAccountToken**|Turn automount of servicetoken on or off||
 |**resources.deployment.affinity**|Node and inter-pod affinity configuration||
 |**resources.deployment.annotations**|Custom annotations for imgproxy deployment| `{}`        |
 |**resources.pod.annotations**|Custom annotations for imgproxy pod| `{}`        |

@@ -51,6 +51,7 @@ spec:
         {{- end }}
       {{- end }}
     spec:
+      automountServiceAccountToken: {{ .Values.resources.deployment.autoMountServiceAccountToken }}
       affinity: {{ .Values.resources.deployment.affinity | toYaml | nindent 8 }}
       tolerations: {{ .Values.resources.deployment.tolerations | toYaml | nindent 8 }}
       nodeSelector: {{ .Values.resources.deployment.nodeSelector | toYaml | nindent 8 }}
