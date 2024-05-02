@@ -58,6 +58,19 @@ entries:
     version: 9.0.0
   comet-authproxy:
   - apiVersion: v2
+    created: "2024-05-02T10:41:20.8622431Z"
+    dependencies:
+    - name: oauth2-proxy
+      repository: https://oauth2-proxy.github.io/manifests
+      version: 6.x
+    description: A Helm chart for Kubernetes
+    digest: 23f43f8baff4410b7f00bdad412f2277fee1397ffc2980d89cdbe4e815052173
+    name: comet-authproxy
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-authproxy-2.2.1/comet-authproxy-2.2.1.tgz
+    version: 2.2.1
+  - apiVersion: v2
     created: "2024-04-18T10:40:43.239495023Z"
     dependencies:
     - name: oauth2-proxy
@@ -313,4 +326,4 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.9.0/imgproxy-0.9.0.tgz
     version: 0.9.0
-generated: "2024-05-02T08:09:59.858165751Z"
+generated: "2024-05-02T10:41:21.508256876Z"
