@@ -1,5 +1,11 @@
 # imgproxy
 
+## 0.10.1
+
+### Patch Changes
+
+- 505b5d0: Add option to disable autoMountServiceAccountToken
+
 ## 0.10.0
 
 ### Minor Changes
