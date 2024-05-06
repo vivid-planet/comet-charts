@@ -30,8 +30,10 @@ spec:
       ttlSecondsAfterFinished: {{ $job.ttlSecondsAfterFinished | default 604800 }}
       template:
         spec:
+          {{- if .Values.image.pullSecret -}}
           imagePullSecrets:
             - name: {{ include "comet-api.fullname" . }}-image-pull-secret
+          {{- end }}
           restartPolicy: {{ $job.restartPolicy | default "Never" }}
           serviceAccountName: {{ include "comet-api.serviceAccountName" . }}
           containers:

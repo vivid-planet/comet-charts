@@ -16,8 +16,10 @@ spec:
       labels:
         {{- include "comet-site.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.image.pullSecret -}}
       imagePullSecrets:
         - name: {{ include "comet-site.fullname" . }}-image-pull-secret
+      {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       {{- if or (.Values.builder.enabled) (.Values.initContainer.enabled) }}

@@ -32,8 +32,10 @@ spec:
       ttlSecondsAfterFinished: 604800 # 7 days
       template:
         spec:
+          {{- if .Values.image.pullSecret -}}
           imagePullSecrets:
             - name: {{ include "comet-site.fullname" . }}-image-pull-secret
+          {{- end }}
           restartPolicy: "Never"
           serviceAccountName: {{ include "comet-site.fullname" . }}
           containers:
