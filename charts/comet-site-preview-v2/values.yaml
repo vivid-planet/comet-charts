@@ -47,3 +47,5 @@ readinessProbe:
 
 admin:
   domain: ""
+
+autoMountServiceAccountToken: true

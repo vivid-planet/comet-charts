@@ -61,6 +61,7 @@ prelogin:
   enabled: false
   replicaCount: 1
   requiredUserDomain: ""
+  autoMountServiceAccountToken: true
 
   image:
     repository: "" # will be overwritten by CI
@@ -79,6 +80,8 @@ prelogin:
     requests:
       cpu: 50m
       memory: 128Mi
+
+autoMountServiceAccountToken: true
 
 route:
   enabled: false

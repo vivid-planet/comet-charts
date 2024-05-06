@@ -20,6 +20,7 @@ spec:
         - name: {{ include "comet-site.fullname" . }}-image-pull-secret
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
       {{- if or (.Values.builder.enabled) (.Values.initContainer.enabled) }}
       initContainers:
         - name: {{ .Chart.Name }}-copy

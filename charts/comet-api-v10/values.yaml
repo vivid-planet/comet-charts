@@ -64,6 +64,8 @@ securityContext:
   # runAsNonRoot: true
   # runAsUser: 1000
 
+autoMountServiceAccountToken: true
+
 service:
   type: ClusterIP
   port: 3000
