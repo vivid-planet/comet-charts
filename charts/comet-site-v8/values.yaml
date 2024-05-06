@@ -85,6 +85,8 @@ route:
 
 ingress:
   enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
 
 pvc:
   create: false
