@@ -48,6 +48,15 @@ entries:
     - https://github.com/vivid-planet/comet-charts/releases/download/comet-api-10.0.0/comet-api-10.0.0.tgz
     version: 10.0.0
   - apiVersion: v2
+    created: "2024-05-06T13:15:22.840273964Z"
+    description: A Helm chart for Kubernetes
+    digest: 22e667a1ed65b0c8580336c83a75f1e34b75803b3be06a02c9cfe6ab16ecc737
+    name: comet-api
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-api-9.1.0/comet-api-9.1.0.tgz
+    version: 9.1.0
+  - apiVersion: v2
     created: "2024-03-07T15:25:02.851535147Z"
     description: A Helm chart for Kubernetes
     digest: 830459892a4f293100e574d94edb2adbff902a2cb9b1444133571daa9ef6abd3
@@ -335,4 +344,4 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.9.0/imgproxy-0.9.0.tgz
     version: 0.9.0
-generated: "2024-05-06T13:15:08.130273958Z"
+generated: "2024-05-06T13:15:22.97840034Z"
