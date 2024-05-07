@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 env: {}
+additionalConfigMaps: []
 secrets: {}
 additionalSecretNames: []
 

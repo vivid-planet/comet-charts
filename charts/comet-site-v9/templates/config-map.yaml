@@ -1,3 +1,4 @@
+{{- if .Values.env }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -5,13 +6,7 @@ metadata:
   labels:
     {{- include "comet-site.labels" . | nindent 4 }}
 data:
-  NODE_ENV: "production"
-  TZ: "Europe/Vienna"
-  API_URL: https://{{ .Values.api.domain }}{{ .Values.api.basePath }}
-  API_URL_INTERNAL: http://{{ .Values.api.internalDomain }}:3000{{ .Values.api.basePath }}
-  ADMIN_URL: https://{{ .Values.admin.domain }}
-  CDN_ENABLED: "{{ .Values.cdn.enabled }}"
-  CDN_ORIGIN_HEADER: {{ .Values.cdn.originHeader | quote }}
   {{- range $key, $val := .Values.env }}
   {{ $key }}: {{ $val | quote }}
   {{- end }}
+{{- end }}
