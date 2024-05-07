@@ -38,9 +38,13 @@ spec:
           {{- end }}
           restartPolicy: "Never"
           serviceAccountName: {{ include "comet-site.fullname" . }}
+          securityContext:
+            {{- toYaml .Values.builder.podSecurityContext | nindent 12 }}
           automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
           containers:
             - name: {{ .Chart.Name }}-build
+              securityContext:
+                {{- toYaml .Values.builder.securityContext | nindent 16 }}
               {{- if .Values.image.tag }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
               {{- else }}

@@ -36,6 +36,8 @@ spec:
           {{- end }}
           restartPolicy: {{ $job.restartPolicy | default "Never" }}
           serviceAccountName: {{ include "comet-api.serviceAccountName" . }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
           automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
           containers:
             - name: {{ .Chart.Name }}-cronjob-{{ $name }}

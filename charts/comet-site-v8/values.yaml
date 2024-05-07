@@ -50,6 +50,17 @@ builder:
   schedule: "0 6 * * *"
 
   kubectlVersion: "1.21.14"
+  podSecurityContext:
+    {}
+    # fsGroup: 2000
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 
   resources:
     limits:
@@ -70,6 +81,15 @@ prelogin:
     hash: v2 # will be overwritten by CI
     pullPolicy: IfNotPresent
     pullSecret: "" # will be overwritten by CI
+
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 
   service:
     type: ClusterIP
