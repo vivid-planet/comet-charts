@@ -61,6 +61,8 @@ securityContext:
   # runAsNonRoot: true
   # runAsUser: 1000
 
+autoMountServiceAccountToken: true
+
 idp:
   jwksUri: ""
 
@@ -70,6 +72,8 @@ service:
 
 ingress:
   enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
 
 route:
   enabled: false
@@ -77,7 +81,7 @@ route:
 resources:
   limits:
     cpu: 1
-    memory: 512Mi
+    memory: 256Mi
   requests:
     cpu: 50m
     memory: 256Mi
@@ -117,7 +121,7 @@ cronJobs:
     resources:
       limits:
         cpu: 100m
-        memory: 512Mi
+        memory: 256Mi
       requests:
         cpu: 100m
         memory: 256Mi
@@ -129,12 +133,13 @@ cronJobs:
     resources:
       limits:
         cpu: 100m
-        memory: 512Mi
+        memory: 256Mi
       requests:
         cpu: 100m
         memory: 256Mi
 
 env: {}
+additionalSecretNames: {}
 secrets: {}
 
 generateSecret:

@@ -34,6 +34,7 @@ spec:
             - name: {{ include "comet-api.fullname" . }}-image-pull-secret
           restartPolicy: {{ $job.restartPolicy | default "Never" }}
           serviceAccountName: {{ include "comet-api.serviceAccountName" . }}
+          automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
           containers:
             - name: {{ .Chart.Name }}-cronjob-{{ $name }}
               securityContext:
@@ -46,6 +47,10 @@ spec:
                     name: {{ include "comet-api.fullname" . }}
                 - secretRef:
                     name: {{ include "comet-api.fullname" . }}
+                {{- range $key, $val := .Values.additionalSecretNames }}
+                - secretRef:
+                    name:  {{ $val }}
+                {{- end }}
               resources:
                 {{- $job.resources | default .Values.resources | toYaml | nindent 16 }}
 ---

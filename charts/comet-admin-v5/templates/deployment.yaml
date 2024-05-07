@@ -22,6 +22,7 @@ spec:
     spec:
       imagePullSecrets:
         - name: {{ include "comet-admin.fullname" . }}-image-pull-secret
+      automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
