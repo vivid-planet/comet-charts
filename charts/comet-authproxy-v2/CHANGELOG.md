@@ -1,5 +1,16 @@
 # comet-authproxy-v2
 
+## 2.3.0
+
+### Minor Changes
+
+- 8476324: Add possibility to add annotations to ingress (e.g. in use by NGINX Ingress Controller)
+- c246b43: Disable redis for authproxy as default
+
+### Patch Changes
+
+- 6499848: Update oauthproxy to newest helm chart
+
 ## 2.2.0
 
 ### Minor Changes
