@@ -1,5 +1,11 @@
 # comet-api-v10
 
+## 10.1.1
+
+### Patch Changes
+
+- dc6e49c: Remove entries from values.yaml that are not in use anymore
+
 ## 10.1.0
 
 ### Minor Changes
