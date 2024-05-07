@@ -1,6 +1,6 @@
 apiVersion: v2
 name: comet-site-preview
-description: Comet Helm-Chart for deployment of the Comet Site-Preview Microservice
+description: Helm chart for a Comet Site-Preview Microservice
 type: application
 
 home: https://www.comet-dxp.com

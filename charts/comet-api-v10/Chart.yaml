@@ -1,6 +1,6 @@
 apiVersion: v2
 name: comet-api
-description: Comet Helm-Chart for deployment of the Comet API Microservice with SSR
+description: Helm chart for a Comet API Microservice with SSR
 type: application
 
 home: https://www.comet-dxp.com
