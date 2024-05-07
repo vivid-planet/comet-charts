@@ -1,5 +1,11 @@
 # comet-admin-v5
 
+## 5.1.1
+
+### Patch Changes
+
+- 2bdff37: Replace template informations in Chart.yaml with correct informations
+
 ## 5.1.0
 
 ### Minor Changes
