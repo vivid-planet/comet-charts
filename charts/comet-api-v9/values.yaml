@@ -1,10 +1,5 @@
 replicaCount: 1
 
-basePath: "/api"
-
-authproxy:
-  enabled: true
-
 image:
   repository: nginx
   hash: "" # will be used, if tag is not set
@@ -14,25 +9,6 @@ image:
 
 nameOverride: ""
 fullnameOverride: ""
-
-postgresql:
-  useSSL: "true"
-  password: ""
-
-blobStorage:
-  driver: "" # can be "azure" or "s3"
-
-imgproxy:
-  url: "" # Must be overwritten
-  key: "" # Must be overwritten
-  salt: "" # Must be overwritten
-
-dam:
-  cdn:
-    enabled: false
-    domain: ""
-    originHeader: ""
-  secret: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -59,9 +35,6 @@ securityContext:
   # runAsUser: 1000
 
 autoMountServiceAccountToken: true
-
-idp:
-  jwksUri: ""
 
 service:
   type: ClusterIP

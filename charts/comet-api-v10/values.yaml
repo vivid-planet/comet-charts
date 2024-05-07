@@ -1,7 +1,5 @@
 replicaCount: 1
 
-basePath: "/api"
-
 authproxy:
   enabled: true
 
@@ -14,28 +12,6 @@ image:
 
 nameOverride: ""
 fullnameOverride: ""
-
-postgresql:
-  useSSL: "true"
-  password: ""
-
-blobStorage:
-  driver: "" # can be "azure" or "s3"
-
-imgproxy:
-  url: "" # Must be overwritten
-  key: "" # Must be overwritten
-  salt: "" # Must be overwritten
-
-idp:
-  jwksUri: ""
-
-dam:
-  cdn:
-    enabled: false
-    domain: ""
-    originHeader: ""
-  secret: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
