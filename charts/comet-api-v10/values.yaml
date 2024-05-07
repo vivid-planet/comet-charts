@@ -1,7 +1,3 @@
-nodeEnv: production
-npmRun: start:prod
-timeZone: Europe/Vienna
-
 replicaCount: 1
 
 basePath: "/api"
@@ -125,7 +121,10 @@ cronJobs:
         cpu: 100m
         memory: 256Mi
 
-env: {}
+env:
+  NODE_ENV: "production"
+  NPM_RUN: "start:prod"
+  TZ: "Europe/Vienna"
 additionalConfigMaps: []
 secrets: {}
 additionalSecretNames: []

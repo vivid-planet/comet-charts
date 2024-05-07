@@ -6,9 +6,6 @@ metadata:
   labels:
     {{- include "comet-api.labels" . | nindent 4 }}
 data:
-  NODE_ENV: "{{ .Values.nodeEnv }}"
-  NPM_RUN: "{{ .Values.npmRun }}"
-  TZ: "{{ .Values.timeZone }}"
   HELM_RELEASE: "{{ .Release.Name }}"
   {{- range $key, $val := .Values.env }}
   {{ $key }}: {{ $val | quote }}

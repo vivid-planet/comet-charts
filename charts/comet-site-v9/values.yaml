@@ -2,7 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-env: {}
+env:
+  NODE_ENV: "production"
+  TZ: "Europe/Vienna"
 additionalConfigMaps: []
 secrets: {}
 additionalSecretNames: []
