@@ -38,6 +38,7 @@ spec:
           {{- end }}
           restartPolicy: "Never"
           serviceAccountName: {{ include "comet-site.fullname" . }}
+          automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
           containers:
             - name: {{ .Chart.Name }}-build
               image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
@@ -65,6 +66,10 @@ spec:
                     name: {{ include "comet-site.fullname" . }}
                 - secretRef:
                     name: {{ include "comet-site.fullname" . }}
+                {{- range $key, $val := .Values.additionalSecretNames }}
+                - secretRef:
+                    name:  {{ $val }}
+                {{- end }}
               volumeMounts:
                 - mountPath: /mnt/generated-sites/
                   name: generated-sites

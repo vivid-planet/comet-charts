@@ -20,6 +20,7 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
       initContainers:
         - name: {{ .Chart.Name }}-build
           securityContext:
@@ -32,6 +33,10 @@ spec:
                 name: {{ include "comet-site-preview.fullname" . }}
             - secretRef:
                 name: {{ include "comet-site-preview.fullname" . }}
+            {{- range $key, $val := .Values.additionalSecretNames }}
+            - secretRef:
+                name:  {{ $val }}
+            {{- end }}
           volumeMounts:
             - mountPath: /opt/app-root/src/.next
               name: document-root
@@ -48,6 +53,10 @@ spec:
                 name: {{ include "comet-site-preview.fullname" . }}
             - secretRef:
                 name: {{ include "comet-site-preview.fullname" . }}
+            {{- range $key, $val := .Values.additionalSecretNames }}
+            - secretRef:
+                name:  {{ $val }}
+            {{- end }}
           env:
             - name: NPM_RUN
               value: "{{ .Values.npmRun }}"
