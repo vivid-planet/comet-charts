@@ -53,9 +53,3 @@ autoscaling:
   minReplicas: 2
   maxReplicas: 4
   targetCPUUtilizationPercentage: 80
-
-api:
-  basePath: "/api"
-
-admin:
-  domain: ""

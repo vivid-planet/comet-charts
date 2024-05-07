@@ -1,8 +1,3 @@
-# Default values for site.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-context: ""
 contentScope: {}
 label: ""
 
@@ -131,11 +126,5 @@ autoscaling:
   maxReplicas: 4
   targetCPUUtilizationPercentage: 80
 
-api:
-  basePath: "/api"
-
 persistence:
   existingClaim: ""
-
-admin:
-  domain: ""
