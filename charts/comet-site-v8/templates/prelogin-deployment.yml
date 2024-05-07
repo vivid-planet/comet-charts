@@ -15,8 +15,10 @@ spec:
       labels:
         {{- include "comet-site.prelogin.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.image.pullSecret -}}
       imagePullSecrets:
         - name: {{ include "comet-site.fullname" . }}-image-pull-secret
+      {{- end }}
       securityContext:
         {{- toYaml .Values.prelogin.podSecurityContext | nindent 8 }}
       automountServiceAccountToken: {{ .Values.prelogin.autoMountServiceAccountToken }}
