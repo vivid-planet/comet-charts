@@ -73,6 +73,8 @@ service:
 
 ingress:
   enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
 
 route:
   enabled: false
@@ -140,8 +142,6 @@ cronJobs:
         memory: 256Mi
 
 env: {}
+additionalConfigMaps: {}
 secrets: {}
 additionalSecretNames: {}
-
-generateSecret:
-  enabled: true

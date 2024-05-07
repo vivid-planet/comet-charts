@@ -70,10 +70,18 @@ spec:
                 {{- toYaml . | nindent 16 }}
               {{- end }}
               envFrom:
+                {{- if .Values.env }}
                 - configMapRef:
-                    name: {{ include "comet-site.fullname" . }}
+                    name: {{ include "comet-api.fullname" . }}
+                {{- end }}
+                {{- range $key, $val := .Values.additionalConfigMaps }}
+                - configMapRef:
+                    name:  {{ $val }}
+                {{- end }}
+                {{- if .Values.secrets }}
                 - secretRef:
                     name: {{ include "comet-site.fullname" . }}
+                {{- end }}
                 {{- range $key, $val := .Values.additionalSecretNames }}
                 - secretRef:
                     name:  {{ $val }}

@@ -3,6 +3,9 @@ timeZone: Europe/Vienna
 domain: ""
 ingress:
   enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
 route:
   enabled: false
 

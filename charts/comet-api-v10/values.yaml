@@ -67,12 +67,16 @@ securityContext:
   # runAsNonRoot: true
   # runAsUser: 1000
 
+autoMountServiceAccountToken: true
+
 service:
   type: ClusterIP
   port: 3000
 
 ingress:
   enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
 
 route:
   enabled: false
@@ -125,5 +129,6 @@ cronJobs:
         memory: 256Mi
 
 env: {}
+additionalConfigMaps: []
 secrets: {}
 additionalSecretNames: []

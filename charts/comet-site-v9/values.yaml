@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 env: {}
+additionalConfigMaps: []
 secrets: {}
 additionalSecretNames: []
 
@@ -31,11 +32,15 @@ resources:
     cpu: 50m
     memory: 200Mi
 
+autoMountServiceAccountToken: true
+
 route:
   enabled: false
 
 ingress:
   enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
 
 hosts: []
 

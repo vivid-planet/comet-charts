@@ -22,6 +22,7 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.prelogin.podSecurityContext | nindent 8 }}
+      automountServiceAccountToken: {{ .Values.prelogin.autoMountServiceAccountToken }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

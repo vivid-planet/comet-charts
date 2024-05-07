@@ -6,7 +6,9 @@ metadata:
   labels:
     {{- include "comet-admin.labels" . | nindent 4 }}
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt"
+    {{- range $key, $val := .Values.ingress.annotations }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
 spec:
   ingressClassName: nginx
   rules:

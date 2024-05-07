@@ -7,6 +7,7 @@ contentScope: {}
 label: ""
 
 env: {}
+additionalConfigMaps: []
 secrets: {}
 additionalSecretNames: []
 
@@ -78,13 +79,20 @@ prelogin:
   replicaCount: 1
   requiredUserDomain: ""
   autoMountServiceAccountToken: true
-  generateSecret:
-    enabled: true
   image:
     repository: "" # will be overwritten by CI
     hash: v2 # will be overwritten by CI
     pullPolicy: IfNotPresent
     pullSecret: "" # will be overwritten by CI
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
   securityContext:
     {}
     # capabilities:
@@ -106,11 +114,15 @@ prelogin:
       cpu: 50m
       memory: 128Mi
 
+autoMountServiceAccountToken: true
+
 route:
   enabled: false
 
 ingress:
   enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
 
 pvc:
   create: false

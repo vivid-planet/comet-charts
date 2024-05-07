@@ -40,6 +40,8 @@ service:
 
 ingress:
   enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
 
 route:
   enabled: false

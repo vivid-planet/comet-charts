@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 env: {}
+additionalConfigMaps: []
 secrets: {}
 additionalSecretNames: []
 
@@ -52,5 +53,4 @@ readinessProbe:
 admin:
   domain: ""
 
-generateSecret:
-  enabled: true
+autoMountServiceAccountToken: true
