@@ -43,10 +43,18 @@ spec:
               containerPort: 3000
               protocol: TCP
           envFrom:
+            {{- if .Values.env }}
             - configMapRef:
                 name: {{ include "comet-api.fullname" . }}
+            {{- end }}
+            {{- range $key, $val := .Values.additionalConfigMapNames }}
+            - configMapRef:
+                name:  {{ $val }}
+            {{- end }}
+            {{- if .Values.secrets }}
             - secretRef:
                 name: {{ include "comet-api.fullname" . }}
+            {{- end }}
             {{- range $key, $val := .Values.additionalSecretNames }}
             - secretRef:
                 name:  {{ $val }}
@@ -69,10 +77,18 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["bash", "-c", "npm run db:migrate:prod"]
           envFrom:
+            {{- if .Values.env }}
             - configMapRef:
                 name: {{ include "comet-api.fullname" . }}
+            {{- end }}
+            {{- range $key, $val := .Values.additionalConfigMapNames }}
+            - configMapRef:
+                name:  {{ $val }}
+            {{- end }}
+            {{- if .Values.secrets }}
             - secretRef:
                 name: {{ include "comet-api.fullname" . }}
+            {{- end }}
             {{- range $key, $val := .Values.additionalSecretNames }}
             - secretRef:
                 name:  {{ $val }}

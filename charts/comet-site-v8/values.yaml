@@ -6,7 +6,10 @@ context: ""
 contentScope: {}
 label: ""
 
-env: {}
+env:
+  NODE_ENV: "production"
+  TZ: "Europe/Vienna"
+additionalConfigMapNames: []
 secrets: {}
 additionalSecretNames: []
 
