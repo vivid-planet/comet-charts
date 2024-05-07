@@ -34,15 +34,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/bash", "-c", "npm run preview-next-build"]
           envFrom:
-            {{- if .Values.env }}
             - configMapRef:
-                name: {{ include "comet-api.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMaps }}
-            - configMapRef:
-                name:  {{ $val }}
-            {{- end }}
-            {{- if .Values.secrets }}
+                name: {{ include "comet-site-preview.fullname" . }}
             - secretRef:
                 name: {{ include "comet-site-preview.fullname" . }}
             {{- range $key, $val := .Values.additionalSecretNames }}
@@ -65,15 +58,8 @@ spec:
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
-            {{- if .Values.env }}
             - configMapRef:
-                name: {{ include "comet-api.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMaps }}
-            - configMapRef:
-                name:  {{ $val }}
-            {{- end }}
-            {{- if .Values.secrets }}
+                name: {{ include "comet-site-preview.fullname" . }}
             - secretRef:
                 name: {{ include "comet-site-preview.fullname" . }}
             {{- range $key, $val := .Values.additionalSecretNames }}

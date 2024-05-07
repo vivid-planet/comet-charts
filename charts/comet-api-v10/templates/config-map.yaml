@@ -1,4 +1,3 @@
-{{- if .Values.env }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,7 +5,41 @@ metadata:
   labels:
     {{- include "comet-api.labels" . | nindent 4 }}
 data:
+  NODE_ENV: "{{ .Values.nodeEnv }}"
+  NPM_RUN: "{{ .Values.npmRun }}"
+  TZ: "{{ .Values.timeZone }}"
+  API_URL: "https://{{ .Values.domain }}{{ .Values.basePath }}"
+  API_PORT: "3000"
+  HELM_RELEASE: "{{ .Release.Name }}"
+  CORS_ALLOWED_ORIGIN: '{{ .Values.corsAllowedOrigin }}'
+  POSTGRESQL_HOST: "{{ .Values.postgresql.server }}"
+  POSTGRESQL_PORT: "{{ .Values.postgresql.port }}"
+  POSTGRESQL_DB: "{{ .Values.postgresql.database }}"
+  POSTGRESQL_USER: "{{ .Values.postgresql.username }}"
+  POSTGRESQL_USE_SSL: "{{ .Values.postgresql.useSSL }}"
+  IMGPROXY_URL: "{{ .Values.imgproxy.url }}"
+  DAM_CDN_ENABLED: "{{ .Values.dam.cdn.enabled }}"
+  {{- if .Values.dam.cdn.enabled }}
+  DAM_CDN_DOMAIN: "{{ .Values.dam.cdn.domain }}"
+  DAM_CDN_ORIGIN_HEADER: "{{ .Values.dam.cdn.originHeader }}"
+  DISABLE_DAM_CDN_ORIGIN_HEADER_CHECK: "{{ .Values.dam.cdn.disableCdnOriginHeaderCheck }}"
+  {{- end }}
+  BLOB_STORAGE_DRIVER: "{{ .Values.blobStorage.driver }}"
+  BLOB_STORAGE_DIRECTORY_PREFIX: "{{ .Values.blobStorage.directoryPrefix }}"
+  {{- if eq .Values.blobStorage.driver "azure" }}
+  AZURE_ACCOUNT_NAME: "{{ .Values.blobStorage.azure.accountName }}"
+  {{- else if eq .Values.blobStorage.driver "s3" }}
+  S3_REGION: "{{ .Values.blobStorage.s3.region }}"
+  S3_ENDPOINT: "{{ .Values.blobStorage.s3.endpoint }}"
+  S3_ACCESS_KEY_ID: "{{ .Values.blobStorage.s3.accessKeyId }}"
+  S3_BUCKET: "{{ .Values.blobStorage.s3.bucket }}"
+  {{- end }}
+  USE_AUTHPROXY: "{{ .Values.authproxy.enabled }}"
+  {{- if .Values.authproxy.enabled }}
+  IDP_JWKS_URI: "{{ .Values.idp.jwksUri }}"
+  IDP_END_SESSION_ENDPOINT: "{{ .Values.idp.endSessionEndpoint }}"
+  POST_LOGOUT_REDIRECT_URI: "https://{{ .Values.authproxy.domain }}/oauth2/sign_out?rd=%2F"
+  {{- end }}
   {{- range $key, $val := .Values.env }}
   {{ $key }}: {{ $val | quote }}
   {{- end }}
-{{- end }}

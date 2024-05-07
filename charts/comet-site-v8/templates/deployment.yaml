@@ -50,18 +50,10 @@ spec:
                 rm -r tmp;
               fi;
           envFrom:
-            {{- if .Values.env }}
             - configMapRef:
-                name: {{ include "comet-api.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMaps }}
-            - configMapRef:
-                name:  {{ $val }}
-            {{- end }}
-            {{- if .Values.secrets }}
+                name: {{ include "comet-site.fullname" . }}
             - secretRef:
                 name: {{ include "comet-site.fullname" . }}
-            {{- end }}
             {{- range $key, $val := .Values.additionalSecretNames }}
             - secretRef:
                 name:  {{ $val }}
@@ -91,18 +83,10 @@ spec:
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
-            {{- if .Values.env }}
             - configMapRef:
-                name: {{ include "comet-api.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMaps }}
-            - configMapRef:
-                name:  {{ $val }}
-            {{- end }}
-            {{- if .Values.secrets }}
+                name: {{ include "comet-site.fullname" . }}
             - secretRef:
                 name: {{ include "comet-site.fullname" . }}
-            {{- end }}
             {{- range $key, $val := .Values.additionalSecretNames }}
             - secretRef:
                 name:  {{ $val }}

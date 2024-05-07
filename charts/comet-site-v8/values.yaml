@@ -7,7 +7,6 @@ contentScope: {}
 label: ""
 
 env: {}
-additionalConfigMaps: []
 secrets: {}
 additionalSecretNames: []
 
