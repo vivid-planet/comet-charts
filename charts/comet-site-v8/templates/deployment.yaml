@@ -16,8 +16,10 @@ spec:
       labels:
         {{- include "comet-site.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.image.pullSecret -}}
       imagePullSecrets:
         - name: {{ include "comet-site.fullname" . }}-image-pull-secret
+      {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
@@ -26,7 +28,11 @@ spec:
         - name: {{ .Chart.Name }}-copy
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          {{- else }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/bash", "-c"]
           args:
@@ -69,7 +75,11 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          {{- else }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - configMapRef:

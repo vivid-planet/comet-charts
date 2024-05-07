@@ -20,8 +20,10 @@ spec:
       labels:
         {{- include "comet-admin.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.image.pullSecret -}}
       imagePullSecrets:
         - name: {{ include "comet-admin.fullname" . }}-image-pull-secret
+      {{- end }}
       automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
@@ -29,7 +31,11 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          {{- else }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http

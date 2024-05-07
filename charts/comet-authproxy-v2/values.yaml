@@ -38,3 +38,5 @@ oauth2-proxy:
       memory: 64Mi
   service:
     portNumber: 3000
+  redis:
+    enabled: false
