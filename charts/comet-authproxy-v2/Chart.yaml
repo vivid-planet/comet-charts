@@ -1,6 +1,6 @@
 apiVersion: v2
 name: comet-authproxy
-description: Comet Helm-Chart for deployment of the oAuth2 proxy
+description: Helm chart for a Comet OAuth2 proxy
 type: application
 
 home: https://www.comet-dxp.com
