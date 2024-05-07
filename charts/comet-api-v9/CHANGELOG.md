@@ -1,5 +1,12 @@
 # comet-api-v9
 
+## 9.1.2
+
+### Patch Changes
+
+- f68ef3f: Fix missing bracket
+- 2bdff37: Replace template informations in Chart.yaml with correct informations
+
 ## 9.1.1
 
 ### Patch Changes

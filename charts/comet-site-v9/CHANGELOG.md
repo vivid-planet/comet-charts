@@ -1,5 +1,11 @@
 # comet-site-v9
 
+## 9.1.2
+
+### Patch Changes
+
+- 2bdff37: Replace template informations in Chart.yaml with correct informations
+
 ## 9.1.1
 
 ### Patch Changes

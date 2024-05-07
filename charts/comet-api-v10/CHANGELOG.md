@@ -1,5 +1,11 @@
 # comet-api-v10
 
+## 10.1.2
+
+### Patch Changes
+
+- 2bdff37: Replace template informations in Chart.yaml with correct informations
+
 ## 10.1.1
 
 ### Patch Changes
