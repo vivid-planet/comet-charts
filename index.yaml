@@ -219,6 +219,15 @@ entries:
     version: 8.0.0
   comet-site-preview:
   - apiVersion: v2
+    created: "2024-05-07T06:07:41.637449938Z"
+    description: A Helm chart for Kubernetes
+    digest: e9c20a02b443bc23929cb80dc4bc7ba0677dcd8f8fd38f0fd1d502eb824c8554
+    name: comet-site-preview
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-preview-2.1.0/comet-site-preview-2.1.0.tgz
+    version: 2.1.0
+  - apiVersion: v2
     created: "2024-03-07T15:25:03.369786451Z"
     description: A Helm chart for Kubernetes
     digest: 086c77d1592410768d0970abb0cef42dff4d6165b408b046ef915737293d9064
@@ -384,4 +393,4 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.9.0/imgproxy-0.9.0.tgz
     version: 0.9.0
-generated: "2024-05-07T06:04:05.043633669Z"
+generated: "2024-05-07T06:07:41.752081891Z"
