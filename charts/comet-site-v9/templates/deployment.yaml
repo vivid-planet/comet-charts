@@ -27,7 +27,11 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          {{- else }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - configMapRef:

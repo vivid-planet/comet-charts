@@ -24,7 +24,11 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.prelogin.securityContext | nindent 12 }}
+          {{- if .Values.prelogin.image.tag }}
+          image: "{{ .Values.prelogin.image.repository }}:{{ .Values.prelogin.image.tag }}"
+          {{- else }}
           image: "{{ .Values.prelogin.image.repository }}@{{ .Values.prelogin.image.hash }}"
+          {{- end }}
           imagePullPolicy: {{ .Values.prelogin.image.pullPolicy }}
           env:
             -   name: NODE_ENV

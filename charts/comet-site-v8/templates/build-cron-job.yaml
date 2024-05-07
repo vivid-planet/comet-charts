@@ -41,7 +41,11 @@ spec:
           automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
           containers:
             - name: {{ .Chart.Name }}-build
+              {{- if .Values.image.tag }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              {{- else }}
               image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+              {{- end }}
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               command: ["bash", "-c"]
               args:
