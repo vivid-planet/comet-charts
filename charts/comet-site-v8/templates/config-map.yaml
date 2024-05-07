@@ -6,6 +6,8 @@ metadata:
   labels:
     {{- include "comet-site.labels" . | nindent 4 }}
 data:
+  NODE_ENV: "production"
+  TZ: "Europe/Vienna"
   {{- range $key, $val := .Values.env }}
   {{ $key }}: {{ $val | quote }}
   {{- end }}
