@@ -1,0 +1,13 @@
+# comet-site-v9
+
+## 9.1.0
+
+### Minor Changes
+
+- 1519604: Don't overcommit ram for api, site and site-preview
+- 1ecb62e: Add possibility to add annotations to ingress (e.g. in use by NGINX Ingress Controller)
+
+### Patch Changes
+
+- 88b99e8: Add support for multiple secrets per deployment
+- 7aa804d: Add option to disable automountServiceAccountToken
