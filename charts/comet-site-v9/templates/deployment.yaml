@@ -38,7 +38,7 @@ spec:
             - configMapRef:
                 name: {{ include "comet-site.fullname" . }}
             {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMaps }}
+            {{- range $key, $val := .Values.additionalConfigMapNames }}
             - configMapRef:
                 name:  {{ $val }}
             {{- end }}

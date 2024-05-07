@@ -139,6 +139,6 @@ env:
   NODE_ENV: "production"
   NPM_RUN: "start:prod"
   TZ: "Europe/Vienna"
-additionalConfigMaps: {}
+additionalConfigMapNames: {}
 secrets: {}
 additionalSecretNames: {}

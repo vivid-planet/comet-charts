@@ -47,7 +47,7 @@ spec:
             - configMapRef:
                 name: {{ include "comet-api.fullname" . }}
             {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMaps }}
+            {{- range $key, $val := .Values.additionalConfigMapNames }}
             - configMapRef:
                 name:  {{ $val }}
             {{- end }}
@@ -81,7 +81,7 @@ spec:
             - configMapRef:
                 name: {{ include "comet-api.fullname" . }}
             {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMaps }}
+            {{- range $key, $val := .Values.additionalConfigMapNames }}
             - configMapRef:
                 name:  {{ $val }}
             {{- end }}

@@ -5,7 +5,7 @@
 env:
   NODE_ENV: "production"
   TZ: "Europe/Vienna"
-additionalConfigMaps: []
+additionalConfigMapNames: []
 secrets: {}
 additionalSecretNames: []
 
