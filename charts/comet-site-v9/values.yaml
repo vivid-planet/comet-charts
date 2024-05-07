@@ -27,6 +27,8 @@ resources:
     cpu: 50m
     memory: 200Mi
 
+autoMountServiceAccountToken: true
+
 route:
   enabled: false
 

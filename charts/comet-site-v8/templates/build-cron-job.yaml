@@ -36,6 +36,7 @@ spec:
             - name: {{ include "comet-site.fullname" . }}-image-pull-secret
           restartPolicy: "Never"
           serviceAccountName: {{ include "comet-site.fullname" . }}
+          automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
           containers:
             - name: {{ .Chart.Name }}-build
               image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
