@@ -126,3 +126,4 @@ cronJobs:
 
 env: {}
 secrets: {}
+additionalSecretNames: []

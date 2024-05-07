@@ -8,6 +8,7 @@ label: ""
 
 env: {}
 secrets: {}
+additionalSecretNames: []
 
 replicaCount: 1
 

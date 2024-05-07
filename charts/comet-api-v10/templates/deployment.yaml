@@ -41,6 +41,10 @@ spec:
                 name: {{ include "comet-api.fullname" . }}
             - secretRef:
                 name: {{ include "comet-api.fullname" . }}
+            {{- range $key, $val := .Values.additionalSecretNames }}
+            - secretRef:
+                name:  {{ $val }}
+            {{- end }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
@@ -59,6 +63,10 @@ spec:
                 name: {{ include "comet-api.fullname" . }}
             - secretRef:
                 name: {{ include "comet-api.fullname" . }}
+            {{- range $key, $val := .Values.additionalSecretNames }}
+            - secretRef:
+                name:  {{ $val }}
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
