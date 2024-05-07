@@ -1,19 +1,19 @@
 apiVersion: v2
 name: comet-api
-description: A Helm chart for Kubernetes
-
-# A chart can be either an 'application' or a 'library' chart.
-#
-# Application charts are a collection of templates that can be packaged into versioned archives
-# to be deployed.
-#
-# Library charts provide useful utilities or functions for the chart developer. They're included as
-# a dependency of application charts to inject those utilities and functions into the rendering
-# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+description: Comet Helm-Chart for deployment of the Comet API Microservice with SSG
 type: application
 
-# This is the chart version. This version number should be incremented each time you make changes
-# to the chart and its templates, including the app version.
-# Versions are expected to follow Semantic Versioning (https://semver.org/)
+home: https://www.comet-dxp.com
+icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+
+maintainers:
+  - name: Daniel Karnutsch
+    email: daniel.karnutsch@vivid-planet.com
+  - name: Georg Schreglmann
+    email: georg.schreglmann@vivid-planet.com
+  - name: Franz Unger
+    email: franz.unger@vivid-planet.com
+  - name: Alexander Kaufmann
+    email: alexander.kaufmann@vivid-planet.com
 
 version: 9.1.1
