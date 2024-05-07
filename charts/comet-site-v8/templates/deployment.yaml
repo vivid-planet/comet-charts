@@ -20,6 +20,7 @@ spec:
         - name: {{ include "comet-site.fullname" . }}-image-pull-secret
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
       {{- if or (.Values.builder.enabled) (.Values.initContainer.enabled) }}
       initContainers:
         - name: {{ .Chart.Name }}-copy
@@ -46,6 +47,10 @@ spec:
                 name: {{ include "comet-site.fullname" . }}
             - secretRef:
                 name: {{ include "comet-site.fullname" . }}
+            {{- range $key, $val := .Values.additionalSecretNames }}
+            - secretRef:
+                name:  {{ $val }}
+            {{- end }}
           {{- with .Values.initContainer.extraEnv }}
           env:
             {{- toYaml . | nindent 12 }}
@@ -71,6 +76,10 @@ spec:
                 name: {{ include "comet-site.fullname" . }}
             - secretRef:
                 name: {{ include "comet-site.fullname" . }}
+            {{- range $key, $val := .Values.additionalSecretNames }}
+            - secretRef:
+                name:  {{ $val }}
+            {{- end }}
           env:
             - name: NPM_RUN
               value: "{{ .Values.npmRun }}"

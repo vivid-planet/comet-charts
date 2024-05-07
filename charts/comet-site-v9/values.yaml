@@ -4,6 +4,7 @@
 
 env: {}
 secrets: {}
+additionalSecretNames: []
 
 replicaCount: 1
 
@@ -21,17 +22,21 @@ service:
 
 resources:
   limits:
-    memory: 400Mi
+    memory: 200Mi
     cpu: 1
   requests:
     cpu: 50m
     memory: 200Mi
+
+autoMountServiceAccountToken: true
 
 route:
   enabled: false
 
 ingress:
   enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
 
 hosts: []
 
