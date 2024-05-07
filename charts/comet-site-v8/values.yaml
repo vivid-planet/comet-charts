@@ -26,7 +26,7 @@ service:
 
 resources:
   limits:
-    memory: 400Mi
+    memory: 200Mi
     cpu: 1
   requests:
     cpu: 50m
@@ -37,7 +37,7 @@ initContainer:
 
   resources:
     limits:
-      memory: 1024Mi
+      memory: 512Mi
       cpu: 1
     requests:
       cpu: 50m
@@ -52,7 +52,7 @@ builder:
 
   resources:
     limits:
-      memory: 1024Mi
+      memory: 512Mi
       cpu: 500m
     requests:
       cpu: 500m
@@ -76,7 +76,7 @@ prelogin:
 
   resources:
     limits:
-      memory: 256Mi
+      memory: 128Mi
       cpu: "500m"
     requests:
       cpu: 50m

@@ -81,7 +81,7 @@ route:
 resources:
   limits:
     cpu: 1
-    memory: 512Mi
+    memory: 256Mi
   requests:
     cpu: 50m
     memory: 256Mi
@@ -121,7 +121,7 @@ cronJobs:
     resources:
       limits:
         cpu: 100m
-        memory: 512Mi
+        memory: 256Mi
       requests:
         cpu: 100m
         memory: 256Mi
@@ -133,7 +133,7 @@ cronJobs:
     resources:
       limits:
         cpu: 100m
-        memory: 512Mi
+        memory: 256Mi
       requests:
         cpu: 100m
         memory: 256Mi
