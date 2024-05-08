@@ -1,5 +1,20 @@
 # comet-admin-v5
 
+## 5.2.0
+
+### Minor Changes
+
+- 9f58343: Simplify chart
+
+  - Remove default env-variables as they should be set explicitly
+  - Remove cdn-configuration as it made things more complicated than necessary
+
+### Patch Changes
+
+- 3162712: Fix syntax
+
+  Templates resulted in syntax error when having `image.pullSecret` set.
+
 ## 5.1.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # comet-api-v10
 
+## 10.1.3
+
+### Patch Changes
+
+- 3162712: Fix syntax
+
+  Templates resulted in syntax error when having `image.pullSecret` set.
+
 ## 10.1.2
 
 ### Patch Changes
