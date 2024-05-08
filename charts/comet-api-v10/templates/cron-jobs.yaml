@@ -30,7 +30,7 @@ spec:
       ttlSecondsAfterFinished: {{ $job.ttlSecondsAfterFinished | default 604800 }}
       template:
         spec:
-          {{- if .Values.image.pullSecret -}}
+          {{- if .Values.image.pullSecret }}
           imagePullSecrets:
             - name: {{ include "comet-api.fullname" . }}-image-pull-secret
           {{- end }}

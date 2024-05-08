@@ -16,7 +16,7 @@ spec:
       labels:
         {{- include "comet-site.selectorLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.image.pullSecret -}}
+      {{- if .Values.image.pullSecret }}
       imagePullSecrets:
         - name: {{ include "comet-site.fullname" . }}-image-pull-secret
       {{- end }}
