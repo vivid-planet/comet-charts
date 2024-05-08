@@ -1,5 +1,13 @@
 # comet-site-v9
 
+## 9.1.3
+
+### Patch Changes
+
+- 3162712: Fix syntax
+
+  Templates resulted in syntax error when having `image.pullSecret` set.
+
 ## 9.1.2
 
 ### Patch Changes
