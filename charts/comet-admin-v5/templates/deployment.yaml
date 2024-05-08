@@ -48,14 +48,6 @@ spec:
               value: "{{ .Values.npmRun }}"
             - name: TZ
               value: "{{ .Values.timeZone }}"
-            - name: API_URL
-              value: https://{{ .Values.api.domain }}{{ .Values.api.basePath }}
-            - name: ADMIN_URL
-              value: https://{{ .Values.domain }}
-            {{- if .Values.sitesConfig }}
-            - name: SITES_CONFIG
-              value: '{{- toJson .Values.sitesConfig }}'
-            {{- end }}
             {{- range $key, $val := .Values.env }}
             - name: {{ $key }}
               value: {{ $val | quote }}

@@ -6,11 +6,7 @@ metadata:
   labels:
     {{- include "comet-admin.labels" . | nindent 4 }}
 spec:
-{{- if .Values.cdn.enabled }}
-  host: "{{ .Values.internalDomain }}"
-{{- else }}
   host: "{{ .Values.domain }}"
-{{- end }}
   port:
     targetPort: http
   tls:
