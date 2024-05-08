@@ -20,7 +20,7 @@ spec:
       labels:
         {{- include "comet-api.selectorLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.image.pullSecret -}}
+      {{- if .Values.image.pullSecret }}
       imagePullSecrets:
         - name: {{ include "comet-api.fullname" . }}-image-pull-secret
       {{- end }}
