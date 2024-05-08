@@ -12,11 +12,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-{{- if .Values.cdn.enabled }}
-  - host: "{{ .Values.internalDomain }}"
-{{- else }}
   - host: "{{ .Values.domain }}"
-{{- end }}
     http:
       paths:
       - path: /
@@ -28,10 +24,6 @@ spec:
               number: 3000
   tls:
   - hosts:
-{{- if .Values.cdn.enabled }}
-    - "{{ .Values.internalDomain }}"
-{{- else }}
     - "{{ .Values.domain }}"
-{{- end }}
     secretName: {{ include "comet-admin.fullname" . }}-cert
 {{- end }}

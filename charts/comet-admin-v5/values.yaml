@@ -11,11 +11,10 @@ image:
   pullPolicy: IfNotPresent
   pullSecret: "" # will be overwritten by CI
 
-api:
-  basePath: "/api"
-
 nameOverride: ""
 fullnameOverride: ""
+
+domain: ""
 
 podAnnotations: {}
 
@@ -53,10 +52,6 @@ resources:
   requests:
     cpu: 10m
     memory: 128Mi
-
-cdn:
-  enabled: false
-  originHeader: ""
 
 autoscaling:
   enabled: false
