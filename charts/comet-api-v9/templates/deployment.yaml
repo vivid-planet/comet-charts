@@ -75,7 +75,7 @@ spec:
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["bash", "-c", "npm run db:migrate:prod"]
+          command: ["bash", "-c", "node dist/console.js db:migrate:prod"]
           envFrom:
             {{- if .Values.env }}
             - configMapRef:
