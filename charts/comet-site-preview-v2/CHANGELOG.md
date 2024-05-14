@@ -1,5 +1,11 @@
 # comet-site-preview-v2
 
+## 2.2.0
+
+### Minor Changes
+
+- b6f9d13: Replace npm command with direct call for site-preview build
+
 ## 2.1.2
 
 ### Patch Changes
