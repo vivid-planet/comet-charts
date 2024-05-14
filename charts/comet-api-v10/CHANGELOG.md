@@ -1,5 +1,11 @@
 # comet-api-v10
 
+## 10.2.1
+
+### Patch Changes
+
+- 4fb9219: Fix command for api migration
+
 ## 10.2.0
 
 ### Minor Changes
