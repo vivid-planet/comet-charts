@@ -31,7 +31,7 @@ spec:
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/bin/bash", "-c", "npm run preview-next-build"]
+          command: ["/bin/bash", "-c", "next build"]
           envFrom:
             {{- if .Values.env }}
             - configMapRef:
