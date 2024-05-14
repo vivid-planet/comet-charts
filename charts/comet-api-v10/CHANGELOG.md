@@ -1,5 +1,11 @@
 # comet-api-v10
 
+## 10.2.0
+
+### Minor Changes
+
+- 32d94cd: Call db:migrate directly without npm in api init container
+
 ## 10.1.3
 
 ### Patch Changes
