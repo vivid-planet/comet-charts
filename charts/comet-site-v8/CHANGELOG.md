@@ -1,5 +1,11 @@
 # comet-site-v8
 
+## 8.2.0
+
+### Minor Changes
+
+- 6fba71a: Replace npm with direct call for site init container
+
 ## 8.1.2
 
 ### Patch Changes
