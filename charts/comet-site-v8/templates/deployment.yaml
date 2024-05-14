@@ -40,7 +40,7 @@ spec:
               export DESIRED_VERSION=$(ls -t /mnt/generated-sites/ | head -1);
               if [ -z $DESIRED_VERSION ]; then
                 echo "No build available --> building locally";
-                npm run next-build;
+                node preBuild/build/preBuild/src/publicGenerator/generate.js && next build;
               else
                 mkdir -p .next;
                 mkdir -p tmp;
