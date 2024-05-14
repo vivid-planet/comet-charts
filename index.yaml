@@ -539,6 +539,26 @@ entries:
     version: 8.0.0
   comet-site-preview:
   - apiVersion: v2
+    created: "2024-05-14T09:00:52.428706111Z"
+    description: Helm chart for a Comet Site-Preview Microservice
+    digest: 6b7e698507fd642ac17fbdca7a4f628d32df9f42fa554a09ea6804200f43faaf
+    home: https://www.comet-dxp.com
+    icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+    maintainers:
+    - email: daniel.karnutsch@vivid-planet.com
+      name: Daniel Karnutsch
+    - email: georg.schreglmann@vivid-planet.com
+      name: Georg Schreglmann
+    - email: franz.unger@vivid-planet.com
+      name: Franz Unger
+    - email: alexander.kaufmann@vivid-planet.com
+      name: Alexander Kaufmann
+    name: comet-site-preview
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-preview-2.2.0/comet-site-preview-2.2.0.tgz
+    version: 2.2.0
+  - apiVersion: v2
     created: "2024-05-07T13:22:38.91482458Z"
     description: Helm chart for a Comet Site-Preview Microservice
     digest: 4a9791e88ab51ff72232c075e46c767f71677612b2cfe4516088bb7d351232fe
@@ -742,4 +762,4 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.9.0/imgproxy-0.9.0.tgz
     version: 0.9.0
-generated: "2024-05-14T08:44:20.099503208Z"
+generated: "2024-05-14T09:00:52.428842584Z"
