@@ -1,5 +1,11 @@
 # comet-site-v9
 
+## 9.2.0
+
+### Minor Changes
+
+- df5afd3: Add option to add labels to pods
+
 ## 9.1.3
 
 ### Patch Changes

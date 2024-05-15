@@ -1,5 +1,11 @@
 # comet-site-v8
 
+## 8.3.0
+
+### Minor Changes
+
+- df5afd3: Add option to add labels to pods
+
 ## 8.2.0
 
 ### Minor Changes

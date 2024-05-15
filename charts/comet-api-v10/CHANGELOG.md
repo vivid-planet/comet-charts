@@ -1,5 +1,11 @@
 # comet-api-v10
 
+## 10.3.0
+
+### Minor Changes
+
+- df5afd3: Add option to add labels to pods
+
 ## 10.2.1
 
 ### Patch Changes

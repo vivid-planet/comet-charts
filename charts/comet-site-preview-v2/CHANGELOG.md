@@ -1,5 +1,11 @@
 # comet-site-preview-v2
 
+## 2.3.0
+
+### Minor Changes
+
+- df5afd3: Add option to add labels to pods
+
 ## 2.2.0
 
 ### Minor Changes
