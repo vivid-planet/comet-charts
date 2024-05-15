@@ -8,6 +8,7 @@ env:
 additionalConfigMapNames: []
 secrets: {}
 additionalSecretNames: []
+additionalLabels: {}
 
 replicaCount: 1
 

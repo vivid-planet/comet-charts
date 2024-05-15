@@ -115,3 +115,4 @@ env:
 additionalConfigMapNames: {}
 secrets: {}
 additionalSecretNames: {}
+additionalLabels: {}
