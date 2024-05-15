@@ -1,5 +1,11 @@
 # comet-admin-v5
 
+## 5.3.0
+
+### Minor Changes
+
+- df5afd3: Add option to add labels to pods
+
 ## 5.2.0
 
 ### Minor Changes
