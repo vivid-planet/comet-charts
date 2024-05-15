@@ -19,6 +19,9 @@ spec:
       {{- end }}
       labels:
         {{- include "comet-admin.selectorLabels" . | nindent 8 }}
+        {{- range $key, $val := .Values.additionalLabels }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
     spec:
       {{- if .Values.image.pullSecret }}
       imagePullSecrets:

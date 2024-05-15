@@ -7,6 +7,7 @@ env:
 additionalConfigMapNames: []
 secrets: {}
 additionalSecretNames: []
+additionalLabels: {}
 
 replicaCount: 1
 
@@ -73,6 +74,7 @@ prelogin:
   replicaCount: 1
   requiredUserDomain: ""
   autoMountServiceAccountToken: true
+  additionalLabels: {}
 
   image:
     repository: "" # will be overwritten by CI
