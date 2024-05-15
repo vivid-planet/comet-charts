@@ -4,7 +4,7 @@ env:
 additionalConfigMapNames: []
 secrets: {}
 additionalSecretNames: []
-additionalLabels: {}
+additionalPodLabels: {}
 
 replicaCount: 2
 

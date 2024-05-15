@@ -7,7 +7,7 @@ env:
 additionalConfigMapNames: []
 secrets: {}
 additionalSecretNames: []
-additionalLabels: {}
+additionalPodLabels: {}
 
 replicaCount: 1
 
@@ -73,8 +73,8 @@ prelogin:
   enabled: false
   replicaCount: 1
   requiredUserDomain: ""
+  additionalPodLabels: {}
   autoMountServiceAccountToken: true
-  additionalLabels: {}
 
   image:
     repository: "" # will be overwritten by CI
@@ -116,7 +116,7 @@ ingress:
 pvc:
   create: false
   annotations: {}
-  additionalLabels: {}
+  additionalPodLabels: {}
 
 cdn:
   enabled: false

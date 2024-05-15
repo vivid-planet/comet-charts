@@ -19,7 +19,7 @@ spec:
       {{- end }}
       labels:
         {{- include "comet-admin.selectorLabels" . | nindent 8 }}
-        {{- range $key, $val := .Values.additionalLabels }}
+        {{- range $key, $val := .Values.additionalPodLabels }}
         {{ $key }}: {{ $val | quote }}
         {{- end }}
     spec:

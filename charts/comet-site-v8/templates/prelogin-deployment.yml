@@ -14,7 +14,7 @@ spec:
     metadata:
       labels:
         {{- include "comet-site.prelogin.selectorLabels" . | nindent 8 }}
-        {{- range $key, $val := .Values.prelogin.additionalLabels }}
+        {{- range $key, $val := .Values.prelogin.additionalPodLabels }}
         {{ $key }}: {{ $val | quote }}
         {{- end }}
     spec:
