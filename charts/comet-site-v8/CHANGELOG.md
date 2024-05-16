@@ -1,5 +1,11 @@
 # comet-site-v8
 
+## 8.4.1
+
+### Patch Changes
+
+- c39c8dd: Add selectorLables to build cronjob
+
 ## 8.4.0
 
 ### Minor Changes
