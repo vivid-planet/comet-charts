@@ -75,6 +75,7 @@ prelogin:
   requiredUserDomain: ""
   autoMountServiceAccountToken: true
   additionalLabels: {}
+  secrets: {}
 
   image:
     repository: "" # will be overwritten by CI
