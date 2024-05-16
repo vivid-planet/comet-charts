@@ -87,11 +87,15 @@ spec:
                     name:  {{ $val }}
                 {{- end }}
               volumeMounts:
+                - mountPath: /opt/app-root/src/.next
+                  name: document-root
                 - mountPath: /mnt/generated-sites/
                   name: generated-sites
               resources:
                 {{- toYaml .Values.builder.resources | nindent 16 }}
           volumes:
+            - name: document-root
+              emptyDir: {}
             - name: generated-sites
               persistentVolumeClaim:
 {{- if and .Values.pvc.create .Values.pvc.name }}
