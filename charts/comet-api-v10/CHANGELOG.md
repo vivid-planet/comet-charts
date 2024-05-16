@@ -1,5 +1,11 @@
 # comet-api-v10
 
+## 10.4.0
+
+### Minor Changes
+
+- c270a4f: Mount emptyDir in /tmp for api pods
+
 ## 10.3.0
 
 ### Minor Changes

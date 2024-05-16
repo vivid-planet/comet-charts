@@ -1,5 +1,11 @@
 # comet-api-v9
 
+## 9.4.0
+
+### Minor Changes
+
+- c270a4f: Mount emptyDir in /tmp for api pods
+
 ## 9.3.0
 
 ### Minor Changes
