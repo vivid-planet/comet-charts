@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         {{- include "comet-site-preview.selectorLabels" . | nindent 8 }}
-        {{- range $key, $val := .Values.additionalLabels }}
+        {{- range $key, $val := .Values.additionalPodLabels }}
         {{ $key }}: {{ $val | quote }}
         {{- end }}
     spec:

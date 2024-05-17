@@ -85,7 +85,7 @@ cronJobs:
     enabled: true
     command: "npm run console:prod check-changes"
     schedule: "*/15 * * * *"
-    additionalLabels:
+    additionalPodLabels:
       comet-dxp.com/build-checker: "true"
     activeDeadlineSeconds: 600
     resources:
@@ -115,4 +115,4 @@ env:
 additionalConfigMapNames: {}
 secrets: {}
 additionalSecretNames: {}
-additionalLabels: {}
+additionalPodLabels: {}

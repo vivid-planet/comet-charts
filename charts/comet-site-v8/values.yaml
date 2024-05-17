@@ -7,7 +7,7 @@ env:
 additionalConfigMapNames: []
 secrets: {}
 additionalSecretNames: []
-additionalLabels: {}
+additionalPodLabels: {}
 
 replicaCount: 1
 
@@ -74,7 +74,7 @@ prelogin:
   replicaCount: 1
   requiredUserDomain: ""
   autoMountServiceAccountToken: true
-  additionalLabels: {}
+  additionalPodLabels: {}
   secrets: {}
 
   image:
@@ -117,7 +117,7 @@ ingress:
 pvc:
   create: false
   annotations: {}
-  additionalLabels: {}
+  additionalPodLabels: {}
 
 cdn:
   enabled: false
