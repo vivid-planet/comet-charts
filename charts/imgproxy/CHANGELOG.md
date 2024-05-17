@@ -1,5 +1,11 @@
 # imgproxy
 
+## 0.10.2
+
+### Patch Changes
+
+- d87b98b: Remove requirement for accountKey and -Name to be set for ABS config
+
 ## 0.10.1
 
 ### Patch Changes
