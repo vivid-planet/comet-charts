@@ -1,5 +1,11 @@
 # comet-site-v9
 
+## 9.2.1
+
+### Patch Changes
+
+- 3972f23: Change additionalLabels variable to additionalPodLabels for better understanding
+
 ## 9.2.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # comet-site-v8
 
+## 8.4.2
+
+### Patch Changes
+
+- 3972f23: Change additionalLabels variable to additionalPodLabels for better understanding
+
 ## 8.4.1
 
 ### Patch Changes
