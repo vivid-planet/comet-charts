@@ -73,8 +73,9 @@ prelogin:
   enabled: false
   replicaCount: 1
   requiredUserDomain: ""
-  additionalPodLabels: {}
   autoMountServiceAccountToken: true
+  additionalPodLabels: {}
+  secrets: {}
 
   image:
     repository: "" # will be overwritten by CI

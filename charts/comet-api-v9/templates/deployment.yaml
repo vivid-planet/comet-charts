@@ -68,6 +68,9 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp
       initContainers:
         - name: {{ .Chart.Name }}-migrations
           securityContext:
@@ -110,3 +113,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: "1Gi"

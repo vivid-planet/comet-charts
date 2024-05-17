@@ -1,5 +1,18 @@
 # comet-site-v8
 
+## 8.4.1
+
+### Patch Changes
+
+- c39c8dd: Add selectorLables to build cronjob
+
+## 8.4.0
+
+### Minor Changes
+
+- 712db85: Mount emptyDir in .next for building
+- b31ec43: BREAKING: Don't hardcode values in prelogin secret and don't generate it if it would be empty. They have to be filled with Values.prelogin.secrets
+
 ## 8.3.0
 
 ### Minor Changes

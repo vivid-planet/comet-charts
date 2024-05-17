@@ -26,6 +26,7 @@ spec:
         comet-dxp.com/builder: "true"
         comet-dxp.com/instance: "{{ .Release.Name }}"
         comet-dxp.com/parent-cron-job: {{ include "comet-site.fullname" . }}-build
+        {{- include "comet-site.selectorLabels" . | nindent 8 }}
     spec:
       backoffLimit: 1
       activeDeadlineSeconds: 3600
@@ -87,11 +88,15 @@ spec:
                     name:  {{ $val }}
                 {{- end }}
               volumeMounts:
+                - mountPath: /opt/app-root/src/.next
+                  name: document-root
                 - mountPath: /mnt/generated-sites/
                   name: generated-sites
               resources:
                 {{- toYaml .Values.builder.resources | nindent 16 }}
           volumes:
+            - name: document-root
+              emptyDir: {}
             - name: generated-sites
               persistentVolumeClaim:
 {{- if and .Values.pvc.create .Values.pvc.name }}
