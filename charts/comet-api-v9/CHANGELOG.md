@@ -1,5 +1,15 @@
 # comet-api-v9
 
+## 9.5.0
+
+### Minor Changes
+
+- dc40958: Revert to executing npm-command for migrations but make them overrideable
+
+### Patch Changes
+
+- 3972f23: Change additionalLabels variable to additionalPodLabels for better understanding
+
 ## 9.4.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # comet-site-preview-v2
 
+## 2.3.1
+
+### Patch Changes
+
+- 3972f23: Change additionalLabels variable to additionalPodLabels for better understanding
+
 ## 2.3.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # comet-admin-v5
 
+## 5.3.1
+
+### Patch Changes
+
+- 3972f23: Change additionalLabels variable to additionalPodLabels for better understanding
+
 ## 5.3.0
 
 ### Minor Changes
