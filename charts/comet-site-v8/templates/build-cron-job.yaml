@@ -55,14 +55,15 @@ spec:
               command: ["bash", "-c"]
               args:
                 - set -e;
-                  export BUILD_FILE=/mnt/generated-sites/build_$(date +%F_%T).tar;
+                  export BUILD_FILE=/tmp/build_$(date +%F_%T).tar;
                   npm run next-build;
                   tar --force-local -cf $BUILD_FILE -C .next .;
+                  rsync --remove-source-files ./$BUILD_FILE /mnt/generated-sites/;
                   rm -f $(ls -1dt /mnt/generated-sites/* | tail -n +3);
-                  curl -LO https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl;
-                  chmod u+x ./kubectl;
+                  curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /tmp/kubectl;
+                  chmod u+x /tmp/kubectl;
                   NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace);
-                  ./kubectl rollout restart deployment {{ include "comet-site.fullname" . }} -n $NAMESPACE;
+                  /tmp/kubectl rollout restart deployment {{ include "comet-site.fullname" . }} -n $NAMESPACE;
               env:
                 - name: KUBECTL_VERSION
                   value: "{{ .Values.builder.kubectlVersion }}"
@@ -91,10 +92,14 @@ spec:
                   name: document-root
                 - mountPath: /mnt/generated-sites/
                   name: generated-sites
+                - mountPath: /tmp
+                  name: tmp
               resources:
                 {{- toYaml .Values.builder.resources | nindent 16 }}
           volumes:
             - name: document-root
+              emptyDir: {}
+            - name: tmp
               emptyDir: {}
             - name: generated-sites
               persistentVolumeClaim:
