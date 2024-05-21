@@ -1,5 +1,11 @@
 # comet-site-v8
 
+## 8.5.0
+
+### Minor Changes
+
+- fa91cb3: Tar the finished build directly in the /mnt path and not in the current dir
+
 ## 8.4.2
 
 ### Patch Changes
