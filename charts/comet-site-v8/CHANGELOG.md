@@ -1,5 +1,12 @@
 # comet-site-v8
 
+## 8.6.0
+
+### Minor Changes
+
+- f4fa4c6: Allow additionalPodLabels for SSG Builder Cronjob
+- c213e4b: Use emptyDir for kubectl rollout command after SSG build
+
 ## 8.5.0
 
 ### Minor Changes
