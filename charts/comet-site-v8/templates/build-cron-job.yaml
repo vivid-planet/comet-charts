@@ -63,7 +63,7 @@ spec:
                   export BUILD_FILE=/tmp/build_$(date +%F_%T).tar;
                   npm run next-build;
                   tar --force-local -cf $BUILD_FILE -C .next .;
-                  rsync --remove-source-files ./$BUILD_FILE /mnt/generated-sites/;
+                  rsync --remove-source-files $BUILD_FILE /mnt/generated-sites/;
                   rm -f $(ls -1dt /mnt/generated-sites/* | tail -n +3);
                   curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /tmp/kubectl;
                   chmod u+x /tmp/kubectl;
