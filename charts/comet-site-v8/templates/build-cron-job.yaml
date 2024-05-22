@@ -46,7 +46,7 @@ spec:
           serviceAccountName: {{ include "comet-site.fullname" . }}
           securityContext:
             {{- toYaml .Values.builder.podSecurityContext | nindent 12 }}
-          automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
+          automountServiceAccountToken: {{ .Values.builder.autoMountServiceAccountToken }}
           containers:
             - name: {{ .Chart.Name }}-build
               securityContext:
