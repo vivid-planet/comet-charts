@@ -1,5 +1,15 @@
 # comet-site-v8
 
+## 8.7.0
+
+### Minor Changes
+
+- 72aa86a: Add compatibility for readonly systems by extracting ssg build in emptyDir tmp folder
+
+### Patch Changes
+
+- bde7dac: Fix path for source of rsync
+
 ## 8.6.1
 
 ### Patch Changes
