@@ -48,6 +48,8 @@ builder:
 
   schedule: "0 6 * * *"
 
+  autoMountServiceAccountToken: true
+
   additionalPodLabels: {}
 
   kubectlVersion: "1.21.14"
