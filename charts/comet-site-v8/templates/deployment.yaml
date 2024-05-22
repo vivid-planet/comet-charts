@@ -46,10 +46,10 @@ spec:
                 node preBuild/build/preBuild/src/publicGenerator/generate.js && next build;
               else
                 mkdir -p .next;
-                mkdir -p tmp;
-                tar -xf /mnt/generated-sites/$DESIRED_VERSION --force-local -m --no-overwrite-dir -C tmp;
-                mv tmp/* .next/;
-                rm -r tmp;
+                mkdir -p /tmp/site-build;
+                tar -xf /mnt/generated-sites/$DESIRED_VERSION --force-local -m --no-overwrite-dir -C /tmp/site-build;
+                mv /tmp/site-build/* .next/;
+                rm -r /tmp/site-build;
               fi;
           envFrom:
             {{- if .Values.env }}
@@ -76,6 +76,8 @@ spec:
           {{- if .Values.builder.enabled }}
             - mountPath: /mnt/generated-sites/
               name: generated-sites
+            - mountPath: /tmp
+              name: tmp
           {{- end }}
             - mountPath: /opt/app-root/src/.next
               name: document-root
@@ -165,6 +167,8 @@ spec:
           {{- else }}
             claimName: {{ .Values.persistence.existingClaim }}
           {{- end }}
+        - name: tmp
+          emptyDir: {}
     {{- end }}
         - name: document-root
           emptyDir: {}
