@@ -1,5 +1,11 @@
 # comet-site-v8
 
+## 8.6.1
+
+### Patch Changes
+
+- ad02d5d: Set additionalPodLabels at correct space
+
 ## 8.6.0
 
 ### Minor Changes
