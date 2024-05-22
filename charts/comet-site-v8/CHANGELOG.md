@@ -1,5 +1,11 @@
 # comet-site-v8
 
+## 8.8.0
+
+### Minor Changes
+
+- da472ad: Set automountServiceAccountToken for builder independend of setting for site
+
 ## 8.7.0
 
 ### Minor Changes
