@@ -55,6 +55,9 @@ spec:
             - name: {{ $key }}
               value: {{ $val | quote }}
             {{- end }}
+          envFrom:
+            {{- range $key, $val := .Values.additionalConfigMapNames }}
+            {{- range $key, $val := .Values.additionalSecretNames }}
           livenessProbe:
             httpGet:
               path: /status/health
