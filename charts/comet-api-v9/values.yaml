@@ -87,8 +87,9 @@ cronJobs:
     enabled: true
     command: "npm run console:prod check-changes"
     schedule: "*/15 * * * *"
-    additionalPodLabels:
+    additionalLabels:
       comet-dxp.com/build-checker: "true"
+    additionalPodLabels: {}
     activeDeadlineSeconds: 600
     resources:
       limits:
@@ -102,6 +103,8 @@ cronJobs:
     command: "npm run console:prod migrateBlocks && npm run console:prod createBlockIndexViews"
     schedule: "0 0 30 2 0" # 30th of February, will never run automatically
     activeDeadlineSeconds: 1200
+    additionalLabels: {}
+    additionalPodLabels: {}
     resources:
       limits:
         cpu: 100m
