@@ -41,7 +41,8 @@ spec:
             -   name: NPM_RUN
                 value: "start"
             {{- range $key, $val := .Values.prelogin.env }}
-            {{ $key }}: {{ $val | quote }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
             {{- end }}
           envFrom:
             - secretRef:
