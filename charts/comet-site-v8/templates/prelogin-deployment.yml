@@ -40,20 +40,9 @@ spec:
                 value: "production"
             -   name: NPM_RUN
                 value: "start"
-            -   name: PROXY_TARGET_URL
-                value: {{ .Values.prelogin.target | quote}}
-            -   name: IDP_NAME
-                value: {{ .Values.prelogin.idp.name | quote }}
-            -   name: IDP_URL
-                value: {{ .Values.prelogin.idp.url | quote }}
-            -   name: IDP_CLIENT_ID
-                value: {{ .Values.prelogin.idp.clientId | quote }}
-            -   name: LOGIN_PASSWORD
-                value: {{ .Values.prelogin.loginPassword | quote }}
-            -   name: NEXTAUTH_URL
-                value: https://{{ .Values.domain }}/login/api
-            -   name: REQUIRED_USER_DOMAIN
-                value: {{ .Values.prelogin.requiredUserDomain | quote }}
+            {{- range $key, $val := .Values.prelogin.env }}
+            {{ $key }}: {{ $val | quote }}
+            {{- end }}
           envFrom:
             - secretRef:
                 name: {{ include "comet-site.fullname" . }}-prelogin
