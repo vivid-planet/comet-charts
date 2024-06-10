@@ -1,5 +1,11 @@
 # comet-site-v8
 
+## 8.9.1
+
+### Patch Changes
+
+- fe2e10b: Change list syntax of prelogin envs
+
 ## 8.9.0
 
 ### Minor Changes
