@@ -1,5 +1,11 @@
 # comet-site-v8
 
+## 8.9.0
+
+### Minor Changes
+
+- d540ccd: BREAKING: Don't hardcode env values for prelogin deployment. Have to be filled out with Values.prelogin.env
+
 ## 8.8.0
 
 ### Minor Changes

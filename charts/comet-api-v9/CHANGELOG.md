@@ -1,5 +1,11 @@
 # comet-api-v9
 
+## 9.5.1
+
+### Patch Changes
+
+- 3c12af4: Add support for pod labels in cronjob pods
+
 ## 9.5.0
 
 ### Minor Changes
