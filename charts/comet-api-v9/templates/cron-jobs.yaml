@@ -29,6 +29,11 @@ spec:
       activeDeadlineSeconds: {{ $job.activeDeadlineSeconds | default 600 }}
       ttlSecondsAfterFinished: {{ $job.ttlSecondsAfterFinished | default 604800 }}
       template:
+        metadata:
+          labels:
+            {{- range $key, $val := $job.additionalPodLabels }}
+            {{ $key }}: {{ $val | quote }}
+            {{- end }}
         spec:
           {{- if .Values.image.pullSecret -}}
           imagePullSecrets:
