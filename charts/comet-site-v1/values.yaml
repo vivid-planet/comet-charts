@@ -1,0 +1,141 @@
+contentScope: {}
+label: ""
+
+env:
+  NODE_ENV: "production"
+  TZ: "Europe/Vienna"
+additionalConfigMapNames: []
+secrets: {}
+additionalSecretNames: []
+additionalPodLabels: {}
+
+replicaCount: 1
+
+image:
+  repository: ""
+  hash: "" # will be used, if tag is not set
+  tag: ""
+  pullPolicy: IfNotPresent
+  pullSecret: "" # will be overwritten by CI
+
+npmRun: "serve"
+
+service:
+  type: ClusterIP
+  port: 3000
+
+resources:
+  limits:
+    memory: 200Mi
+    cpu: 1
+  requests:
+    cpu: 50m
+    memory: 200Mi
+
+initContainer:
+  enabled: false # can be used to enable initContainer even though builder is disabled
+
+  resources:
+    limits:
+      memory: 512Mi
+      cpu: 1
+    requests:
+      cpu: 50m
+      memory: 512Mi
+
+builder:
+  enabled: true
+
+  schedule: "0 6 * * *"
+
+  autoMountServiceAccountToken: true
+
+  additionalPodLabels: {}
+
+  kubectlVersion: "1.21.14"
+  podSecurityContext:
+    {}
+    # fsGroup: 2000
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources:
+    limits:
+      memory: 512Mi
+      cpu: 500m
+    requests:
+      cpu: 500m
+      memory: 512Mi
+
+prelogin:
+  enabled: false
+  replicaCount: 1
+  requiredUserDomain: ""
+  autoMountServiceAccountToken: true
+  additionalPodLabels: {}
+  secrets: {}
+
+  image:
+    repository: "" # will be overwritten by CI
+    hash: v2 # will be overwritten by CI
+    pullPolicy: IfNotPresent
+    pullSecret: "" # will be overwritten by CI
+
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port: 3000
+
+  resources:
+    limits:
+      memory: 128Mi
+      cpu: "500m"
+    requests:
+      cpu: 50m
+      memory: 128Mi
+
+autoMountServiceAccountToken: true
+
+route:
+  enabled: false
+
+ingress:
+  enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+
+domains: [] # one of these 3 has to be set for ingress to work
+domain: "" # one of these 3 has to be set for ingress to work
+internalDomain: "" # one of these 3 has to be set for ingress to work
+
+cdn:
+  enabled: false
+  originHeader: ""
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
+
+pvc:
+  create: false
+  annotations: {}
+  additionalPodLabels: {}
+
+persistence:
+  existingClaim: ""

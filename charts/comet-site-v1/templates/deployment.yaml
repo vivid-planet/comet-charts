@@ -1,0 +1,174 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "comet-site.fullname" . }}
+  labels:
+    {{- include "comet-site.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "comet-site.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "comet-site.selectorLabels" . | nindent 8 }}
+        {{- range $key, $val := .Values.additionalPodLabels }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
+    spec:
+      {{- if .Values.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ include "comet-site.fullname" . }}-image-pull-secret
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
+      {{- if or (.Values.builder.enabled) (.Values.initContainer.enabled) }}
+      initContainers:
+        - name: {{ .Chart.Name }}-copy
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          {{- else }}
+          image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/bash", "-c"]
+          args:
+            - set -e;
+              export DESIRED_VERSION=$(ls -t /mnt/generated-sites/ | head -1);
+              if [ -z $DESIRED_VERSION ]; then
+                echo "No build available --> building locally";
+                node preBuild/build/preBuild/src/publicGenerator/generate.js && next build;
+              else
+                mkdir -p .next;
+                mkdir -p /tmp/site-build;
+                tar -xf /mnt/generated-sites/$DESIRED_VERSION --force-local -m --no-overwrite-dir -C /tmp/site-build;
+                mv /tmp/site-build/* .next/;
+                rm -r /tmp/site-build;
+              fi;
+          envFrom:
+            {{- if .Values.env }}
+            - configMapRef:
+                name: {{ include "comet-site.fullname" . }}
+            {{- end }}
+            {{- range $key, $val := .Values.additionalConfigMapNames }}
+            - configMapRef:
+                name:  {{ $val }}
+            {{- end }}
+            {{- if .Values.secrets }}
+            - secretRef:
+                name: {{ include "comet-site.fullname" . }}
+            {{- end }}
+            {{- range $key, $val := .Values.additionalSecretNames }}
+            - secretRef:
+                name:  {{ $val }}
+            {{- end }}
+          {{- with .Values.initContainer.extraEnv }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+          {{- if .Values.builder.enabled }}
+            - mountPath: /mnt/generated-sites/
+              name: generated-sites
+            - mountPath: /tmp
+              name: tmp
+          {{- end }}
+            - mountPath: /opt/app-root/src/.next
+              name: document-root
+          resources:
+            {{- toYaml .Values.initContainer.resources | nindent 12 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          {{- else }}
+          image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            {{- if .Values.env }}
+            - configMapRef:
+                name: {{ include "comet-site.fullname" . }}
+            {{- end }}
+            {{- range $key, $val := .Values.additionalConfigMapNames }}
+            - configMapRef:
+                name:  {{ $val }}
+            {{- end }}
+            {{- if .Values.secrets }}
+            - secretRef:
+                name: {{ include "comet-site.fullname" . }}
+            {{- end }}
+            {{- range $key, $val := .Values.additionalSecretNames }}
+            - secretRef:
+                name:  {{ $val }}
+            {{- end }}
+          env:
+            - name: NPM_RUN
+              value: "{{ .Values.npmRun }}"
+          {{- with .Values.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.builder.enabled }}
+          volumeMounts:
+            - mountPath: /mnt/generated-sites/
+              name: generated-sites
+            - mountPath: /opt/app-root/src/.next
+              name: document-root
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /api/status
+              port: http
+              httpHeaders:
+              - name: x-cdn-origin-check
+                value: "{{ .Values.cdn.originHeader }}"
+          readinessProbe:
+            httpGet:
+              path: /api/status
+              port: http
+              httpHeaders:
+              - name: x-cdn-origin-check
+                value: "{{ .Values.cdn.originHeader }}"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- if .Values.builder.enabled }}
+      volumes:
+        - name: generated-sites
+          persistentVolumeClaim:
+          {{- if and .Values.pvc.create .Values.pvc.name }}
+            claimName: {{ .Values.pvc.name }}
+          {{- else if .Values.pvc.create }}
+            claimName: {{ include "comet-site.fullname" . }}-build
+          {{- else }}
+            claimName: {{ .Values.persistence.existingClaim }}
+          {{- end }}
+        - name: tmp
+          emptyDir: {}
+        - name: document-root
+          emptyDir: {}
+    {{- end }}
