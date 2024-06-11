@@ -86,6 +86,21 @@ readinessProbe:
 migrateCommand: "npm run console:prod migrate"
 
 cronJobs:
+  build-checker:
+    enabled: true
+    command: "npm run console:prod check-changes"
+    schedule: "*/15 * * * *"
+    additionalLabels:
+      comet-dxp.com/build-checker: "true"
+    additionalPodLabels: {}
+    activeDeadlineSeconds: 600
+    resources:
+      limits:
+        cpu: 100m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
   blck-indx-mgrt-blks:
     enabled: true
     command: "npm run console:prod migrateBlocks && npm run console:prod createBlockIndexViews"
@@ -105,7 +120,7 @@ env:
   NODE_ENV: "production"
   NPM_RUN: "start:prod"
   TZ: "Europe/Vienna"
-additionalConfigMapNames: []
+additionalConfigMapNames: {}
 secrets: {}
-additionalSecretNames: []
+additionalSecretNames: {}
 additionalPodLabels: {}
