@@ -119,8 +119,8 @@ ingress:
     cert-manager.io/cluster-issuer: "letsencrypt"
 
 domains: [] # one of these 3 has to be set for ingress to work
-domain: "" # one of these 3 has to be set for ingress to work
-internalDomain: "" # one of these 3 has to be set for ingress to work
+domain: "" # one of these 3 has to be set for ingress to work. This is here for compatibility reasons and can be removed in the next major release
+internalDomain: "" # one of these 3 has to be set for ingress to work. This is here for compatibility reasons and can be removed in the next major release
 
 cdn:
   enabled: false
