@@ -9,4 +9,4 @@
 - Skip generating or using image-pull-secrets if none are specified
 - Introduce option to include labels for pods
 - Mount emptyDir in /tmp directory for api pods
-- Modify api init container to directly call db:migrate without npm, and allow for overriding
+- Modify api init container to directly call `db:migrate` without npm, and allow for overwriting
