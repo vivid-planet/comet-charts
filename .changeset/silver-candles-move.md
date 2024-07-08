@@ -1,5 +1,5 @@
 ---
-"comet-authproxy-v2": patch
+"comet-authproxy-v1": patch
 ---
 
 - Update oauthproxy to newest helm chart

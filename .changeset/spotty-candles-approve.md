@@ -1,5 +1,5 @@
 ---
-"comet-authproxy-v2": minor
+"comet-authproxy-v1": minor
 ---
 
 - Active auth-logging in OAuth2-Proxy
