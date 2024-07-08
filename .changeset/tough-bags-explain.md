@@ -2,4 +2,4 @@
 "comet-admin-v1": major
 ---
 
-- Migration to Open Source
+- BREAKING: Deactivate autoMountServiceAccountToken as default

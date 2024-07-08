@@ -44,4 +44,4 @@ livenessProbe:
 readinessProbe:
   path: "/site/api/status"
 
-autoMountServiceAccountToken: true
+autoMountServiceAccountToken: false

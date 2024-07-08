@@ -77,7 +77,7 @@ prelogin:
   enabled: false
   replicaCount: 1
   requiredUserDomain: ""
-  autoMountServiceAccountToken: true
+  autoMountServiceAccountToken: false
   additionalPodLabels: {}
   secrets: {}
 
@@ -108,7 +108,7 @@ prelogin:
       cpu: 50m
       memory: 128Mi
 
-autoMountServiceAccountToken: true
+autoMountServiceAccountToken: false
 
 route:
   enabled: false
