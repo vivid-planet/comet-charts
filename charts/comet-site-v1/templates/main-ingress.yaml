@@ -13,7 +13,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  {{if .Values.domains}}
+  {{- if .Values.domains }}
   {{- range .Values.domains }}
   - host: "{{ . }}"
     http:
