@@ -9,7 +9,7 @@
 - Don't generate/use image-pull-secrets if none are set
 - Replace npm with direct call for site init container
 - Add option to add labels to pods
-- Mount emptyDir in .next for building
+- Mount emptyDir in `.next` for building
 - Tar the finished build directly in the /mnt path and not in the current dir
 - Allow `additionalPodLabels` for SSG Builder Cronjob
 - Use emptyDir for kubectl rollout command after SSG build
