@@ -2,5 +2,5 @@
 "comet-site-preview-v1": major
 ---
 
-- BREAKING: Don't hardcode values in configMaps or secrets and don't generate those if they would be empty. They have to be filled with Values.env or Values.secrets
-- BREAKING: Deactivate autoMountServiceAccountToken as default
+- **BREAKING**: Avoid hardcoding values in configMaps or secrets and only generate them if they are not empty. Use `Values.env` or `Values.secrets` to fill them.
+- **BREAKING**: Disable `autoMountServiceAccountToken` by default.

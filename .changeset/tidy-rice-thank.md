@@ -2,11 +2,11 @@
 "comet-api-v1": minor
 ---
 
-- Add support for security context for all cronjobs
-- Add possibility to add annotations to ingress (e.g. in use by NGINX Ingress Controller)
-- Add support for both tag and hash for images. Hash will be used if no tag is set
-- Don't overcommit ram for api, site and site-preview
-- Don't generate/use image-pull-secrets if non are set
-- Add option to add labels to pods
-- Mount emptyDir in /tmp for api pods
-- Call db:migrate directly without npm in api init container and make it overrideable
+- Enhance security context for all cronjobs
+- Enable adding annotations to ingress, such as NGINX Ingress Controller usage
+- Support both image tags and hashes, with hashes taking precedence when no tag is specified
+- Optimize RAM allocation for api, site, and site-preview to prevent overcommitment
+- Skip generating or using image-pull-secrets if none are specified
+- Introduce option to include labels for pods
+- Mount emptyDir in /tmp directory for api pods
+- Modify api init container to directly call db:migrate without npm, and allow for overriding
