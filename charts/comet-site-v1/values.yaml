@@ -44,7 +44,7 @@ initContainer:
       memory: 512Mi
 
 builder:
-  enabled: true
+  enabled: false
 
   schedule: "0 6 * * *"
 

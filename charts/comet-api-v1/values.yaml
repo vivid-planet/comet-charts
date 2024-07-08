@@ -87,7 +87,7 @@ migrateCommand: "npm run console:prod migrate"
 
 cronJobs:
   build-checker:
-    enabled: true
+    enabled: false
     command: "npm run console:prod check-changes"
     schedule: "*/15 * * * *"
     additionalLabels:
