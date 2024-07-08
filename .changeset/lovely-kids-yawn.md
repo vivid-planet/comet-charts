@@ -2,4 +2,4 @@
 "comet-authproxy-v2": major
 ---
 
-Migration to Open Source
+- Migration to Open Source
