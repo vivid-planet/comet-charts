@@ -15,7 +15,7 @@ maintainers:
     email: franz.unger@vivid-planet.com
   - name: Alexander Kaufmann
     email: alexander.kaufmann@vivid-planet.com
-version: 0.0.0
+version: 1.0.0
 
 dependencies:
   - name: oauth2-proxy
