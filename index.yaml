@@ -109,6 +109,26 @@ entries:
     - https://github.com/vivid-planet/comet-charts/releases/download/comet-admin-5.0.0/comet-admin-5.0.0.tgz
     version: 5.0.0
   - apiVersion: v2
+    created: "2024-07-09T11:09:11.57320296Z"
+    description: Helm chart for a Comet Admin Microservice
+    digest: bd76205e3cb4d0e5eb0b015f3f6e4e477432553634e5bbbeb018a95ad2615484
+    home: https://www.comet-dxp.com
+    icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+    maintainers:
+    - email: daniel.karnutsch@vivid-planet.com
+      name: Daniel Karnutsch
+    - email: georg.schreglmann@vivid-planet.com
+      name: Georg Schreglmann
+    - email: franz.unger@vivid-planet.com
+      name: Franz Unger
+    - email: alexander.kaufmann@vivid-planet.com
+      name: Alexander Kaufmann
+    name: comet-admin
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-admin-1.0.0/comet-admin-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
     created: "2024-07-09T10:59:07.237349697Z"
     description: Helm chart for a Comet Admin Microservice
     digest: a957b21f77bc279d8f5fd29603f6a02b8e2e583587faeaa0ee915eb056d825da
@@ -502,6 +522,26 @@ entries:
     - https://github.com/vivid-planet/comet-charts/releases/download/comet-api-9.0.0/comet-api-9.0.0.tgz
     version: 9.0.0
   - apiVersion: v2
+    created: "2024-07-09T11:09:11.744002707Z"
+    description: Helm chart for a Comet API Microservice
+    digest: 231d2eb96aad61169bc78d4c84f829fb10e819aae396117639eca7211848f02c
+    home: https://www.comet-dxp.com
+    icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+    maintainers:
+    - email: daniel.karnutsch@vivid-planet.com
+      name: Daniel Karnutsch
+    - email: georg.schreglmann@vivid-planet.com
+      name: Georg Schreglmann
+    - email: franz.unger@vivid-planet.com
+      name: Franz Unger
+    - email: alexander.kaufmann@vivid-planet.com
+      name: Alexander Kaufmann
+    name: comet-api
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-api-1.0.0/comet-api-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
     created: "2024-07-09T10:59:07.411391735Z"
     description: Helm chart for a Comet API Microservice
     digest: b7873f5aefe065f97ca621b6bdf0804903c8d35cfb436c7ef8d26f1063e6e4fa
@@ -624,6 +664,30 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/comet-authproxy-2.0.0/comet-authproxy-2.0.0.tgz
     version: 2.0.0
+  - apiVersion: v2
+    created: "2024-07-09T11:09:11.928992049Z"
+    dependencies:
+    - name: oauth2-proxy
+      repository: https://oauth2-proxy.github.io/manifests
+      version: 6.x
+    description: Helm chart for a Comet OAuth2 proxy
+    digest: 5d21d5ab434076d16161338286c787f81b9756fe11d224fbed95b1820f7b1772
+    home: https://www.comet-dxp.com
+    icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+    maintainers:
+    - email: daniel.karnutsch@vivid-planet.com
+      name: Daniel Karnutsch
+    - email: georg.schreglmann@vivid-planet.com
+      name: Georg Schreglmann
+    - email: franz.unger@vivid-planet.com
+      name: Franz Unger
+    - email: alexander.kaufmann@vivid-planet.com
+      name: Alexander Kaufmann
+    name: comet-authproxy
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-authproxy-1.0.0/comet-authproxy-1.0.0.tgz
+    version: 1.0.0
   - apiVersion: v2
     created: "2024-07-09T10:59:07.620174174Z"
     dependencies:
@@ -1062,6 +1126,26 @@ entries:
     - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-8.0.0/comet-site-8.0.0.tgz
     version: 8.0.0
   - apiVersion: v2
+    created: "2024-07-09T11:09:12.123780591Z"
+    description: Helm chart for a Comet Site Microservice
+    digest: b0a3d55265a7e45d890e30419768edb3a65a137773876de2404afb8a75d8fa00
+    home: https://www.comet-dxp.com
+    icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+    maintainers:
+    - email: daniel.karnutsch@vivid-planet.com
+      name: Daniel Karnutsch
+    - email: georg.schreglmann@vivid-planet.com
+      name: Georg Schreglmann
+    - email: franz.unger@vivid-planet.com
+      name: Franz Unger
+    - email: alexander.kaufmann@vivid-planet.com
+      name: Alexander Kaufmann
+    name: comet-site
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-1.0.0/comet-site-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
     created: "2024-07-09T10:59:07.810796916Z"
     description: Helm chart for a Comet Site Microservice
     digest: f7f8fc4c59d0b40088e383def16e7b99d190e9eb2d28a2166426cac89d1f7bbd
@@ -1198,6 +1282,26 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-preview-2.0.0/comet-site-preview-2.0.0.tgz
     version: 2.0.0
+  - apiVersion: v2
+    created: "2024-07-09T11:09:12.325915917Z"
+    description: Helm chart for a Comet Site-Preview Microservice
+    digest: 1f5170d761de4514b2552d4bb963f561f3445f4d51afd6c48db0c5c63d644edd
+    home: https://www.comet-dxp.com
+    icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+    maintainers:
+    - email: daniel.karnutsch@vivid-planet.com
+      name: Daniel Karnutsch
+    - email: georg.schreglmann@vivid-planet.com
+      name: Georg Schreglmann
+    - email: franz.unger@vivid-planet.com
+      name: Franz Unger
+    - email: alexander.kaufmann@vivid-planet.com
+      name: Alexander Kaufmann
+    name: comet-site-preview
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-preview-1.0.0/comet-site-preview-1.0.0.tgz
+    version: 1.0.0
   - apiVersion: v2
     created: "2024-07-09T10:59:08.005609882Z"
     description: Helm chart for a Comet Site-Preview Microservice
@@ -1415,4 +1519,4 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.9.0/imgproxy-0.9.0.tgz
     version: 0.9.0
-generated: "2024-07-09T10:59:08.005828077Z"
+generated: "2024-07-09T11:09:12.326325797Z"
