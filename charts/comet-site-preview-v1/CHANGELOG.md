@@ -1,5 +1,11 @@
 # comet-site-preview-v1
 
+## 1.0.1
+
+### Patch Changes
+
+- 4662d93: Remove dash after if to fix yaml formatting
+
 ## 1.0.0
 
 ### Major Changes
