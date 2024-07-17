@@ -1,5 +1,11 @@
 # comet-site-v1
 
+## 1.0.2
+
+### Patch Changes
+
+- 67ee4af: Only render additional pvc labels, if there are any
+
 ## 1.0.1
 
 ### Patch Changes
