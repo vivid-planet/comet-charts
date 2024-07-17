@@ -9,7 +9,9 @@ metadata:
   {{- end }}
   labels:
     {{- include "comet-site.labels" . | nindent 4 }}
+    {{- if .Values.pvc.additionalLabels }}
     {{- toYaml .Values.pvc.additionalLabels | nindent 4 }}
+    {{- end }}
   {{- with .Values.pvc.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
