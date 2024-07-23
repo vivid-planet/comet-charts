@@ -104,7 +104,7 @@ cronJobs:
   blck-indx-mgrt-blks:
     enabled: true
     command: "npm run console:prod migrateBlocks && npm run console:prod createBlockIndexViews"
-    schedule: "0 0 30 2 0" # 30th of February, will never run automatically
+    schedule: "0 0 30 2 *" # 30th of February, will never run automatically
     activeDeadlineSeconds: 1200
     additionalLabels: {}
     additionalPodLabels: {}
