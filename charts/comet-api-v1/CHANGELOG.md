@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.0.1
+
+### Patch Changes
+
+- d07eb54: Fix schedule for blck-indx-mgrt-blks job to really never run
+
 ## 1.0.0
 
 ### Major Changes
