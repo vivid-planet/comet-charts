@@ -117,13 +117,13 @@ spec:
           {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- if .Values.builder.enabled }}
           volumeMounts:
+          {{- if .Values.builder.enabled }}
             - mountPath: /mnt/generated-sites/
               name: generated-sites
+          {{- end }}
             - mountPath: /opt/app-root/src/.next
               name: document-root
-          {{- end }}
           ports:
             - name: http
               containerPort: 3000
@@ -156,8 +156,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- if .Values.builder.enabled }}
       volumes:
+    {{- if .Values.builder.enabled }}
         - name: generated-sites
           persistentVolumeClaim:
           {{- if and .Values.pvc.create .Values.pvc.name }}
@@ -169,6 +169,6 @@ spec:
           {{- end }}
         - name: tmp
           emptyDir: {}
+    {{- end }}
         - name: document-root
           emptyDir: {}
-    {{- end }}
