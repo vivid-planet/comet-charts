@@ -1,5 +1,11 @@
 # comet-site-v1
 
+## 1.0.3
+
+### Patch Changes
+
+- d080998: Fix document-root mount if builder is not enabled
+
 ## 1.0.2
 
 ### Patch Changes
