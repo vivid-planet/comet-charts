@@ -79,8 +79,10 @@ spec:
             - mountPath: /tmp
               name: tmp
           {{- end }}
+          {{- if .Values.mountEmptyDirAsNextFolder }}
             - mountPath: /opt/app-root/src/.next
               name: document-root
+          {{- end }}
           resources:
             {{- toYaml .Values.initContainer.resources | nindent 12 }}
       {{- end }}
@@ -122,8 +124,10 @@ spec:
             - mountPath: /mnt/generated-sites/
               name: generated-sites
           {{- end }}
+          {{- if .Values.mountEmptyDirAsNextFolder }}
             - mountPath: /opt/app-root/src/.next
               name: document-root
+          {{- end }}
           ports:
             - name: http
               containerPort: 3000
@@ -170,5 +174,7 @@ spec:
         - name: tmp
           emptyDir: {}
     {{- end }}
+    {{- if .Values.mountEmptyDirAsNextFolder }}
         - name: document-root
           emptyDir: {}
+    {{- end }}
