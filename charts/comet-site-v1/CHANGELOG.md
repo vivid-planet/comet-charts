@@ -1,5 +1,11 @@
 # comet-site-v1
 
+## 1.1.0
+
+### Minor Changes
+
+- 76c35bb: Add option to mount .next folder as emptyDir
+
 ## 1.0.3
 
 ### Patch Changes
