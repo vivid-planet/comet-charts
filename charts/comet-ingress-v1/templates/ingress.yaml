@@ -1,4 +1,4 @@
-{{- range $index, $i := .Values.ingress }}
+{{- range $index, $i := .Values.ingresses }}
 {{ if or (kindIs "string" $i.hostname) (gt (len $i.hostname) 0) }}
 ---
 apiVersion: networking.k8s.io/v1

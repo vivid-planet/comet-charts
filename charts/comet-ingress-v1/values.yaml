@@ -7,7 +7,7 @@ annotations:
   nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
 
 # Example Ingress configuration:
-# ingress:
+# ingresses:
 #   - hostname: admin.comet-dxp.com
 #     service:
 #       name: comet-oauth2-proxy
