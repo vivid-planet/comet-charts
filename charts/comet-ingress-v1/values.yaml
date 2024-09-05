@@ -1,0 +1,25 @@
+# Default values for comet-ingress.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+annotations:
+  cert-manager.io/cluster-issuer: "letsencrypt"
+  nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
+
+# Example Ingress configuration:
+# ingresses:
+#   - hostname: admin.comet-dxp.com
+#     service:
+#       name: comet-oauth2-proxy
+#       port:
+#         number: 3000
+#   - hostname: preview.comet-dxp.com
+#     service:
+#       name: comet-oauth2-proxy-preview
+#       port:
+#         number: 3000
+#   - hostname: ["site.comet-dxp.com"]
+#     service:
+#       name: comet-site
+#       port:
+#         number: 3000
