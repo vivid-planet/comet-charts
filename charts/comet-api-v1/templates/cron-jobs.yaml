@@ -55,6 +55,13 @@ spec:
               {{- end }}
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               command: ["bash", "-c", {{ $job.command }}]
+              {{- if $job.env }}
+              env:
+                {{- range $key, $val := $job.env }}
+                - name: {{ $key }}
+                  value: {{ $val | quote }}
+                {{- end }}
+              {{- end }}
               envFrom:
                 {{- if .Values.env }}
                 - configMapRef:
