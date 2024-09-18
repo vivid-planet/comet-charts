@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.1.0
+
+### Minor Changes
+
+- 568bfff: allow custom env variables per cronjob
+
 ## 1.0.1
 
 ### Patch Changes
