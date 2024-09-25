@@ -32,6 +32,23 @@ resources:
     cpu: 50m
     memory: 200Mi
 
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+  # Configuration for the container that will mount the service account token
+  volumeMounts:
+    # Name of the volume mount for the service account token
+    name: "service-account"
+    # Path where the service account token will be mounted inside the container
+    mountPath: "/var/run/secrets/kubernetes.io/serviceaccount"
+    # Ensures the mounted service account token is read-only
+    readOnly: true
+
 initContainer:
   enabled: false # can be used to enable initContainer even though builder is disabled
 
@@ -48,7 +65,7 @@ builder:
 
   schedule: "0 6 * * *"
 
-  autoMountServiceAccountToken: true
+  autoMountServiceAccountToken: false
 
   additionalPodLabels: {}
 

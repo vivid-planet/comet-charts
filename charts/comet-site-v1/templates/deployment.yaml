@@ -128,6 +128,9 @@ spec:
             - mountPath: /opt/app-root/src/.next
               name: document-root
           {{- end }}
+            - mountPath: {{ .Values.serviceAccount.volumeMounts.mountPath }}
+              name: {{ .Values.serviceAccount.volumeMounts.name }}
+              readOnly: {{ .Values.serviceAccount.volumeMounts.readOnly}}
           ports:
             - name: http
               containerPort: 3000
@@ -161,6 +164,9 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       volumes:
+        - name: {{ .Values.serviceAccount.volumeMounts.name }}
+          secret:
+            secretName: {{ include "comet-site.fullname" . }}-service-account
     {{- if .Values.builder.enabled }}
         - name: generated-sites
           persistentVolumeClaim:

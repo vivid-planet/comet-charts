@@ -21,6 +21,14 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+  # Configuration for the container that will mount the service account token
+  volumeMounts:
+    # Name of the volume mount for the service account token
+    name: "service-account"
+    # Path where the service account token will be mounted inside the container
+    mountPath: "/var/run/secrets/kubernetes.io/serviceaccount"
+    # Ensures the mounted service account token is read-only
+    readOnly: true
 
 podAnnotations: {}
 
@@ -37,7 +45,7 @@ securityContext:
   # runAsNonRoot: true
   # runAsUser: 1000
 
-autoMountServiceAccountToken: true
+autoMountServiceAccountToken: false
 
 service:
   type: ClusterIP

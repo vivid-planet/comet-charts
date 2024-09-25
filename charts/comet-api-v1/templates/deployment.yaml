@@ -71,6 +71,9 @@ spec:
           volumeMounts:
             - mountPath: /tmp
               name: tmp
+            - mountPath: {{ .Values.serviceAccount.volumeMounts.mountPath }}
+              name: {{ .Values.serviceAccount.volumeMounts.name }}
+              readOnly: {{ .Values.serviceAccount.volumeMounts.readOnly}}
       initContainers:
         - name: {{ .Chart.Name }}-migrations
           securityContext:
@@ -117,3 +120,6 @@ spec:
         - name: tmp
           emptyDir:
             sizeLimit: "1Gi"
+        - name: {{ .Values.serviceAccount.volumeMounts.name }}
+          secret:
+            secretName: {{ include "comet-api.fullname" . }}-service-account
