@@ -1,0 +1,16 @@
+{{- if .Values.serviceAccount.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "comet-api.roleName" . }}
+rules:
+  - apiGroups: ["batch"] # Permissions for batch API group (used for managing cronjobs and jobs)
+    resources: ["cronjobs", "jobs"]
+    verbs: ["get", "list", "create", "delete"]
+  - apiGroups: [""] # Permissions for core API group (used for managing pods)
+    resources: ["pods"]
+    verbs: ["get", "list"]
+  - apiGroups: [""] # Permissions for core API group (used for accessing pod logs)
+    resources: ["pods/log"]
+    verbs: ["get"]
+{{- end}}
