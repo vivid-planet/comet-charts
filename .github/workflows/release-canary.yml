@@ -63,3 +63,14 @@ jobs:
           mark_as_latest: false
         env:
             CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Wait for release creation
+        run: sleep 10
+
+      - name: Disable Release Notes
+        run: |
+          # Edit the release created by the chart-releaser-action to remove notes
+          release_id=$(gh release view --json id -q '.id')
+          gh release view $release_id --json body -q '.body'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
