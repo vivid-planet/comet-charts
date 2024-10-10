@@ -164,9 +164,11 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       volumes:
+        {{- if .Values.serviceAccount.create }}
         - name: "service-account"
           secret:
             secretName: {{ include "comet-site.fullname" . }}-service-account-token
+        {{- end }}
     {{- if .Values.builder.enabled }}
         - name: generated-sites
           persistentVolumeClaim:
