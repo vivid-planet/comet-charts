@@ -166,7 +166,7 @@ spec:
       volumes:
         - name: "service-account"
           secret:
-            secretName: {{ include "comet-site.fullname" . }}-service-account
+            secretName: {{ include "comet-site.fullname" . }}-service-account-token
     {{- if .Values.builder.enabled }}
         - name: generated-sites
           persistentVolumeClaim:

@@ -122,4 +122,4 @@ spec:
             sizeLimit: "1Gi"
         - name: "service-account"
           secret:
-            secretName: {{ include "comet-api.fullname" . }}-service-account
+            secretName: {{ include "comet-api.fullname" . }}-service-account-token
