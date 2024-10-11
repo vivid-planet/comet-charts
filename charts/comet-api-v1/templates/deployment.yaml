@@ -71,6 +71,9 @@ spec:
           volumeMounts:
             - mountPath: /tmp
               name: tmp
+            - mountPath: "/var/run/secrets/kubernetes.io/serviceaccount"
+              name: service-account
+              readOnly: true
       initContainers:
         - name: {{ .Chart.Name }}-migrations
           securityContext:
@@ -117,3 +120,8 @@ spec:
         - name: tmp
           emptyDir:
             sizeLimit: "1Gi"
+        {{- if .Values.serviceAccount.create }}
+        - name: "service-account"
+          secret:
+            secretName: {{ include "comet-api.fullname" . }}-service-account-token
+        {{- end }}
