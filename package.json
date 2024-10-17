@@ -1,14 +1,18 @@
 {
-  "name": "comet-charts",
-  "version": "1.0.0",
-  "description": "Helm charts for Comet DXP.",
-  "workspaces": [
-    "charts/*"
-  ],
-  "scripts": {
-    "changeset:version": "changeset version && node sync-versions.js"
-  },
-  "dependencies": {
-    "@changesets/cli": "^2.27.1"
-  }
+    "name": "comet-charts",
+    "version": "1.0.0",
+    "description": "Helm charts for Comet DXP.",
+    "workspaces": [
+        "charts/*"
+    ],
+    "scripts": {
+        "prepare": "husky",
+        "changeset:version": "changeset version && node sync-versions.js"
+    },
+    "dependencies": {
+        "@changesets/cli": "^2.27.1",
+        "husky": "^9.1.6",
+        "lint-staged": "^15.2.10",
+        "prettier": "^3.3.3"
+    }
 }

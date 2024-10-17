@@ -1,6 +1,6 @@
-const fs = require('fs');
+const fs = require("fs");
 
-fs.readdirSync('charts').forEach(dir => {
+fs.readdirSync("charts").forEach((dir) => {
     const version = require(`./charts/${dir}/package.json`).version;
 
     const filename = `./charts/${dir}/Chart.yaml`;

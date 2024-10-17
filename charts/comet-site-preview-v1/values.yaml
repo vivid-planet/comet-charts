@@ -38,7 +38,7 @@ initContainer:
       cpu: 50m
       memory: 512Mi
 
-livenessProbe: 
+livenessProbe:
   path: "/site/api/status"
 
 readinessProbe:
