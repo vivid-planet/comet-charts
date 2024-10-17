@@ -6,7 +6,8 @@
     "charts/*"
   ],
   "scripts": {
-    "changeset:version": "changeset version && node sync-versions.js"
+    "changeset:version": "changeset version && node sync-versions.js",
+    "changeset:snapshot-version": "changeset version --snapshot canary && node sync-versions.js"
   },
   "dependencies": {
     "@changesets/cli": "^2.27.1"

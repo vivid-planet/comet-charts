@@ -1,0 +1,76 @@
+name: Release Canary
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release-canary:
+    name: Release Canary
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Install NPM Dependencies
+        run: npm ci --no-audit --no-fund
+
+      # https://github.com/helm/chart-releaser-action/issues/74#issuecomment-1206111172
+      - name: Add Helm repositories
+        run: |
+          for dir in $(ls -d charts/*/); do
+            helm dependency list $dir 2> /dev/null | tail +2 | head -n -1 | awk '{ print "helm repo add " $1 " " $3 }' | while read cmd; do $cmd; done
+          done
+
+      - name: Create canary version
+        run: |
+          echo --- > .changeset/canary.md
+          echo '"comet-admin-v1": patch' >> .changeset/canary.md
+          echo '"comet-api-v1": patch' >> .changeset/canary.md
+          echo '"comet-authproxy-v1": patch' >> .changeset/canary.md
+          echo '"comet-ingress-v1": patch' >> .changeset/canary.md
+          echo '"comet-site-preview-v1": patch' >> .changeset/canary.md
+          echo '"comet-site-v1": patch' >> .changeset/canary.md
+          echo '"imgproxy": patch' >> .changeset/canary.md
+          echo --- >> .changeset/canary.md
+          echo >> .changeset/canary.md
+          echo fake change to always get a canary release >> .changeset/canary.md
+          npm run changeset:snapshot-version
+
+      - name: Run chart-releaser for comet-charts
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          config: cr-snapshot.yaml
+          mark_as_latest: false
+        env:
+            CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Wait for release creation
+        run: sleep 10
+
+      - name: Disable Release Notes
+        run: |
+          # Edit the release created by the chart-releaser-action to remove notes
+          release_id=$(gh release view --json id -q '.id')
+          gh release view $release_id --json body -q '.body'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
