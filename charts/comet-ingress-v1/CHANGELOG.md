@@ -4,6 +4,6 @@
 
 ### Major Changes
 
-- 6ae395f: Add `comet-ingress` chart
+-   6ae395f: Add `comet-ingress` chart
 
-  Provides a centralized configuration for ingresses to avoid confusion on which ingress should point to which service.
+    Provides a centralized configuration for ingresses to avoid confusion on which ingress should point to which service.
