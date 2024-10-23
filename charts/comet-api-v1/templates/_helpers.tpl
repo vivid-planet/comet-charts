@@ -66,6 +66,6 @@ Create the name of the api role to use
 */}}
 {{- define "comet-api.roleName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- printf "%s-role" (default (include "comet-api.fullname" .) .Values.serviceAccount.name) }}
+{{- default (include "comet-api.fullname" .) .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
