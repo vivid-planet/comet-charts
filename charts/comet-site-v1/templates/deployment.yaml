@@ -128,6 +128,9 @@ spec:
             - mountPath: /opt/app-root/src/.next
               name: document-root
           {{- end }}
+            - mountPath: "/var/run/secrets/kubernetes.io/serviceaccount"
+              name: "service-account"
+              readOnly: true
           ports:
             - name: http
               containerPort: 3000
@@ -161,6 +164,11 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       volumes:
+        {{- if .Values.serviceAccount.create }}
+        - name: "service-account"
+          secret:
+            secretName: {{ include "comet-site.fullname" . }}-service-account-token
+        {{- end }}
     {{- if .Values.builder.enabled }}
         - name: generated-sites
           persistentVolumeClaim:
