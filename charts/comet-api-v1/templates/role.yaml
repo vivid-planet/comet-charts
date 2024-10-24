@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ include "comet-api.roleName" . }}
+  name: {{ include "comet-api.serviceAccountName" . }}
 rules:
   - apiGroups: ["batch"] # Permissions for batch API group (used for managing cronjobs and jobs)
     resources: ["cronjobs", "jobs"]
