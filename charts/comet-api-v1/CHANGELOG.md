@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.2.0
+
+### Minor Changes
+
+-   b53cfa1: Create a Role to enforce least privilege for the ServiceAccount
+
 ## 1.1.0
 
 ### Minor Changes
