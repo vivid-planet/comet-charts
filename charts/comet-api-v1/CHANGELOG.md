@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.2.1
+
+### Patch Changes
+
+-   6a2c283: Rename comet-api RoleBinding to avoid conflict with existing RoleBinding due to roleRef changes
+
 ## 1.2.0
 
 ### Minor Changes
