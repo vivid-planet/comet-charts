@@ -71,9 +71,11 @@ spec:
           volumeMounts:
             - mountPath: /tmp
               name: tmp
+            {{- if .Values.serviceAccount.create }}
             - mountPath: "/var/run/secrets/kubernetes.io/serviceaccount"
               name: service-account
               readOnly: true
+            {{- end }}
       initContainers:
         - name: {{ .Chart.Name }}-migrations
           securityContext:
