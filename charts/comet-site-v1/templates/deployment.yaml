@@ -128,9 +128,11 @@ spec:
             - mountPath: /opt/app-root/src/.next
               name: document-root
           {{- end }}
+          {{- if .Values.serviceAccount.create }}
             - mountPath: "/var/run/secrets/kubernetes.io/serviceaccount"
               name: "service-account"
               readOnly: true
+          {{- end }}
           ports:
             - name: http
               containerPort: 3000
