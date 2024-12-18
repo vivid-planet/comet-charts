@@ -20,9 +20,6 @@ spec:
         {{- if .Values.image.pullSecret }}
         checksum/image-pull-secret: {{ include (print $.Template.BasePath "/image-pull-secret.yaml") . | sha256sum }}
         {{- end }}
-        {{- if and (.Values.prelogin.enabled) (.Values.prelogin.secrets) }}
-        checksum/prelogin-secret: {{ include (print $.Template.BasePath "/prelogin-secret.yaml") . | sha256sum }}
-        {{- end }}
         {{- if .Values.secrets }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
         {{- end }}
