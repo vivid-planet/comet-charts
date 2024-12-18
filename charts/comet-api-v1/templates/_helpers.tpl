@@ -46,6 +46,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "comet-api.selectorLabels" -}}
+app: {{ include "comet-api.fullname" . }}
 app.kubernetes.io/name: {{ include "comet-api.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
