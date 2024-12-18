@@ -36,14 +36,16 @@ spec:
             {{ $i.service | toYaml | nindent 12 }}
   {{- end }}
   tls:
-  - hosts:
     {{- if kindIs "slice" $i.hostname }}
-    {{- range $k := $i.hostname }}
-    - {{ $k }}
+    {{- range $j, $k := $i.hostname }}
+    - hosts:
+      - {{ $k }}
+      secretName: {{ $i.service.name }}-{{ $j }}-cert
     {{- end }}
     {{- else }}
-    - {{ $i.hostname }}
+    - hosts:
+      - {{ $i.hostname }}
+      secretName: {{ $i.service.name }}-cert
     {{- end }}
-    secretName: {{ $i.service.name }}-cert
 {{- end }}
 {{- end }}
