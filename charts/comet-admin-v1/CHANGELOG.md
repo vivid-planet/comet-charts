@@ -1,5 +1,11 @@
 # comet-admin-v1
 
+## 1.1.0
+
+### Minor Changes
+
+-   190295a: Add app label to api and admin charts to match the existing label configuration
+
 ## 1.0.0
 
 ### Major Changes

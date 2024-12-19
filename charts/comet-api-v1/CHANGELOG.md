@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.3.0
+
+### Minor Changes
+
+-   190295a: Add app label to api and admin charts to match the existing label configuration
+
 ## 1.2.1
 
 ### Patch Changes
