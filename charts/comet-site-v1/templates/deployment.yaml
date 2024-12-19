@@ -13,6 +13,16 @@ spec:
       {{- include "comet-site.selectorMatchLabels" . | nindent 6 }}
   template:
     metadata:
+      annotations:
+        {{- if .Values.env }}
+        checksum/config-map: {{ include (print $.Template.BasePath "/config-map.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if .Values.image.pullSecret }}
+        checksum/image-pull-secret: {{ include (print $.Template.BasePath "/image-pull-secret.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if .Values.secrets }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- end }}
       labels:
         {{- include "comet-site.selectorLabels" . | nindent 8 }}
         {{- range $key, $val := .Values.additionalPodLabels }}
