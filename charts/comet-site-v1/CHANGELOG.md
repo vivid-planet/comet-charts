@@ -1,5 +1,11 @@
 # comet-site-v1
 
+## 1.2.0
+
+### Minor Changes
+
+-   Split selectorLabels into selectorLabels and selectorMatchLabels in comet-admin, comet-api and comet-site templates to modify pod labels without using additionalPodLabels parameter and without changing the matchLabels section
+
 ## 1.1.0
 
 ### Minor Changes
