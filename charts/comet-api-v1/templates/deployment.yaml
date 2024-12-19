@@ -45,6 +45,11 @@ spec:
             - name: http
               containerPort: 3000
               protocol: TCP
+            {{- if .Values.metrics.enabled }}
+            - name: metrics
+              containerPort: {{ .Values.metrics.containerPorts.http }}
+              protocol: TCP
+            {{- end }}
           envFrom:
             {{- if .Values.env }}
             - configMapRef:

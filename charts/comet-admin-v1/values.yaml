@@ -37,6 +37,11 @@ service:
   type: ClusterIP
   port: 3000
 
+metrics:
+  enabled: false
+  containerPorts:
+    http: 9466
+
 ingress:
   enabled: false
   annotations:
