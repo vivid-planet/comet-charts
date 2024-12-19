@@ -44,6 +44,11 @@ spec:
             - name: http
               containerPort: 3000
               protocol: TCP
+            {{- if .Values.metrics.enabled }}
+            - name: metrics
+              containerPort: {{ .Values.metrics.containerPorts.http }}
+              protocol: TCP
+            {{- end }}
           env:
             - name: NODE_ENV
               value: "{{ .Values.nodeEnv }}"

@@ -24,6 +24,11 @@ service:
   type: ClusterIP
   port: 3000
 
+metrics:
+  enabled: false
+  containerPorts:
+    http: 9464
+
 resources:
   limits:
     memory: 200Mi
