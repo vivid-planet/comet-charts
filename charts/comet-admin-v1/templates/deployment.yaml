@@ -10,7 +10,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "comet-admin.selectorLabels" . | nindent 6 }}
+      {{- include "comet-admin.selectorMatchLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}

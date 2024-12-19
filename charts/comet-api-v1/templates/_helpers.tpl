@@ -52,6 +52,15 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Selector matchLabels
+*/}}
+{{- define "comet-api.selectorMatchLabels" -}}
+app.kubernetes.io/name: {{ include "comet-api.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "comet-api.serviceAccountName" -}}

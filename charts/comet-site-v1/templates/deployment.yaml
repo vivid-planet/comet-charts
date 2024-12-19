@@ -10,7 +10,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "comet-site.selectorLabels" . | nindent 6 }}
+      {{- include "comet-site.selectorMatchLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
