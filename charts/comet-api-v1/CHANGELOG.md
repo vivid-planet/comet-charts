@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.5.0
+
+### Minor Changes
+
+-   Add configuration to expose metrics port
+
 ## 1.4.0
 
 ### Minor Changes
