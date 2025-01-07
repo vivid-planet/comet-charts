@@ -1,5 +1,11 @@
 # comet-site-preview-v1
 
+## 1.1.0
+
+### Minor Changes
+
+-   41235fb: feat: add checksum annotations for auto-rollout on ConfigMap and Secret updates in Deployment templates
+
 ## 1.0.1
 
 ### Patch Changes
