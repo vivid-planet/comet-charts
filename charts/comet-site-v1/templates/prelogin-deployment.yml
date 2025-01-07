@@ -12,6 +12,10 @@ spec:
       {{- include "comet-site.prelogin.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      annotations:
+        {{- if and (.Values.prelogin.enabled) (.Values.prelogin.secrets) }}
+        checksum/prelogin-secret: {{ include (print $.Template.BasePath "/prelogin-secret.yaml") . | sha256sum }}
+        {{- end }}
       labels:
         {{- include "comet-site.prelogin.selectorLabels" . | nindent 8 }}
         {{- range $key, $val := .Values.prelogin.additionalPodLabels }}
