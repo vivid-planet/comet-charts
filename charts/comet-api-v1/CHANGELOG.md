@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.6.0
+
+### Minor Changes
+
+-   41235fb: feat: add checksum annotations for auto-rollout on ConfigMap and Secret updates in Deployment templates
+
 ## 1.5.0
 
 ### Minor Changes
