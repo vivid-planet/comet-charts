@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.6.1
+
+### Patch Changes
+
+-   de5da4d: Allow override of resources for init container
+
 ## 1.6.0
 
 ### Minor Changes
