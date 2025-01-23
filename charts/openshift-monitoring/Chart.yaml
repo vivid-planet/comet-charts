@@ -1,0 +1,18 @@
+apiVersion: v2
+name: openshift-monitoring
+description: A Helm chart for OpenShift Monitoring components
+type: application
+
+maintainers:
+  - name: Daniel Karnutsch
+    email: daniel.karnutsch@vivid-planet.com
+  - name: Georg Schreglmann
+    email: georg.schreglmann@vivid-planet.com
+  - name: Franz Unger
+    email: franz.unger@vivid-planet.com
+  - name: Alexander Kaufmann
+    email: alexander.kaufmann@vivid-planet.com
+  - name: Philipp Pregernigg
+    email: philipp.pregernigg@vivid-planet.com
+
+version: 0.0.0
