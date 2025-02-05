@@ -11,5 +11,11 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    {{- if .Values.metrics.enabled }}
+    - name: metrics
+      protocol: TCP
+      port: {{ .Values.metrics.containerPorts.http }}
+      targetPort: metrics
+    {{- end }}
   selector:
     {{- include "comet-site.selectorLabels" . | nindent 4 }}
