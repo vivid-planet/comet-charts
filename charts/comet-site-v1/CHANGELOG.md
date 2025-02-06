@@ -1,5 +1,11 @@
 # comet-site-v1
 
+## 1.5.0
+
+### Minor Changes
+
+-   e0fc0ee: Add configuration to expose metrics port for services
+
 ## 1.4.0
 
 ### Minor Changes
