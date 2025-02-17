@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.8.0
+
+### Minor Changes
+
+-   740071c: Add timeZone configuration to cronjobs definition
+
 ## 1.7.0
 
 ### Minor Changes
