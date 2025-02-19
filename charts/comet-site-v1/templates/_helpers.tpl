@@ -80,3 +80,14 @@ app: {{ include "comet-site.fullname" . }}-prelogin
 app.kubernetes.io/name: {{ include "comet-site.name" . }}-prelogin
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "comet-site.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "comet-site.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
