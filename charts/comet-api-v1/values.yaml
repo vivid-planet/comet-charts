@@ -85,17 +85,22 @@ tolerations: []
 
 affinity: {}
 
+startupProbe: # Checks every periodSeconds for failureThreshold times
+  httpGet:
+    path: /api/status/liveness
+    port: http
+  failureThreshold: 60
+  periodSeconds: 3
+
 livenessProbe:
   httpGet:
     path: /api/status/liveness
     port: http
-  initialDelaySeconds: 5
 
 readinessProbe:
   httpGet:
     path: /api/status/liveness
     port: http
-  initialDelaySeconds: 5
 
 migrateCommand: "npm run console:prod migrate"
 
