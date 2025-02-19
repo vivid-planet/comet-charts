@@ -87,7 +87,7 @@ affinity: {}
 
 startupProbe: # Checks every periodSeconds for failureThreshold times
   httpGet:
-    path: /api/status/liveness
+    path: /api/status/readiness
     port: http
   failureThreshold: 60
   periodSeconds: 3
@@ -99,7 +99,7 @@ livenessProbe:
 
 readinessProbe:
   httpGet:
-    path: /api/status/liveness
+    path: /api/status/readiness
     port: http
 
 migrateCommand: "npm run console:prod migrate"
