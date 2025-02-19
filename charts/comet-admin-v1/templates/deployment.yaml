@@ -10,11 +10,14 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "comet-admin.selectorLabels" . | nindent 6 }}
+      {{- include "comet-admin.selectorMatchLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
       annotations:
+        {{- if .Values.image.pullSecret }}
+        checksum/image-pull-secret: {{ include (print $.Template.BasePath "/image-pull-secret.yaml") . | sha256sum }}
+        {{- end }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
@@ -44,6 +47,11 @@ spec:
             - name: http
               containerPort: 3000
               protocol: TCP
+            {{- if .Values.metrics.enabled }}
+            - name: metrics
+              containerPort: {{ .Values.metrics.containerPorts.http }}
+              protocol: TCP
+            {{- end }}
           env:
             - name: NODE_ENV
               value: "{{ .Values.nodeEnv }}"

@@ -40,6 +40,11 @@ service:
   type: ClusterIP
   port: 3000
 
+metrics:
+  enabled: false
+  containerPorts:
+    http: 9465
+
 ingress:
   enabled: false
   annotations:
@@ -55,6 +60,15 @@ resources:
   requests:
     cpu: 50m
     memory: 256Mi
+
+initContainer:
+  resources:
+    limits:
+      cpu: 1
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
 
 autoscaling:
   enabled: false

@@ -18,7 +18,6 @@ licenseKey: ""
 
 # Configure K8s resources
 resources:
-
   # Settings applied to every single resource of the chart.
   common:
     labels: {}
@@ -27,7 +26,6 @@ resources:
     autoMountServiceAccountToken: true
     # https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority
     priority:
-
       # The name of the priority class to be used in both pod.PriorityClassName
       # and the PriorityClass (when a level is above 0).
       # When a level is not set, or set to 0 (default), then the definition
@@ -58,7 +56,6 @@ resources:
     #
     # This part can be skipped, in that case 1 replica will be used.
     replicas:
-
       # The default number of replicas to start from (default 1)
       default: 1
 
@@ -163,13 +160,15 @@ resources:
     # A security context defines privilege and access control settings for the deployment.
     # Check available settings in the documentation by link:
     # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-    podSecurityContext: {}
+    podSecurityContext:
+      {}
       # fsGroup: 999
 
       # A security context defines privilege and access control settings for containers.
       # Check available settings in the documentation by link:
       ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-    containerSecurityContext: {}
+    containerSecurityContext:
+      {}
       # runAsUser: 999
       # runAsNonRoot: true
       # allowPrivilegeEscalation: false
@@ -206,7 +205,6 @@ resources:
     nodePort:
     # - 192.168.1.1/24
     # - 10.0.0.1/20
-
 
   serviceAccount:
     # The name of the EXISTING service account to be used.
@@ -303,10 +301,8 @@ persistence:
 # Configure imgproxy features
 # https://docs.imgproxy.net/configuration
 features:
-
   # https://docs.imgproxy.net/configuration?id=url-signature
   urlSignature:
-
     # If URL signature is enabled
     enabled: true
 
@@ -324,7 +320,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=server
   server:
-
     # ENV['IMGPROXY_READ_TIMEOUT']
     # The maximum duration (in seconds) for reading the entire image request, including the body
     readTimeout: "10"
@@ -432,7 +427,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=security
   security:
-
     # ENV['IMGPROXY_SECRET']
     # the authorization token. If specified, the HTTP request should contain the `Authorization: Bearer %secret%` header
     secret: ""
@@ -522,7 +516,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=cookies
   cookies:
-
     # ENV['IMGPROXY_COOKIE_PASSTHROUGH']
     # when true, incoming cookies will be passed through to the image request
     # if they are applicable for the image URL
@@ -537,7 +530,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=compression
   compression:
-
     # ENV['IMGPROXY_QUALITY']
     # default quality of the resulting image, percentage.
     quality: "80"
@@ -618,7 +610,6 @@ features:
   # PRO, v3+: calculate quality for your resulting images so they fit the selected metric the best.
   # https://docs.imgproxy.net/autoquality?id=autoquality
   autoquality:
-
     # ENV['IMGPROXY_AUTOQUALITY_METHOD']
     # Enabled values: none | size | dssim | ml
     # Default: none
@@ -683,10 +674,8 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=avifwebp-support-detection
   formatsSupportDetection:
-
     # Enforce/enable webP detection/usage
     webp:
-
       # ENV['IMGPROXY_ENABLE_WEBP_DETECTION']
       # enables WebP support detection.
       # When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format
@@ -698,7 +687,6 @@ features:
 
     # Enforce/enable AVIF detection/usage
     avif:
-
       # ENV['IMGPROXY_ENABLE_AVIF_DETECTION']
       # enables AVIF support detection. When the file extension is omitted in the imgproxy URL and browser supports AVIF, imgproxy will use it as the resulting format
       enabled: false
@@ -709,14 +697,12 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=client-hints-support
   clientHintsSupport:
-
     # ENV['IMGPROXY_ENABLE_CLIENT_HINTS']
     # enables Client Hints support to determine default width and DPR options.
     enabled: false
 
   # https://docs.imgproxy.net/configuration?id=video-thumbnails
   videoThumbnails:
-
     # ENV['IMGPROXY_ENABLE_VIDEO_THUMBNAILS']
     # PRO: then true, enables video thumbnails generation.
     enabled: false
@@ -735,7 +721,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=watermark
   watermark:
-
     # ENV['IMGPROXY_WATERMARK_DATA']
     # Base64-encoded image data. You can easily calculate it with `base64 tmp/watermark.png | tr -d '\n'`
     data: ""
@@ -758,7 +743,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=unsharpening
   unsharpening:
-
     # ENV['IMGPROXY_UNSHARPENING_MODE']
     # PRO: controls when unsharpenning mask should be applied.
     # The following modes are supported: `auto`, `none`, `always'
@@ -778,7 +762,6 @@ features:
   # bluring the detections, or drawing the detections.
   # https://docs.imgproxy.net/configuration?id=object-detection
   objectDetection:
-
     # If the object detection is enabled
     enabled: false
 
@@ -815,7 +798,6 @@ features:
   # PRO, v3.14+
   # https://docs.imgproxy.net/latest/configuration?id=smart-crop
   smartCrop:
-
     # ENV['IMGPROXY_SMART_CROP_ADVANCED']
     # When true, enables usage of the advanced smart crop method.
     # Advanced smart crop may take more time than regular one, yet it produces better results.
@@ -827,7 +809,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=fallback-image
   fallbackImage:
-
     # ENV['IMGPROXY_FALLBACK_IMAGE_DATA']
     # Base64-encoded image data. You can easily calculate it with `base64 tmp/fallback.png | tr -d '\n'`
     data: ""
@@ -864,7 +845,6 @@ features:
     skipProcessing: ""
 
   skipProcessing:
-
     # DEPRECATED: to be removed in v0.9.0
     # Use `formats.skipProcessing` instead
     # ENV['IMGPROXY_SKIP_PROCESSING_FORMATS']
@@ -873,7 +853,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=presets
   presets:
-
     # ENV['IMGPROXY_PRESETS']
     # set of preset definitions, comma-divided.
     # Example: `default=resizing_type:fill/enlarge:1,sharp=sharpen:0.7,blurry=blur:2`.
@@ -885,7 +864,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=serving-files-from-amazon-s3
   aws:
-
     # ENV['IMGPROXY_USE_S3']
     # when `true`, enables image fetching from Amazon S3 buckets.
     enabled: false
@@ -915,7 +893,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=serving-files-from-google-cloud-storage
   gcs:
-
     # Enable GCS as backend for images
     enabled: false
 
@@ -929,7 +906,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=serving-files-from-azure-blob-storage
   abs:
-
     # ENV['IMGPROXY_USE_ABS']
     # when `true`, enables image fetching from Azure Blob Storage (ABS) containers.
     enabled: false
@@ -948,7 +924,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=new-relic-metrics
   newRelic:
-
     enabled: false
 
     # ENV['IMGPROXY_NEW_RELIC_KEY']
@@ -965,7 +940,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=prometheus-metrics
   prometheus:
-
     enabled: false
 
     # ENV['IMGPROXY_PROMETHEUS_NAMESPACE']
@@ -978,7 +952,6 @@ features:
   # Integration to Datadog (v3+)
   # https://docs.imgproxy.net/configuration?id=datadog-metrics
   datadog:
-
     # ENV['IMGPROXY_DATADOG_ENABLE']
     # When provided, enables error reporting to Datadog
     enabled: false
@@ -1046,7 +1019,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=opentelemetry-metrics
   openTelemetry:
-
     # ENV['IMGPROXY_OPEN_TELEMETRY_ENABLE_METRICS']
     # When `true`, imgproxy will send metrics over OpenTelemetry Metrics API. Default: `false`
     enabled: false
@@ -1096,7 +1068,6 @@ features:
 
   # https://docs.imgproxy.net/latest/cloud_watch?id=amazon-cloudwatch
   amazonCloudWatch:
-
     # ENV['IMGPROXY_CLOUD_WATCH_SERVICE_NAME']
     # The value of the ServiceName dimension which will be used in the metrics. Default: blank
     serviceName: ~
@@ -1111,10 +1082,8 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=error-reporting
   errorReporting:
-
     # Integration to Bugsnag
     bugsnag:
-
       # When provided, enables error reporting to Bugsnag
       enabled: false
 
@@ -1128,7 +1097,6 @@ features:
 
     # Integration to Honeybadger
     honeybadger:
-
       # When provided, enables error reporting to Honeybadger
       enabled: false
 
@@ -1142,7 +1110,6 @@ features:
 
     # Integration to Sentry
     sentry:
-
       #  When provided, enables error reporting to Sentry
       enabled: false
 
@@ -1164,7 +1131,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=log
   logging:
-
     # ENV['IMGPROXY_LOG_FORMAT']
     # the log format. The following formats are supported: pretty, structured, json, gcp
     # - pretty: (default) colored human-readable format;
@@ -1180,7 +1146,6 @@ features:
     # Enable Syslog integration
     #
     syslog:
-
       # ENV['IMGPROXY_SYSLOG_ENABLE']
       # when `true`, enables sending logs to syslog
       enabled: false
@@ -1203,7 +1168,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=memory-usage-tweaks
   memoryUsageTweaks:
-
     # ENV['IMGPROXY_DOWNLOAD_BUFFER_SIZE']
     # the initial size (in bytes) of a single download buffer. When zero, initializes empty download buffers.
     downloadBufferSize: "0"
@@ -1222,7 +1186,6 @@ features:
 
   # https://docs.imgproxy.net/configuration?id=miscellaneous
   miscellaneous:
-
     # ENV['IMGPROXY_BASE_URL']
     # base URL prefix that will be added to every requested image URL. For example, if the base URL is `http://example.com/images` and `/path/to/image.png` is requested, imgproxy will download the source image from `http://example.com/images/path/to/image.png`.
     baseUrl: ""
@@ -1279,7 +1242,6 @@ features:
     svgFixUnsupported: false
 
     healthCheck:
-
       # ENV['IMGPROXY_HEALTH_CHECK_MESSAGE']
       # (v3.3+, Pro) The content of the health check response
       message: ""

@@ -10,11 +10,20 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "comet-api.selectorLabels" . | nindent 6 }}
+      {{- include "comet-api.selectorMatchLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
       annotations:
+        {{- if .Values.env }}
+        checksum/config-map: {{ include (print $.Template.BasePath "/config-map.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if .Values.image.pullSecret }}
+        checksum/image-pull-secret: {{ include (print $.Template.BasePath "/image-pull-secret.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if .Values.secrets }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- end }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
@@ -45,6 +54,11 @@ spec:
             - name: http
               containerPort: 3000
               protocol: TCP
+            {{- if .Values.metrics.enabled }}
+            - name: metrics
+              containerPort: {{ .Values.metrics.containerPorts.http }}
+              protocol: TCP
+            {{- end }}
           envFrom:
             {{- if .Values.env }}
             - configMapRef:
@@ -105,7 +119,7 @@ spec:
                 name:  {{ $val }}
             {{- end }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.initContainer.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

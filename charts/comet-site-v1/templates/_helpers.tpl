@@ -52,6 +52,15 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Selector matchLabels
+*/}}
+{{- define "comet-site.selectorMatchLabels" -}}
+app: {{ include "comet-site.fullname" . }}
+app.kubernetes.io/name: {{ include "comet-site.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
 Prelogin Common labels
 */}}
 {{- define "comet-site.prelogin.labels" -}}
