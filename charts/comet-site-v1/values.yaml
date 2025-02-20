@@ -23,6 +23,7 @@ npmRun: "serve"
 service:
   type: ClusterIP
   port: 3000
+  sessionAffinityTimeoutSeconds: 30
 
 metrics:
   enabled: false
