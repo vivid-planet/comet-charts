@@ -5,6 +5,12 @@ metadata:
   labels:
     {{- include "comet-site.labels" . | nindent 4 }}
 spec:
+  {{- if .Values.service.sessionAffinityTimeoutSeconds }}
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: {{ .Values.service.sessionAffinityTimeoutSeconds }}
+  {{- end }}
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
