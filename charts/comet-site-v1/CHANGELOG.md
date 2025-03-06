@@ -1,5 +1,11 @@
 # comet-site-v1
 
+## 1.6.1
+
+### Patch Changes
+
+-   4ccd534: Added missing {{- end }} to properly close the `with` block in the ServiceAccount template
+
 ## 1.6.0
 
 ### Minor Changes
