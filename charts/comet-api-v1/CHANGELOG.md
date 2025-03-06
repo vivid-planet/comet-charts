@@ -1,5 +1,13 @@
 # comet-api-v1
 
+## 1.9.0
+
+### Minor Changes
+
+-   392d614: Add startupProbe to comet-api instead of delaying livenessProbe
+-   2af58fc: Use readiness instead liveness for api probes
+-   c24e25d: Manually created a service account, service account secret and mounted the secret instead of using `autoMountServiceAccountToken`.
+
 ## 1.8.0
 
 ### Minor Changes
