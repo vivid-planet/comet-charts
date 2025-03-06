@@ -38,6 +38,12 @@ resources:
     cpu: 50m
     memory: 200Mi
 
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+
 initContainer:
   enabled: false # can be used to enable initContainer even though builder is disabled
 
@@ -54,7 +60,7 @@ builder:
 
   schedule: "0 6 * * *"
 
-  autoMountServiceAccountToken: true
+  autoMountServiceAccountToken: false
 
   additionalPodLabels: {}
 
