@@ -36,6 +36,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
+      serviceAccountName: {{ include "comet-site.serviceAccountName" . }}
       {{- if or (.Values.builder.enabled) (.Values.initContainer.enabled) }}
       initContainers:
         - name: {{ .Chart.Name }}-copy
