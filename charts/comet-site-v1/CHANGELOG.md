@@ -1,5 +1,11 @@
 # comet-site-v1
 
+## 1.7.0
+
+### Minor Changes
+
+-   998ae6e: Add serviceAccountName configuration to site deployment
+
 ## 1.6.1
 
 ### Patch Changes
