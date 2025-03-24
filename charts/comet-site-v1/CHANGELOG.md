@@ -1,5 +1,11 @@
 # comet-site-v1
 
+## 1.8.0
+
+### Minor Changes
+
+-   ea7c2b6: Manually create and mount service account secrets in cron jobs for api and site
+
 ## 1.7.0
 
 ### Minor Changes
