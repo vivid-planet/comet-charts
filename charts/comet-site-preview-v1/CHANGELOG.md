@@ -1,5 +1,11 @@
 # comet-site-preview-v1
 
+## 1.2.0
+
+### Minor Changes
+
+-   d337b44: Increase CPU limit from 1 to 2
+
 ## 1.1.0
 
 ### Minor Changes
