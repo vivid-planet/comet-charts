@@ -33,7 +33,7 @@ metrics:
 resources:
   limits:
     memory: 200Mi
-    cpu: 1
+    cpu: 2
   requests:
     cpu: 50m
     memory: 200Mi
@@ -50,7 +50,7 @@ initContainer:
   resources:
     limits:
       memory: 512Mi
-      cpu: 1
+      cpu: 2
     requests:
       cpu: 50m
       memory: 512Mi
