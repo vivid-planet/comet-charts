@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.11.1
+
+### Patch Changes
+
+-   7221731: Fix server host for deployed envs
+
 ## 1.11.0
 
 ### Minor Changes
