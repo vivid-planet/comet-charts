@@ -1,5 +1,11 @@
 # comet-site-v1
 
+## 1.9.1
+
+### Patch Changes
+
+-   7221731: Fix server host for deployed envs
+
 ## 1.9.0
 
 ### Minor Changes
