@@ -4,6 +4,7 @@ label: ""
 env:
   NODE_ENV: "production"
   TZ: "Europe/Vienna"
+  SERVER_HOST: "0.0.0.0"
 additionalConfigMapNames: []
 secrets: {}
 additionalSecretNames: []
