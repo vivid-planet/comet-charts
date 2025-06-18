@@ -136,6 +136,7 @@ env:
   NODE_ENV: "production"
   NPM_RUN: "start:prod"
   TZ: "Europe/Vienna"
+  SERVER_HOST: "0.0.0.0"
 additionalConfigMapNames: {}
 secrets: {}
 additionalSecretNames: {}
