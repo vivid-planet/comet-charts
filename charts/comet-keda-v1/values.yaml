@@ -1,0 +1,27 @@
+# Default values for comet-keda.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+service:
+  externalName: ""
+
+annotations:
+  httpscaledobject.keda.sh/skip-scaledobject-creation: "false"
+# Example HTTPScaledObject configuration:
+# httpScaledObjects:
+#   - hostname: ["admin.comet-dxp.com"]
+#     scaleTargetRef:
+#       apiVersion: apps/v1
+#       kind: Deployment
+#       name: comet-admin
+#       service: comet-admin
+#       port: 3000
+#     replicas:
+#       min: 2
+#       max: 4
+#     scaledownPeriod: 300
+#     scalingMetric:
+#       requestRate:
+#         granularity: 1s
+#         targetValue: 100
+#         window: 1m

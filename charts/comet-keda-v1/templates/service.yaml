@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "comet-keda.fullname" . }}
+  labels:
+    {{- include "comet-keda.labels" . | nindent 4 }}
+spec:
+  type: ExternalName
+  externalName: {{ .Values.service.externalName | default "keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local" }}
