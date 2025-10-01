@@ -33,26 +33,26 @@ The following table lists the configurable parameters of the Comet KEDA chart an
 
 ```yaml
 service:
-  externalName: "keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local"
+    externalName: "keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local"
 
 annotations:
-  httpscaledobject.keda.sh/skip-scaledobject-creation: "false"
+    httpscaledobject.keda.sh/skip-scaledobject-creation: "false"
 
 httpScaledObjects:
-  - hostname: ["admin.comet-dxp.com"]
-    scaleTargetRef:
-      apiVersion: apps/v1
-      kind: Deployment
-      name: comet-admin
-      service: comet-admin
-      port: 3000
-    replicas:
-      min: 0
-      max: 1
-    scaledownPeriod: 300
-    scalingMetric:
-      requestRate:
-        granularity: 1s
-        targetValue: 100
-        window: 1m
+    - hostname: ["admin.comet-dxp.com"]
+      scaleTargetRef:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: comet-admin
+          service: comet-admin
+          port: 3000
+      replicas:
+          min: 0
+          max: 1
+      scaledownPeriod: 300
+      scalingMetric:
+          requestRate:
+              granularity: 1s
+              targetValue: 100
+              window: 1m
 ```
