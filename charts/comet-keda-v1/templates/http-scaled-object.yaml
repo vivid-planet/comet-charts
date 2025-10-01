@@ -8,7 +8,7 @@ metadata:
   labels:
     {{- include "comet-keda.labels" $ | nindent 4 }}
   annotations:
-    {{- range $key, $val := $.Values.annotations }}
+    {{- range $key, $val := $.Values.annotations | default (dict "httpscaledobject.keda.sh/skip-scaledobject-creation" "false") }}
     {{ $key }}: {{ $val | quote }}
     {{- end }}
 spec:
