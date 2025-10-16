@@ -1,0 +1,39 @@
+{{- range $index, $i := .Values.httpScaledObjects }}
+{{ if or (kindIs "string" $i.hostname) (gt (len $i.hostname) 0) }}
+---
+apiVersion: http.keda.sh/v1alpha1
+kind: HTTPScaledObject
+metadata:
+  name: {{ include "comet-keda.fullname" $ }}-{{ $index }}
+  labels:
+    {{- include "comet-keda.labels" $ | nindent 4 }}
+  annotations:
+    {{- range $key, $val := $.Values.annotations | default (dict "httpscaledobject.keda.sh/skip-scaledobject-creation" "false") }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
+spec:
+  hosts:
+  {{- if kindIs "slice" $i.hostname }}
+    {{- range $k := $i.hostname }}
+    - {{ $k }}
+    {{- end }}
+  {{- else }}
+    - {{ $i.hostname }}
+  {{- end }}
+  scaleTargetRef:
+    apiVersion: {{ $i.scaleTargetRef.apiVersion | default "apps/v1" }}
+    kind: {{ $i.scaleTargetRef.kind | default "Deployment" }}
+    name: {{ $i.scaleTargetRef.name }}
+    service: {{ $i.scaleTargetRef.service }}
+    port: {{ $i.scaleTargetRef.port }}
+  replicas:
+    min: {{ $i.replicas.min | default 2 }}
+    max: {{ $i.replicas.min | default 4 }}
+  scaledownPeriod: {{ $i.scaledownPeriod | default 300 }}
+  scalingMetric:
+    requestRate:
+      granularity: {{ $i.scalingMetric.requestRate.granularity | default "1s" }}
+      targetValue: {{ $i.scalingMetric.requestRate.targetValue | default 100 }}
+      window: {{ $i.scalingMetric.requestRate.window | default "1m" }}
+{{- end }}
+{{- end }}

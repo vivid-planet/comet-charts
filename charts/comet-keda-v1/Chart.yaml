@@ -1,0 +1,21 @@
+apiVersion: v2
+name: comet-keda
+description: Helm chart for KEDA on COMET-Microservices
+type: application
+
+home: https://www.comet-dxp.com
+icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+
+maintainers:
+  - name: Daniel Karnutsch
+    email: daniel.karnutsch@vivid-planet.com
+  - name: Georg Schreglmann
+    email: georg.schreglmann@vivid-planet.com
+  - name: Franz Unger
+    email: franz.unger@vivid-planet.com
+  - name: Alexander Kaufmann
+    email: alexander.kaufmann@vivid-planet.com
+  - name: Philipp Pregernigg
+    email: philipp.pregernigg@vivid-planet.com
+
+version: 1.0.0
