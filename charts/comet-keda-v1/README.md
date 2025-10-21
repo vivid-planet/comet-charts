@@ -17,6 +17,7 @@ The following table lists the configurable parameters of the Comet KEDA chart an
 | Parameter                               | Type   | Description                                 |
 | --------------------------------------- | ------ | ------------------------------------------- |
 | `hostname`                              | list   | List of hostnames for the HTTPScaledObject. |
+| `pathPrefixes`                          | list   | List of path prefixes                       |
 | `scaleTargetRef.apiVersion`             | string | API version of the scale target reference.  |
 | `scaleTargetRef.kind`                   | string | Kind of the scale target reference.         |
 | `scaleTargetRef.name`                   | string | Name of the scale target reference.         |
@@ -40,6 +41,7 @@ annotations:
 
 httpScaledObjects:
     - hostname: ["admin.comet-dxp.com"]
+      pathPrefixes: ["/"]
       scaleTargetRef:
           apiVersion: apps/v1
           kind: Deployment

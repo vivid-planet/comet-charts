@@ -20,6 +20,14 @@ spec:
   {{- else }}
     - {{ $i.hostname }}
   {{- end }}
+  pathPrefixes:
+    {{- if kindIs "slice" $i.pathPrefixes }}
+      {{- range $k := $i.pathPrefixes }}
+      - {{ $k }}
+      {{- end }}
+    {{- else }}
+      - {{ $i.pathPrefixes | default "/" }}
+    {{- end }}
   scaleTargetRef:
     apiVersion: {{ $i.scaleTargetRef.apiVersion | default "apps/v1" }}
     kind: {{ $i.scaleTargetRef.kind | default "Deployment" }}
@@ -27,8 +35,8 @@ spec:
     service: {{ $i.scaleTargetRef.service }}
     port: {{ $i.scaleTargetRef.port }}
   replicas:
-    min: {{ $i.replicas.min | default 2 }}
-    max: {{ $i.replicas.min | default 4 }}
+    min: {{ $i.replicas.min | default 0 }}
+    max: {{ $i.replicas.max | default 1 }}
   scaledownPeriod: {{ $i.scaledownPeriod | default 300 }}
   scalingMetric:
     requestRate:
