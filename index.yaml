@@ -1531,6 +1531,28 @@ entries:
     version: 0.0.0
   comet-keda:
   - apiVersion: v2
+    created: "2025-10-21T05:39:15.134507228Z"
+    description: Helm chart for KEDA on COMET-Microservices
+    digest: 25f02fa190690759498796eac53435e686aa43ae1b0adbcc43293a6b2dd754f3
+    home: https://www.comet-dxp.com
+    icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+    maintainers:
+    - email: daniel.karnutsch@vivid-planet.com
+      name: Daniel Karnutsch
+    - email: georg.schreglmann@vivid-planet.com
+      name: Georg Schreglmann
+    - email: franz.unger@vivid-planet.com
+      name: Franz Unger
+    - email: alexander.kaufmann@vivid-planet.com
+      name: Alexander Kaufmann
+    - email: philipp.pregernigg@vivid-planet.com
+      name: Philipp Pregernigg
+    name: comet-keda
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-keda-1.1.0/comet-keda-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
     created: "2025-10-16T11:17:15.045402985Z"
     description: Helm chart for KEDA on COMET-Microservices
     digest: 2b3b180ce75240a9965c6d37f9fb7ba2a9af1335e46e58e10de1259e90ace3df
@@ -3055,4 +3077,4 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.9.0/imgproxy-0.9.0.tgz
     version: 0.9.0
-generated: "2025-10-16T11:17:15.045732321Z"
+generated: "2025-10-21T05:39:15.135199588Z"
