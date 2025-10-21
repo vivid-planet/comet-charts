@@ -7,7 +7,7 @@ The following table lists the configurable parameters of the Comet KEDA chart an
 ### General Parameters
 
 | Parameter                                                         | Type   | Default   | Description                                |
-| ----------------------------------------------------------------- | ------ | --------- | ------------------------------------------ |
+|-------------------------------------------------------------------|--------|-----------|--------------------------------------------|
 | `service.externalName`                                            | string | `""`      | External name of the service.              |
 | `annotations.httpscaledobject.keda.sh/skip-scaledobject-creation` | string | `"false"` | Annotation to skip scaled object creation. |
 | `httpScaledObjects`                                               | list   | `[]`      | List of HTTPScaledObject configurations.   |
@@ -15,8 +15,9 @@ The following table lists the configurable parameters of the Comet KEDA chart an
 ### HTTPScaledObject Configuration
 
 | Parameter                               | Type   | Description                                 |
-| --------------------------------------- | ------ | ------------------------------------------- |
+|-----------------------------------------|--------|---------------------------------------------|
 | `hostname`                              | list   | List of hostnames for the HTTPScaledObject. |
+| `pathPrefixes`                          | list   | List of path prefixes                       |
 | `scaleTargetRef.apiVersion`             | string | API version of the scale target reference.  |
 | `scaleTargetRef.kind`                   | string | Kind of the scale target reference.         |
 | `scaleTargetRef.name`                   | string | Name of the scale target reference.         |
@@ -33,26 +34,27 @@ The following table lists the configurable parameters of the Comet KEDA chart an
 
 ```yaml
 service:
-    externalName: "keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local"
+  externalName: "keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local"
 
 annotations:
-    httpscaledobject.keda.sh/skip-scaledobject-creation: "false"
+  httpscaledobject.keda.sh/skip-scaledobject-creation: "false"
 
 httpScaledObjects:
-    - hostname: ["admin.comet-dxp.com"]
-      scaleTargetRef:
-          apiVersion: apps/v1
-          kind: Deployment
-          name: comet-admin
-          service: comet-admin
-          port: 3000
-      replicas:
-          min: 0
-          max: 1
-      scaledownPeriod: 300
-      scalingMetric:
-          requestRate:
-              granularity: 1s
-              targetValue: 100
-              window: 1m
+  - hostname: [ "admin.comet-dxp.com" ]
+    pathPrefixes: [ "/" ]
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: comet-admin
+      service: comet-admin
+      port: 3000
+    replicas:
+      min: 0
+      max: 1
+    scaledownPeriod: 300
+    scalingMetric:
+      requestRate:
+        granularity: 1s
+        targetValue: 100
+        window: 1m
 ```

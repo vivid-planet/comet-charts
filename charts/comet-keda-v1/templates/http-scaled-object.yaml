@@ -20,6 +20,14 @@ spec:
   {{- else }}
     - {{ $i.hostname }}
   {{- end }}
+  pathPrefixes:
+    {{- if kindIs "slice" $i.pathPrefixes }}
+        {{- range $k := $i.pathPrefixes }}
+        - {{ $k }}
+        {{- end }}
+    {{- else }}
+        - {{ $i.pathPrefixes | default "/" }}
+    {{- end }}
   scaleTargetRef:
     apiVersion: {{ $i.scaleTargetRef.apiVersion | default "apps/v1" }}
     kind: {{ $i.scaleTargetRef.kind | default "Deployment" }}
