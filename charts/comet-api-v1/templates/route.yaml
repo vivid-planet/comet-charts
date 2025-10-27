@@ -9,9 +9,11 @@ spec:
   host: "{{ .Values.domain }}"
   port:
     targetPort: http
+  {{- if .Values.route.tls.enabled }}
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge
+  {{- end }}
   to:
     kind: Service
     name: {{ include "comet-api.fullname" . }}

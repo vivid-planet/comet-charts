@@ -125,6 +125,8 @@ autoMountServiceAccountToken: false
 
 route:
   enabled: false
+  tls:
+    enabled: true
 
 ingress:
   enabled: false
