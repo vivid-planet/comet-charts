@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.12.0
+
+### Minor Changes
+
+-   1c2fca7: Allow to disable tls for routes
+
 ## 1.11.1
 
 ### Patch Changes
