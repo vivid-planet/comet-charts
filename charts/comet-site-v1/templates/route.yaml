@@ -14,9 +14,11 @@ spec:
 {{- else }}
   host: "{{ .Values.domain }}"
 {{- end }}
+  {{- if .Values.route.tls.enabled }}
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge
+  {{- end }}
 {{- if .Values.prelogin.enabled }}
   port:
     targetPort: 3010

@@ -52,6 +52,8 @@ ingress:
 
 route:
   enabled: false
+  tls:
+    enabled: true
 
 resources:
   limits:
