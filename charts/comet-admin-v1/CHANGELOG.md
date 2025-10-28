@@ -1,5 +1,11 @@
 # comet-admin-v1
 
+## 1.7.0
+
+### Minor Changes
+
+-   1c2fca7: Allow to disable tls for routes
+
 ## 1.6.0
 
 ### Minor Changes
