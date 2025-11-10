@@ -54,6 +54,7 @@ route:
   enabled: false
   tls:
     enabled: true
+  annotations: {}
 
 resources:
   limits:

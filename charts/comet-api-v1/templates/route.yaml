@@ -5,6 +5,10 @@ metadata:
   name: {{ include "comet-api.fullname" . }}
   labels:
     {{- include "comet-api.labels" . | nindent 4 }}
+  annotations:
+    {{- range $key, $val := .Values.route.annotations }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
 spec:
   host: "{{ .Values.domain }}"
   port:
