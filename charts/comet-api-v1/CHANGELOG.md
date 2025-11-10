@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.13.0
+
+### Minor Changes
+
+-   9e8a4f1: Allow custom annotations for route
+
 ## 1.12.0
 
 ### Minor Changes
