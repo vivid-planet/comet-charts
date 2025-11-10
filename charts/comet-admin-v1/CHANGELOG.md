@@ -1,5 +1,11 @@
 # comet-admin-v1
 
+## 1.8.0
+
+### Minor Changes
+
+-   7fc3076: Allow custom annotations for route
+
 ## 1.7.0
 
 ### Minor Changes
