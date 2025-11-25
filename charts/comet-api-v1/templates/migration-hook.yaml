@@ -24,7 +24,7 @@ spec:
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
           {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["bash", "-c", {{ .Values.migrations.migrateCommand }}]
+          command: ["bash", "-c", {{ .Values.migrations.command }}]
           envFrom:
             {{- if .Values.env }}
             - configMapRef:
