@@ -1,5 +1,5 @@
 ---
-"comet-api-v1": minor
+"comet-api-v1": major
 ---
 
-Move migrations from initContainers to Helm migration hook
+**BREAKING**: Move migrations from initContainers to Helm migration hook
