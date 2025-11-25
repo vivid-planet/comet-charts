@@ -64,7 +64,9 @@ resources:
     cpu: 50m
     memory: 256Mi
 
-initContainer:
+migrations:
+  enabled: true
+  migrateCommand: "npm run console:prod migrate"
   resources:
     limits:
       cpu: 2
@@ -101,8 +103,6 @@ readinessProbe:
   httpGet:
     path: /api/status/readiness
     port: http
-
-migrateCommand: "npm run console:prod migrate"
 
 cronJobs:
   build-checker:

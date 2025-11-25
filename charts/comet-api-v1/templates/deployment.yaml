@@ -92,36 +92,6 @@ spec:
               name: service-account
               readOnly: true
             {{- end }}
-      initContainers:
-        - name: {{ .Chart.Name }}-migrations
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          {{- if .Values.image.tag }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          {{- else }}
-          image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
-          {{- end }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["bash", "-c", {{ .Values.migrateCommand }}]
-          envFrom:
-            {{- if .Values.env }}
-            - configMapRef:
-                name: {{ include "comet-api.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMapNames }}
-            - configMapRef:
-                name:  {{ $val }}
-            {{- end }}
-            {{- if .Values.secrets }}
-            - secretRef:
-                name: {{ include "comet-api.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalSecretNames }}
-            - secretRef:
-                name:  {{ $val }}
-            {{- end }}
-          resources:
-            {{- toYaml .Values.initContainer.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
