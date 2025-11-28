@@ -43,7 +43,7 @@ spec:
             - name: {{ include "comet-site.fullname" . }}-image-pull-secret
           {{- end }}
           restartPolicy: "Never"
-          serviceAccountName: {{ include "comet-site.fullname" . }}
+          serviceAccountName: {{ include "comet-site.serviceAccountName" . }}
           securityContext:
             {{- toYaml .Values.builder.podSecurityContext | nindent 12 }}
           automountServiceAccountToken: {{ .Values.builder.autoMountServiceAccountToken }}
