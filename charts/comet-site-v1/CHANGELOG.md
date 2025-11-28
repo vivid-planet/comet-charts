@@ -1,5 +1,11 @@
 # comet-site-v1
 
+## 1.11.0
+
+### Minor Changes
+
+-   2eca0d8: Remove duplicated ServiceAccount/RoleBinding and fix CronJob serviceAccount reference
+
 ## 1.10.0
 
 ### Minor Changes

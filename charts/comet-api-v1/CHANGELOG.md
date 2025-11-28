@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.14.0
+
+### Minor Changes
+
+-   31ce58b: Add suspend configuration to cronJobs to allow enabling/disabling scheduled execution via configuration
+
 ## 1.13.0
 
 ### Minor Changes
