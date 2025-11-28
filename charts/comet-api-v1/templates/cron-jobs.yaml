@@ -13,6 +13,7 @@ metadata:
     {{- end }}
 spec:
   schedule: {{ $job.schedule | quote }}
+  suspend: {{ $job.suspend | default false }}
   timeZone: {{ $job.timeZone | default "Europe/Vienna" }}
   successfulJobsHistoryLimit: {{ $job.successfulJobsHistoryLimit | default 2 }}
   failedJobsHistoryLimit: {{ $job.failedJobsHistoryLimit | default 2 }}
