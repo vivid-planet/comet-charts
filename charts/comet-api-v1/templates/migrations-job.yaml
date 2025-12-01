@@ -42,6 +42,6 @@ spec:
             - secretRef:
                 name: {{ $val }}
             {{- end }}
-        - resources:
+          resources:
             {{- toYaml .Values.migrations.resources | nindent 12 }}
   {{- end}}
