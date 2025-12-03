@@ -1,0 +1,25 @@
+{{- if .Values.route.enabled -}}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "comet-api.fullname" . }}
+  labels:
+    {{- include "comet-api.labels" . | nindent 4 }}
+  annotations:
+    {{- range $key, $val := .Values.route.annotations }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
+spec:
+  host: "{{ .Values.domain }}"
+  port:
+    targetPort: http
+  {{- if .Values.route.tls.enabled }}
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  {{- end }}
+  to:
+    kind: Service
+    name: {{ include "comet-api.fullname" . }}
+    weight: 100
+{{- end }}
