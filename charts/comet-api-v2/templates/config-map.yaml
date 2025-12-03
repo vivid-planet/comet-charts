@@ -1,0 +1,13 @@
+{{- if .Values.env }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "comet-api.fullname" . }}
+  labels:
+    {{- include "comet-api.labels" . | nindent 4 }}
+data:
+  HELM_RELEASE: "{{ .Release.Name }}"
+  {{- range $key, $val := .Values.env }}
+  {{ $key }}: {{ $val | quote }}
+  {{- end }}
+{{- end }}
