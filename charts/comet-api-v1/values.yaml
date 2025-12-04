@@ -134,6 +134,21 @@ cronJobs:
       requests:
         cpu: 100m
         memory: 256Mi
+  fixtures:
+    enabled: false
+    suspend: true
+    command: "npm run fixtures:prod"
+    schedule: "0 0 30 2 *" # 30th of February, will never run automatically
+    activeDeadlineSeconds: 1200
+    additionalLabels: {}
+    additionalPodLabels: {}
+    resources:
+      limits:
+        cpu: 2
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 256Mi
 
 env:
   NODE_ENV: "production"
