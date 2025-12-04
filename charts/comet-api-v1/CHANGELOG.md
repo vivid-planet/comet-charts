@@ -1,5 +1,11 @@
 # comet-api-v1
 
+## 1.15.0
+
+### Minor Changes
+
+-   2a7eade: Add a new fixtures cronjob configuration with options for enabling, suspending, and resource limits.
+
 ## 1.14.0
 
 ### Minor Changes
