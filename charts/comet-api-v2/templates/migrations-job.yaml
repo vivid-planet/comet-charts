@@ -1,0 +1,47 @@
+{{- if .Values.migration.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "comet-api.fullname" . }}-migrations
+  annotations:
+    "helm.sh/hook": pre-upgrade, post-install # Run migrations before upgrading or after installing
+    "helm.sh/hook-weight": "0" # Default weight
+    "helm.sh/hook-delete-policy": before-hook-creation # Delete previous job before creating a new one
+spec:
+  backoffLimit: 0 # Do not retry on failure
+  template:
+    spec:
+      restartPolicy: Never # Do not restart the job on failure
+      imagePullSecrets:
+        - name: {{ include "comet-api.fullname" . }}-image-pull-secret
+      containers:
+        - name: {{ .Chart.Name }}-migrations
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          {{- else }}
+          image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["bash", "-c", {{ .Values.migration.command }}]
+          envFrom:
+            {{- if .Values.env }}
+            - configMapRef:
+                name: {{ include "comet-api.fullname" . }}
+            {{- end }}
+            {{- range $key, $val := .Values.additionalConfigMapNames }}
+            - configMapRef:
+                name: {{ $val }}
+            {{- end }}
+            {{- if .Values.secrets }}
+            - secretRef:
+                name: {{ include "comet-api.fullname" . }}
+            {{- end }}
+            {{- range $key, $val := .Values.additionalSecretNames }}
+            - secretRef:
+                name: {{ $val }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.migration.resources | nindent 12 }}
+  {{- end}}

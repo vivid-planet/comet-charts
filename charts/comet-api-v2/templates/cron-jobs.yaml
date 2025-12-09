@@ -1,0 +1,101 @@
+{{- range $name, $job := .Values.cronJobs }}
+{{- with $ -}}
+{{- if or $job.enabled (not (hasKey $job "enabled")) }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ print (include "comet-api.fullname" .) "-" $name | trunc 52 | trimSuffix "-" }}
+  labels:
+    comet-dxp.com/instance: "{{ .Release.Name }}"
+    {{- include "comet-api.labels" . | nindent 4 }}
+    {{- if $job.additionalLabels }}
+      {{- tpl ($job.additionalLabels | toYaml) . | nindent 4 }}
+    {{- end }}
+spec:
+  schedule: {{ $job.schedule | quote }}
+  suspend: {{ $job.suspend | default false }}
+  timeZone: {{ $job.timeZone | default "Europe/Vienna" }}
+  successfulJobsHistoryLimit: {{ $job.successfulJobsHistoryLimit | default 2 }}
+  failedJobsHistoryLimit: {{ $job.failedJobsHistoryLimit | default 2 }}
+  concurrencyPolicy: {{ $job.concurrencyPolicy | default "Forbid" }}
+  startingDeadlineSeconds: {{ $job.startingDeadlineSeconds | default 120 }}
+  jobTemplate:
+    metadata:
+      annotations:
+        comet-dxp.com/trigger: "cronjob"
+      labels:
+        comet-dxp.com/instance: "{{ .Release.Name }}"
+        comet-dxp.com/parent-cron-job: {{ print (include "comet-api.fullname" .) "-" $name | trunc 52 | trimSuffix "-" }}
+    spec:
+      backoffLimit: {{ $job.backoffLimit | default 1 }}
+      activeDeadlineSeconds: {{ $job.activeDeadlineSeconds | default 600 }}
+      ttlSecondsAfterFinished: {{ $job.ttlSecondsAfterFinished | default 604800 }}
+      template:
+        metadata:
+          labels:
+            {{- range $key, $val := $job.additionalPodLabels }}
+            {{ $key }}: {{ $val | quote }}
+            {{- end }}
+        spec:
+          {{- if .Values.image.pullSecret }}
+          imagePullSecrets:
+            - name: {{ include "comet-api.fullname" . }}-image-pull-secret
+          {{- end }}
+          restartPolicy: {{ $job.restartPolicy | default "Never" }}
+          serviceAccountName: {{ include "comet-api.serviceAccountName" . }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
+          containers:
+            - name: {{ .Chart.Name }}-cronjob-{{ $name }}
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 16 }}
+              {{- if .Values.image.tag }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              {{- else }}
+              image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+              {{- end }}
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              command: ["bash", "-c", {{ $job.command }}]
+              {{- if $job.env }}
+              env:
+                {{- range $key, $val := $job.env }}
+                - name: {{ $key }}
+                  value: {{ $val | quote }}
+                {{- end }}
+              {{- end }}
+              envFrom:
+                {{- if .Values.env }}
+                - configMapRef:
+                    name: {{ include "comet-api.fullname" . }}
+                {{- end }}
+                {{- range $key, $val := .Values.additionalConfigMapNames }}
+                - configMapRef:
+                    name:  {{ $val }}
+                {{- end }}
+                {{- if .Values.secrets }}
+                - secretRef:
+                    name: {{ include "comet-api.fullname" . }}
+                {{- end }}
+                {{- range $key, $val := .Values.additionalSecretNames }}
+                - secretRef:
+                    name:  {{ $val }}
+                {{- end }}
+              volumeMounts:
+                {{- if .Values.serviceAccount.create }}
+                - mountPath: "/var/run/secrets/kubernetes.io/serviceaccount"
+                  name: service-account
+                  readOnly: true
+                {{- end }}
+              resources:
+                {{- $job.resources | default .Values.resources | toYaml | nindent 16 }}
+          volumes:
+            {{- if .Values.serviceAccount.create }}
+            - name: "service-account"
+              secret:
+                secretName: {{ include "comet-api.fullname" . }}-service-account-token
+            {{- end }}
+---
+{{- end }}
+{{- end }}
+{{- end -}}

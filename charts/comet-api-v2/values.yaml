@@ -1,0 +1,163 @@
+replicaCount: 1
+
+authproxy:
+  enabled: true
+
+image:
+  repository: nginx
+  hash: "" # will be used, if tag is not set
+  tag: ""
+  pullPolicy: IfNotPresent
+  pullSecret: "" # will be overwritten by CI
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+
+podAnnotations: {}
+
+podSecurityContext:
+  {}
+  # fsGroup: 2000
+
+securityContext:
+  {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+autoMountServiceAccountToken: false
+
+service:
+  type: ClusterIP
+  port: 3000
+
+metrics:
+  enabled: false
+  containerPorts:
+    http: 9465
+
+ingress:
+  enabled: false
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+
+route:
+  enabled: false
+  tls:
+    enabled: true
+  annotations: {}
+
+resources:
+  limits:
+    cpu: 2
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 256Mi
+
+initContainers: []
+
+migration:
+  enabled: true
+  command: "npm run console:prod migrate"
+  resources:
+    limits:
+      cpu: 2
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 4
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+startupProbe: # Checks every periodSeconds for failureThreshold times
+  httpGet:
+    path: /api/status/readiness
+    port: http
+  failureThreshold: 60
+  periodSeconds: 3
+
+livenessProbe:
+  httpGet:
+    path: /api/status/liveness
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /api/status/readiness
+    port: http
+
+cronJobs:
+  build-checker:
+    enabled: false
+    command: "npm run console:prod check-changes"
+    schedule: "*/15 * * * *"
+    additionalLabels:
+      comet-dxp.com/build-checker: "true"
+    additionalPodLabels: {}
+    activeDeadlineSeconds: 600
+    resources:
+      limits:
+        cpu: 100m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+  blck-indx-mgrt-blks:
+    enabled: true
+    command: "npm run console:prod migrateBlocks && npm run console:prod createBlockIndexViews"
+    schedule: "0 0 30 2 *" # 30th of February, will never run automatically
+    activeDeadlineSeconds: 1200
+    additionalLabels: {}
+    additionalPodLabels: {}
+    resources:
+      limits:
+        cpu: 100m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+  fixtures:
+    enabled: false
+    suspend: true
+    command: "npm run fixtures:prod"
+    schedule: "0 0 30 2 *" # 30th of February, will never run automatically
+    activeDeadlineSeconds: 1200
+    additionalLabels: {}
+    additionalPodLabels: {}
+    resources:
+      limits:
+        cpu: 2
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 256Mi
+
+env:
+  NODE_ENV: "production"
+  NPM_RUN: "start:prod"
+  TZ: "Europe/Vienna"
+  SERVER_HOST: "0.0.0.0"
+additionalConfigMapNames: {}
+secrets: {}
+additionalSecretNames: {}
+additionalPodLabels: {}
