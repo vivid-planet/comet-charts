@@ -1,4 +1,20 @@
 {{- if .Values.migration.enabled }}
+{{- if .Values.image.pullSecret }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "comet-api.fullname" . }}-migrations-image-pull-secret
+  labels:
+    {{- include "comet-api.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install, pre-upgrade # Execute this hook before install and upgrade so migrations can authenticate to the registry
+    "helm.sh/hook-weight": "-3" # Ensure this hook runs first by giving it a high priority (lower weight runs earlier)
+    "helm.sh/hook-delete-policy": hook-succeeded, hook-failed # Remove the secret after the hook completes, regardless of success or failure
+data:
+  .dockerconfigjson: {{ required "Missing image.pullSecret" .Values.image.pullSecret }}
+type: kubernetes.io/dockerconfigjson
+{{- end }}
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
