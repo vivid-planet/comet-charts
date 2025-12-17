@@ -64,8 +64,10 @@ spec:
   template:
     spec:
       restartPolicy: Never # Do not restart the job on failure
+      {{- if .Values.image.pullSecret }}
       imagePullSecrets:
         - name: {{ include "comet-api.fullname" . }}-migrations-image-pull-secret
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}-migrations
           securityContext:
