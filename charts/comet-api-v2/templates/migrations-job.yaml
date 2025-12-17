@@ -56,7 +56,7 @@ kind: Job
 metadata:
   name: {{ include "comet-api.fullname" . }}-migrations
   annotations:
-    "helm.sh/hook": pre-upgrade, post-install # Run migrations before upgrading or after installing
+    "helm.sh/hook": pre-install, pre-upgrade # Run migrations before install and upgrade
     "helm.sh/hook-weight": "0" # Default weight
     "helm.sh/hook-delete-policy": before-hook-creation # Delete previous job before creating a new one
 spec:
@@ -65,7 +65,7 @@ spec:
     spec:
       restartPolicy: Never # Do not restart the job on failure
       imagePullSecrets:
-        - name: {{ include "comet-api.fullname" . }}-image-pull-secret
+        - name: {{ include "comet-api.fullname" . }}-migrations-image-pull-secret
       containers:
         - name: {{ .Chart.Name }}-migrations
           securityContext:
@@ -80,7 +80,7 @@ spec:
           envFrom:
             {{- if .Values.env }}
             - configMapRef:
-                name: {{ include "comet-api.fullname" . }}
+                name: {{ include "comet-api.fullname" . }}-migrations
             {{- end }}
             {{- range $key, $val := .Values.additionalConfigMapNames }}
             - configMapRef:
@@ -88,7 +88,7 @@ spec:
             {{- end }}
             {{- if .Values.secrets }}
             - secretRef:
-                name: {{ include "comet-api.fullname" . }}
+                name: {{ include "comet-api.fullname" . }}-migrations
             {{- end }}
             {{- range $key, $val := .Values.additionalSecretNames }}
             - secretRef:
