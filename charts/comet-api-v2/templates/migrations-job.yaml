@@ -15,6 +15,24 @@ data:
 type: kubernetes.io/dockerconfigjson
 {{- end }}
 ---
+{{- if .Values.secrets }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "comet-api.fullname" . }}-migrations
+  labels:
+    {{- include "comet-api.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install, pre-upgrade # Execute this hook before install and upgrade so migrations can access the secrets
+    "helm.sh/hook-weight": "-2" # Ensure this hook runs first by giving it a high priority (lower weight runs earlier)
+    "helm.sh/hook-delete-policy": hook-succeeded, hook-failed # Remove the secret after the hook completes, regardless of success or failure
+type: Opaque
+stringData:
+  {{- range $key, $val := .Values.secrets }}
+  {{ $key }}: {{ $val | quote }}
+  {{- end }}
+{{- end }}
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
