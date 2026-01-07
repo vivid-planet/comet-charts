@@ -13,7 +13,6 @@ spec:
       {{- include "comet-api.selectorMatchLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
         {{- if .Values.env }}
         checksum/config-map: {{ include (print $.Template.BasePath "/config-map.yaml") . | sha256sum }}
@@ -24,8 +23,9 @@ spec:
         {{- if .Values.secrets }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
         {{- end }}
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- range $key, $val := .Values.podAnnotations }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
       labels:
         {{- include "comet-api.selectorLabels" . | nindent 8 }}
         {{- range $key, $val := .Values.additionalPodLabels }}
