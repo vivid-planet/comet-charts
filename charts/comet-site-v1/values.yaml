@@ -45,6 +45,8 @@ serviceAccount:
   # Annotations to add to the service account
   annotations: {}
 
+podAnnotations: {}
+
 initContainer:
   enabled: false # can be used to enable initContainer even though builder is disabled
 
