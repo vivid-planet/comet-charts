@@ -1,5 +1,12 @@
 # comet-site-v1
 
+## 1.12.0
+
+### Minor Changes
+
+-   c9ffca1: Allow custom annotations for route
+-   793afc9: Allow custom annotaions for Deployments
+
 ## 1.11.0
 
 ### Minor Changes
