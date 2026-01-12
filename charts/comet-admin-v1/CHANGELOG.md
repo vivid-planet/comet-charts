@@ -1,5 +1,11 @@
 # comet-admin-v1
 
+## 1.8.1
+
+### Patch Changes
+
+-   fa9549a: Checksum for Secret was not rendered when `podAnnotations` was empty, preventing automatic pod restarts on config changes. Replaced `{{- with .Values.podAnnotations }}` wrapper with direct `{{- range }}` iteration to ensure checksums are always present regardless of user-defined annotations.
+
 ## 1.8.0
 
 ### Minor Changes
