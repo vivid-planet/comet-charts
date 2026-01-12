@@ -5,6 +5,10 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ print (include "comet-api.fullname" .) "-" $name | trunc 52 | trimSuffix "-" }}
+  annotations:
+    {{- range $key, $val := $job.additionalAnnotations }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
   labels:
     comet-dxp.com/instance: "{{ .Release.Name }}"
     {{- include "comet-api.labels" . | nindent 4 }}

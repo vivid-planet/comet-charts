@@ -111,6 +111,7 @@ cronJobs:
     schedule: "*/15 * * * *"
     additionalLabels:
       comet-dxp.com/build-checker: "true"
+    additionalAnnotations: {}
     additionalPodLabels: {}
     activeDeadlineSeconds: 600
     resources:
@@ -125,6 +126,7 @@ cronJobs:
     command: "npm run console:prod migrateBlocks && npm run console:prod createBlockIndexViews"
     schedule: "0 0 30 2 *" # 30th of February, will never run automatically
     activeDeadlineSeconds: 1200
+    additionalAnnotations: {}
     additionalLabels: {}
     additionalPodLabels: {}
     resources:
@@ -140,6 +142,7 @@ cronJobs:
     command: "npm run fixtures:prod"
     schedule: "0 0 30 2 *" # 30th of February, will never run automatically
     activeDeadlineSeconds: 1200
+    additionalAnnotations: {}
     additionalLabels: {}
     additionalPodLabels: {}
     resources:
