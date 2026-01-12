@@ -129,6 +129,9 @@ route:
   enabled: false
   tls:
     enabled: true
+  annotations:
+    haproxy.router.openshift.io/disable_cookies: "true"
+    haproxy.router.openshift.io/balance: "roundrobin"
 
 ingress:
   enabled: false
