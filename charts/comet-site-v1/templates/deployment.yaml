@@ -23,6 +23,9 @@ spec:
         {{- if .Values.secrets }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
         {{- end }}
+        {{- range $key, $val := .Values.podAnnotations }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
       labels:
         {{- include "comet-site.selectorLabels" . | nindent 8 }}
         {{- range $key, $val := .Values.additionalPodLabels }}
