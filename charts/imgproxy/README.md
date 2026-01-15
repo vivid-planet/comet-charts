@@ -48,7 +48,7 @@ helm upgrade -i imgproxy imgproxy/imgproxy
 > [!IMPORTANT]
 > This readme shows documentation for chart version 1.x.
 >
-> - For previous version see the [v0.9.0](https://github.com/imgproxy/imgproxy-helm/tree/0.9.0) tag
+> -   For previous version see the [v0.9.0](https://github.com/imgproxy/imgproxy-helm/tree/0.9.0) tag
 
 ## Introduction
 
@@ -64,7 +64,7 @@ See [official README](https://github.com/imgproxy/imgproxy#imgproxy) for more.
 
 ## Prerequisites
 
-- Kubernetes 1.4+ with Beta APIs enabled
+-   Kubernetes 1.4+ with Beta APIs enabled
 
 ## Installing chart
 

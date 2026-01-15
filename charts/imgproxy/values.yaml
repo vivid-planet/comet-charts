@@ -180,14 +180,16 @@ resources:
     # A security context defines privilege and access control settings for the deployment pod.
     # Check available settings in the documentation by link:
     # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-    securityContext: {}
+    securityContext:
+      {}
       # allowPrivilegeEscalation: false
       # runAsNonRoot: true
 
     # A container security context defines privilege and access control settings for the deployment container.
     # Check available settings in the documentation by link:
     # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-    containerSecurityContext: {}
+    containerSecurityContext:
+      {}
       # capabilities:
       #   drop:
       #     - ALL
