@@ -1318,6 +1318,51 @@ entries:
       artifacthub.io/containsSecurityUpdates: "false"
       artifacthub.io/images: |
         - name: impgroxy
+          image: ghcr.io/imgproxy/imgproxy:v3.30.0
+      artifacthub.io/license: MIT-open-group
+      artifacthub.io/links: |
+        - name: imgproxy-helm chart on Github
+          url: https://github.com/imgproxy/imgproxy-helm
+        - name: the source code of imgproxy on Github
+          url: https://github.com/imgproxy/imgproxy
+        - name: the project documentation
+          url: https://imgproxy.net/
+      artifacthub.io/maintainers: |
+        - name: darthsim
+          email: darthsim@gmail.com
+        - name: dragonsmith
+          email: agon.smith@gmail.com
+      artifacthub.io/prerelease: "false"
+    apiVersion: v1
+    appVersion: 3.30.0
+    created: "2026-01-15T13:07:04.158498908Z"
+    description: A fast and secure standalone server for resizing and converting remote
+      images. The main principles of imgproxy are simplicity, speed, and security.
+    digest: 1efcc2cd89677b692a258b3b5a09b1a3f0458d5e069014a65a54c788f9512a98
+    home: https://github.com/imgproxy/imgproxy
+    icon: https://cdn.rawgit.com/imgproxy/imgproxy/master/logo.svg
+    keywords:
+    - imgproxy
+    - image
+    - processing
+    maintainers:
+    - email: darthsim@gmail.com
+      name: darthsim
+    - email: agon.smith@gmail.com
+      name: dragonsmith
+    name: imgproxy
+    sources:
+    - https://github.com/imgproxy/imgproxy
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-1.0.0/imgproxy-1.0.0.tgz
+    version: 1.0.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Support for the ArtifactHub
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/images: |
+        - name: impgroxy
           image: darthsim/imgproxy:v3.20.0
       artifacthub.io/license: MIT-open-group
       artifacthub.io/links: |
@@ -1360,4 +1405,4 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.10.2/imgproxy-0.10.2.tgz
     version: 0.10.2
-generated: "2026-01-12T13:30:40.28869193Z"
+generated: "2026-01-15T13:07:04.158640932Z"
