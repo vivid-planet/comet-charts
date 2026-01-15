@@ -1,5 +1,11 @@
 # imgproxy
 
+## 1.0.0
+
+### Major Changes
+
+-   bb55e16: Copy chart version 1.1.0 from original repo
+
 ## 0.10.2
 
 ### Patch Changes
