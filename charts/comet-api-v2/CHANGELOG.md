@@ -1,5 +1,11 @@
 # comet-api-v2
 
+## 2.2.1
+
+### Patch Changes
+
+-   9aaebec: Prevent deletion of migration secrets/configmap on hook failure
+
 ## 2.2.0
 
 ### Minor Changes
