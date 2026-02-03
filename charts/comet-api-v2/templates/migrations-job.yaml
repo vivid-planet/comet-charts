@@ -9,7 +9,7 @@ metadata:
   annotations:
     "helm.sh/hook": pre-install, pre-upgrade # Execute this hook before install and upgrade so migrations can authenticate to the registry
     "helm.sh/hook-weight": "-3" # Ensure this hook runs first by giving it a high priority (lower weight runs earlier)
-    "helm.sh/hook-delete-policy": before-hook-creation, hook-succeeded # Remove the secret before hook creation and after the hook completes
+    "helm.sh/hook-delete-policy": before-hook-creation # Remove the secret before hook creation
 data:
   .dockerconfigjson: {{ required "Missing image.pullSecret" .Values.image.pullSecret }}
 type: kubernetes.io/dockerconfigjson
@@ -25,7 +25,7 @@ metadata:
   annotations:
     "helm.sh/hook": pre-install, pre-upgrade # Execute this hook before install and upgrade so migrations can access the secrets
     "helm.sh/hook-weight": "-2" # Ensure this hook runs first by giving it a high priority (lower weight runs earlier)
-    "helm.sh/hook-delete-policy": before-hook-creation, hook-succeeded # Remove the secret before hook creation and after the hook completes
+    "helm.sh/hook-delete-policy": before-hook-creation # Remove the secret before hook creation
 type: Opaque
 stringData:
   {{- range $key, $val := .Values.secrets }}
@@ -43,7 +43,7 @@ metadata:
   annotations:
     "helm.sh/hook": pre-install, pre-upgrade # Execute this hook before install and upgrade so migrations can access the configmap
     "helm.sh/hook-weight": "-1" # Ensure this hook runs first by giving it a high priority (lower weight runs earlier)
-    "helm.sh/hook-delete-policy": before-hook-creation, hook-succeeded # Remove the secret before hook creation and after the hook completes
+    "helm.sh/hook-delete-policy": before-hook-creation # Remove the secret before hook creation
 data:
   HELM_RELEASE: "{{ .Release.Name }}"
   {{- range $key, $val := .Values.env }}
