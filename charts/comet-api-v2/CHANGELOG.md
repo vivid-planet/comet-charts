@@ -1,5 +1,11 @@
 # comet-api-v2
 
+## 2.2.2
+
+### Patch Changes
+
+-   4b91c23: Only delete migration resources before new hook creation
+
 ## 2.2.1
 
 ### Patch Changes
