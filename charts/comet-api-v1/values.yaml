@@ -1,3 +1,5 @@
+instanceNameOverride: ""
+
 replicaCount: 1
 
 authproxy:

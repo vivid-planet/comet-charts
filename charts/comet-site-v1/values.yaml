@@ -1,5 +1,6 @@
 contentScope: {}
 label: ""
+instanceNameOverride: ""
 
 env:
   NODE_ENV: "production"

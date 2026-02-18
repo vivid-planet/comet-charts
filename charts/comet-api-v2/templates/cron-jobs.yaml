@@ -10,7 +10,7 @@ metadata:
     {{ $key }}: {{ $val | quote }}
     {{- end }}
   labels:
-    comet-dxp.com/instance: "{{ .Release.Name }}"
+    comet-dxp.com/instance: "{{ .Values.instanceNameOverride | default .Release.Name }}"
     {{- include "comet-api.labels" . | nindent 4 }}
     {{- if $job.additionalLabels }}
       {{- tpl ($job.additionalLabels | toYaml) . | nindent 4 }}
@@ -28,7 +28,7 @@ spec:
       annotations:
         comet-dxp.com/trigger: "cronjob"
       labels:
-        comet-dxp.com/instance: "{{ .Release.Name }}"
+        comet-dxp.com/instance: "{{ .Values.instanceNameOverride | default .Release.Name }}"
         comet-dxp.com/parent-cron-job: {{ print (include "comet-api.fullname" .) "-" $name | trunc 52 | trimSuffix "-" }}
     spec:
       backoffLimit: {{ $job.backoffLimit | default 1 }}
