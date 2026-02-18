@@ -60,6 +60,7 @@ initContainer:
 
 builder:
   enabled: false
+  instanceNameOverride: ""
 
   schedule: "0 6 * * *"
 
