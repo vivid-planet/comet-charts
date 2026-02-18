@@ -5,7 +5,7 @@ metadata:
   name: {{ include "comet-site.fullname" . }}-build
   labels:
     comet-dxp.com/builder: "true"
-    comet-dxp.com/instance: "{{ .Values.instanceNameOverride | default .Release.Name }}"
+    comet-dxp.com/instance: "{{ .Values.builder.instanceNameOverride | default .Release.Name }}"
     {{- include "comet-site.labels" . | nindent 4 }}
   annotations:
     comet-dxp.com/content-scope: '{{- toJson .Values.contentScope }}'
@@ -24,7 +24,7 @@ spec:
         comet-dxp.com/label: "{{ .Values.label }}"
       labels:
         comet-dxp.com/builder: "true"
-        comet-dxp.com/instance: "{{ .Values.instanceNameOverride | default .Release.Name }}"
+        comet-dxp.com/instance: "{{ .Values.builder.instanceNameOverride | default .Release.Name }}"
         comet-dxp.com/parent-cron-job: {{ include "comet-site.fullname" . }}-build
         {{- include "comet-site.selectorLabels" . | nindent 8 }}
     spec:
