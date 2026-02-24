@@ -59,10 +59,10 @@ route:
 resources:
   limits:
     cpu: 2
-    memory: 256Mi
+    memory: 384Mi
   requests:
     cpu: 50m
-    memory: 256Mi
+    memory: 384Mi
 
 initContainers: []
 
