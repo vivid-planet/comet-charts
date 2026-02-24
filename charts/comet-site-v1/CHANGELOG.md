@@ -1,5 +1,11 @@
 # comet-site-v1
 
+## 1.13.0
+
+### Minor Changes
+
+-   b3d23b7: Allow overriding the `comet-dxp.com/instance` label via `instanceNameOverride` value
+
 ## 1.12.0
 
 ### Minor Changes
