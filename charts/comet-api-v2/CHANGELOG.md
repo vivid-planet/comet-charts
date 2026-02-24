@@ -1,5 +1,11 @@
 # comet-api-v2
 
+## 2.3.0
+
+### Minor Changes
+
+-   b3d23b7: Allow overriding the `comet-dxp.com/instance` label via `instanceNameOverride` value
+
 ## 2.2.2
 
 ### Patch Changes
