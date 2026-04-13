@@ -1,5 +1,11 @@
 # comet-api-v2
 
+## 2.4.0
+
+### Minor Changes
+
+-   37a8fab: Make the application container port configurable via the `containerPorts.http` value (defaults to `3000`, preserving current behavior). Also switch the Ingress backend to reference the Service port by name (`http`) instead of a hardcoded `3000`, so custom `service.port` / `containerPorts.http` values work end-to-end.
+
 ## 2.3.0
 
 ### Minor Changes
