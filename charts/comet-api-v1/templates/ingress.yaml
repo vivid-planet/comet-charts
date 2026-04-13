@@ -21,7 +21,7 @@ spec:
           service:
             name: {{ include "comet-api.fullname" . }}
             port:
-              number: 3000
+              name: http
   tls:
   - hosts:
     - {{ .Values.domain }}
