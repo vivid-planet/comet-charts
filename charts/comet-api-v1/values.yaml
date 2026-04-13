@@ -40,6 +40,9 @@ service:
   type: ClusterIP
   port: 3000
 
+containerPorts:
+  http: 3000
+
 metrics:
   enabled: false
   containerPorts:

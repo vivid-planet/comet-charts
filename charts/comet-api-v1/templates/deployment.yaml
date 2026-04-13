@@ -52,7 +52,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 3000
+              containerPort: {{ .Values.containerPorts.http }}
               protocol: TCP
             {{- if .Values.metrics.enabled }}
             - name: metrics
