@@ -223,6 +223,26 @@ entries:
     version: 0.0.0
   comet-api:
   - apiVersion: v2
+    created: "2026-04-13T13:36:10.019444269Z"
+    description: Helm chart for a Comet API Microservice
+    digest: 7d80453833680ed53b6dc78c2356c4925156e880f655aeae927a202d332ec97f
+    home: https://www.comet-dxp.com
+    icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+    maintainers:
+    - email: daniel.karnutsch@vivid-planet.com
+      name: Daniel Karnutsch
+    - email: georg.schreglmann@vivid-planet.com
+      name: Georg Schreglmann
+    - email: franz.unger@vivid-planet.com
+      name: Franz Unger
+    - email: alexander.kaufmann@vivid-planet.com
+      name: Alexander Kaufmann
+    name: comet-api
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-api-2.4.0/comet-api-2.4.0.tgz
+    version: 2.4.0
+  - apiVersion: v2
     created: "2026-02-24T12:59:33.576296703Z"
     description: Helm chart for a Comet API Microservice
     digest: d722737ee9d7afc36f511bcb9d468bb83c3257f364b7729ddea30423cb2fe6e7
@@ -342,6 +362,26 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/comet-api-2.0.0/comet-api-2.0.0.tgz
     version: 2.0.0
+  - apiVersion: v2
+    created: "2026-04-13T13:36:09.779486872Z"
+    description: Helm chart for a Comet API Microservice
+    digest: ee75827c2e72d441d1e46e4516ca5d771cfb9b769cad561d3845809da2241972
+    home: https://www.comet-dxp.com
+    icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+    maintainers:
+    - email: daniel.karnutsch@vivid-planet.com
+      name: Daniel Karnutsch
+    - email: georg.schreglmann@vivid-planet.com
+      name: Georg Schreglmann
+    - email: franz.unger@vivid-planet.com
+      name: Franz Unger
+    - email: alexander.kaufmann@vivid-planet.com
+      name: Alexander Kaufmann
+    name: comet-api
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-api-1.18.0/comet-api-1.18.0.tgz
+    version: 1.18.0
   - apiVersion: v2
     created: "2026-02-24T12:59:33.369787796Z"
     description: Helm chart for a Comet API Microservice
@@ -1505,4 +1545,4 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.10.2/imgproxy-0.10.2.tgz
     version: 0.10.2
-generated: "2026-02-24T12:59:33.778641035Z"
+generated: "2026-04-13T13:36:10.019912068Z"
