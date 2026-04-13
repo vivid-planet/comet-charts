@@ -39,6 +39,7 @@ autoMountServiceAccountToken: false
 service:
   type: ClusterIP
   port: 3000
+  containerPort: 3000
 
 metrics:
   enabled: false
