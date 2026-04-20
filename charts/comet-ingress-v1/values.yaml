@@ -12,6 +12,8 @@ annotations:
 #       name: comet-oauth2-proxy
 #       port:
 #         number: 3000
+#     # Set tls: false to disable TLS and serve over HTTP only (defaults to true)
+#     # tls: false
 #   - hostname: preview.comet-dxp.com
 #     service:
 #       name: comet-oauth2-proxy-preview
