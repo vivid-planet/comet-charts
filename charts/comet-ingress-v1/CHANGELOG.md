@@ -1,5 +1,11 @@
 # comet-ingress-v1
 
+## 1.1.0
+
+### Minor Changes
+
+-   5449980: Make TLS optional per ingress. Set `tls: false` on an ingress entry to create an HTTP-only ingress without a TLS section. Defaults to `true` for backward compatibility.
+
 ## 1.0.1
 
 ### Patch Changes
