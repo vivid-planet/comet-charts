@@ -45,12 +45,20 @@ spec:
     {{- range $j, $k := $i.hostname }}
     - hosts:
       - {{ $k }}
-      secretName: {{ if $i.service }}{{ $i.service.name }}-{{ $j }}-cert{{ else }}{{ include "comet-ingress.fullname" $ }}-{{ $index }}-{{ $j }}-cert{{ end }}
+      {{- if $i.service }}
+      secretName: {{ $i.service.name }}-{{ $j }}-cert
+      {{- else }}
+      secretName: {{ include "comet-ingress.fullname" $ }}-{{ $index }}-{{ $j }}-cert
+      {{- end }}
     {{- end }}
     {{- else }}
     - hosts:
       - {{ $i.hostname }}
-      secretName: {{ if $i.service }}{{ $i.service.name }}-cert{{ else }}{{ include "comet-ingress.fullname" $ }}-{{ $index }}-cert{{ end }}
+      {{- if $i.service }}
+      secretName: {{ $i.service.name }}-cert
+      {{- else }}
+      secretName: {{ include "comet-ingress.fullname" $ }}-{{ $index }}-cert
+      {{- end }}
     {{- end }}
   {{- end }}
 {{- end }}
