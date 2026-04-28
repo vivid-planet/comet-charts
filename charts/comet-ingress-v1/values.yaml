@@ -24,3 +24,7 @@ annotations:
 #       name: comet-site
 #       port:
 #         number: 3000
+#   # Ingress without a http section (e.g. for TLS certificate provisioning only):
+#   - hostname: cert-only.comet-dxp.com
+#     # service is omitted — no http sections are rendered
+#     # TLS is still enabled; secretName defaults to <fullname>-<index>-cert

@@ -17,6 +17,7 @@ spec:
   {{- if kindIs "slice" $i.hostname }}
   {{- range $k := $i.hostname }}
   - host: {{ $k }}
+    {{- if $i.service }}
     http:
       paths:
       - path: /
@@ -24,9 +25,11 @@ spec:
         backend:
           service:
             {{ $i.service | toYaml | nindent 12 }}
+    {{- end }}
   {{- end }}
   {{- else }}
   - host: {{ $i.hostname }}
+    {{- if $i.service }}
     http:
       paths:
       - path: /
@@ -34,6 +37,7 @@ spec:
         backend:
           service:
             {{ $i.service | toYaml | nindent 12 }}
+    {{- end }}
   {{- end }}
   {{- if not (eq $i.tls false) }}
   tls:
@@ -41,12 +45,12 @@ spec:
     {{- range $j, $k := $i.hostname }}
     - hosts:
       - {{ $k }}
-      secretName: {{ $i.service.name }}-{{ $j }}-cert
+      secretName: {{ if $i.service }}{{ $i.service.name }}-{{ $j }}-cert{{ else }}{{ include "comet-ingress.fullname" $ }}-{{ $index }}-{{ $j }}-cert{{ end }}
     {{- end }}
     {{- else }}
     - hosts:
       - {{ $i.hostname }}
-      secretName: {{ $i.service.name }}-cert
+      secretName: {{ if $i.service }}{{ $i.service.name }}-cert{{ else }}{{ include "comet-ingress.fullname" $ }}-{{ $index }}-cert{{ end }}
     {{- end }}
   {{- end }}
 {{- end }}
