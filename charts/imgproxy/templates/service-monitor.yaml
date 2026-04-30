@@ -1,12 +1,12 @@
 {{- if and (.Values.env.IMGPROXY_PROMETHEUS_BIND) (.Values.resources.serviceMonitor.enabled) }}
-{{- with .Values.resources.serviceMonitor }}
+  {{- with .Values.resources.serviceMonitor }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ template "imgproxy.fullname" $  }}
-  {{- if .namespace }}
+    {{- if .namespace }}
   namespace: {{ .namespace }}
-  {{- end }}
+    {{- end }}
   labels:
     imgproxy: "true"
     {{- range $key, $val := (.selector | default dict) }}
@@ -18,9 +18,9 @@ metadata:
 spec:
   endpoints:
     - port: metrics
-      {{- if .interval }}
+    {{- if .interval }}
       interval: {{ .interval }}
-      {{- end }}
+    {{- end }}
       honorLabels: {{ .honorLabels }}
   namespaceSelector:
     matchNames:
@@ -29,11 +29,11 @@ spec:
     matchLabels:
       app: {{ $.Release.Name | quote }}
       imgproxy: "true"
-  {{- if .targetLabels }}
+    {{- if .targetLabels }}
   targetLabels:
-  {{- range $label := .targetLabels }}
+      {{- range $label := .targetLabels }}
     - {{ $label }}
-  {{- end }}
-  {{- end }}
-{{- end -}}
+      {{- end }}
+    {{- end }}
+  {{- end -}}
 {{- end -}}

@@ -6,9 +6,9 @@ metadata:
   labels:
     {{- include "comet-admin.labels" . | nindent 4 }}
   annotations:
-    {{- range $key, $val := .Values.ingress.annotations }}
+  {{- range $key, $val := .Values.ingress.annotations }}
     {{ $key }}: {{ $val | quote }}
-    {{- end }}
+  {{- end }}
 spec:
   ingressClassName: nginx
   rules:

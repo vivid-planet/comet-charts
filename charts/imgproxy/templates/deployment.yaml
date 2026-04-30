@@ -16,85 +16,85 @@ metadata:
     release: {{ .Release.Name | quote }}
     chart: {{ template "imgproxy.chart" $ }}
     app: {{ template "imgproxy.fullname" $ }}
-    {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
+{{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
     {{ $key }}: {{ $val | quote }}
-    {{- end }}
+{{- end }}
   annotations: {{ .Values.resources.deployment.annotations | toYaml | nindent 4 }}
 spec:
-  {{- if (eq $minCount $maxCount) }}
+{{- if (eq $minCount $maxCount) }}
   replicas: {{ $replicaCount | default 1 | int }}
-  {{- end }}
-  {{- if .Values.resources.deployment.minReadySeconds }}
+{{- end }}
+{{- if .Values.resources.deployment.minReadySeconds }}
   minReadySeconds: {{ .Values.resources.deployment.minReadySeconds }}
-  {{- end }}
+{{- end }}
   selector:
     matchLabels:
       app: {{ template "imgproxy.fullname" $ }}
   strategy: {{ toYaml .Values.resources.deployment.strategy | nindent 4 }}
   template:
     metadata:
-      {{- with .Values.resources.pod }}
+{{- with .Values.resources.pod }}
       labels:
         app: {{ template "imgproxy.fullname" $ }}
         imgproxy: "true"
         release: {{ $.Release.Name | quote }}
-        {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
+  {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
         {{ $key }}: {{ $val | quote }}
-        {{- end }}
-        {{- range $key, $val := (.labels | default dict) }}
+  {{- end }}
+  {{- range $key, $val := (.labels | default dict) }}
         {{ $key }}: {{ $val | quote }}
-        {{- end }}
+  {{- end }}
       annotations:
         checksum/env: {{ $checksumEnv }}
-        {{- if .annotations }}
+  {{- if .annotations }}
         {{- .annotations | toYaml | nindent 8 }}
-        {{- end }}
-      {{- end }}
+  {{- end }}
+{{- end }}
     spec:
       automountServiceAccountToken: {{ .Values.resources.deployment.autoMountServiceAccountToken }}
       affinity: {{ .Values.resources.deployment.affinity | toYaml | nindent 8 }}
       tolerations: {{ .Values.resources.deployment.tolerations | toYaml | nindent 8 }}
       nodeSelector: {{ .Values.resources.deployment.nodeSelector | toYaml | nindent 8 }}
-      {{- if or .Values.image.pullSecrets.enabled .Values.image.addPullSecrets }}
+{{- if or .Values.image.pullSecrets.enabled .Values.image.addPullSecrets }}
       imagePullSecrets:
-        {{- if .Values.image.pullSecrets.enabled}}
+  {{- if .Values.image.pullSecrets.enabled}}
         - name: "{{ .Release.Name }}-docker-registry-secret"
-        {{- end }}
-        {{- if .Values.image.addPullSecrets}}
-        {{- range $secretName := .Values.image.addPullSecrets }}
+  {{- end }}
+  {{- if .Values.image.addPullSecrets}}
+    {{- range $secretName := .Values.image.addPullSecrets }}
         - name: {{ $secretName | quote }}
-        {{- end }}
-        {{- end }}
-      {{- end }}
-      {{- with (include "imgproxy.podSecurityContext" .) }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- with (include "imgproxy.podSecurityContext" .) }}
       securityContext:
         {{ . }}
-      {{- end }}
-      {{- if $.Values.resources.serviceAccount.existingName }}
+{{- end }}
+{{- if $.Values.resources.serviceAccount.existingName }}
       serviceAccountName: {{ $.Values.resources.serviceAccount.existingName | quote }}
-      {{- else if (include "serviceAccount.enabled" $ | eq "true") }}
+{{- else if (include "serviceAccount.enabled" $ | eq "true") }}
       serviceAccountName: "{{ template "imgproxy.fullname" $ }}-service-account"
-      {{- end }}
-      {{- if .Values.persistence.enabled }}
+{{- end }}
+{{- if .Values.persistence.enabled }}
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "imgproxy.pvcName" . }}
-      {{- end }}
-      {{- with .Values.resources.deployment.topologySpreadConstraints }}
+{{- end }}
+{{- with .Values.resources.deployment.topologySpreadConstraints }}
       topologySpreadConstraints:
-        {{- range $constraint := . }}
+  {{- range $constraint := . }}
         - {{ toYaml $constraint | nindent 10 | trim }}
-        {{- if not $constraint.labelSelector }}
+    {{- if not $constraint.labelSelector }}
           labelSelector:
             matchLabels:
               app: {{ template "imgproxy.fullname" $ }}
-        {{- end }}
-        {{- end }}
-      {{- end }}
-      {{- if .Values.resources.deployment.terminationGracePeriodSeconds }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- if .Values.resources.deployment.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.resources.deployment.terminationGracePeriodSeconds }}
-      {{- end }}
+{{- end }}
       containers:
         - name: "imgproxy"
           image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
@@ -102,66 +102,66 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ template "imgproxy.fullname" $ }}-env-secrets
-            {{- range $secretName := .Values.resources.addSecrets }}
+{{- range $secretName := .Values.resources.addSecrets }}
             - secretRef:
                 name: {{ $secretName }}
-            {{- end }}
+{{- end }}
           resources: {{ include "imgproxy.podResources" $ | nindent 12 }}
-          {{- if .Values.persistence.enabled }}
+{{- if .Values.persistence.enabled }}
           volumeMounts:
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}
-              {{- if .Values.persistence.subPath }}
+  {{- if .Values.persistence.subPath }}
               subPath: {{ .Values.persistence.subPath }}
-              {{- end }}
-          {{- end }}
+  {{- end }}
+{{- end }}
           ports:
             - containerPort: 8080
               name: http
               protocol: TCP
-            {{- with .Values.env.IMGPROXY_PROMETHEUS_BIND }}
+{{- with .Values.env.IMGPROXY_PROMETHEUS_BIND }}
             - containerPort: {{ mustRegexSplit ":" . -1 | mustLast | int }}
               name: metrics
               protocol: TCP
-            {{- end }}
-          {{- if .Values.resources.deployment.containerSecurityContext }}
+{{- end }}
+{{- if .Values.resources.deployment.containerSecurityContext }}
           securityContext: {{ $.Values.resources.deployment.containerSecurityContext | toYaml | nindent 12 }}
-          {{- end }}
+{{- end }}
           readinessProbe:
             httpGet:
               path: {{ .Values.env.IMGPROXY_PATH_PREFIX }}/health
               port: 8080
               scheme: HTTP
-              {{- if .Values.env.IMGPROXY_SECRET }}
+{{- if .Values.env.IMGPROXY_SECRET }}
               httpHeaders:
               - name: Authorization
                 value: Bearer {{ .Values.env.IMGPROXY_SECRET }}
-              {{- end }}
-            {{- with .Values.resources.deployment.readinessProbe }}
+{{- end }}
+{{- with .Values.resources.deployment.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds | default 10 }}
             timeoutSeconds: {{ .timeoutSeconds | default 5 }}
             successThreshold: {{ .successThreshold | default 1 }}
             failureThreshold: {{ .failureThreshold | default 5 }}
-            {{- end }}
+{{- end }}
           livenessProbe:
             httpGet:
               path: {{ .Values.env.IMGPROXY_PATH_PREFIX }}/health
               port: 8080
               scheme: HTTP
-              {{- if .Values.env.IMGPROXY_SECRET }}
+{{- if .Values.env.IMGPROXY_SECRET }}
               httpHeaders:
                 - name: Authorization
                   value: Bearer {{ .Values.env.IMGPROXY_SECRET }}
-              {{- end }}
-            {{- with .Values.resources.deployment.livenessProbe }}
+{{- end }}
+{{- with .Values.resources.deployment.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds | default 50 }}
             timeoutSeconds: {{ .timeoutSeconds | default 5 }}
             successThreshold: {{ .successThreshold | default 1 }}
             failureThreshold: {{ .failureThreshold | default 5 }}
-            {{- end }}
-          {{- with .Values.resources.deployment.lifecycle }}
+{{- end }}
+{{- with .Values.resources.deployment.lifecycle }}
           lifecycle: {{ toYaml . | nindent 12 }}
-          {{- end }}
-      {{- if ($priorityClassName | and $priorityClassVersion) }}
+{{- end }}
+{{- if ($priorityClassName | and $priorityClassVersion) }}
       priorityClassName: {{ $priorityClassName | quote }}
-      {{- end }}
+{{- end }}

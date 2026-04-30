@@ -1,6 +1,6 @@
 {{- $apiVersion := include "imgproxy.versions.ingress" . }}
 {{- with .Values.resources.ingress }}
-{{- if (.enabled | and $apiVersion | and .health.whitelist) }}
+  {{- if (.enabled | and $apiVersion | and .health.whitelist) }}
 ---
 apiVersion: {{ $apiVersion }}
 kind: Ingress
@@ -21,27 +21,27 @@ metadata:
     {{- toYaml .annotations | nindent 4 }}
     {{- end }}
 spec:
-  {{- if .className }}
+    {{- if .className }}
   ingressClassName: {{ .className | quote }}
-  {{- end }}
-  {{- if .tls }}
+    {{- end }}
+    {{- if .tls }}
   tls:
-    {{- range .tls }}
+      {{- range .tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
         {{- end }}
       secretName: {{ .secretName }}
+      {{- end }}
     {{- end }}
-  {{- end }}
   rules:
     {{- range .hosts }}
     - host: {{ . | quote }}
       http:
         paths:
-          {{- $name := include "imgproxy.fullname" $ }}
-          {{- $path := ($.Values.env.IMGPROXY_PATH_PREFIX | default "" | printf "%s/health") }}
-          {{- if eq $apiVersion "networking.k8s.io/v1" }}
+      {{- $name := include "imgproxy.fullname" $ }}
+      {{- $path := ($.Values.env.IMGPROXY_PATH_PREFIX | default "" | printf "%s/health") }}
+      {{- if eq $apiVersion "networking.k8s.io/v1" }}
           - path: {{ $path | quote }}
             pathType: Exact
             backend:
@@ -49,12 +49,12 @@ spec:
                 name: {{ $name | quote }}
                 port:
                   number: 80
-          {{- else }}
+      {{- else }}
           - path: {{ $path | quote }}
             backend:
               serviceName: {{ $name | quote }}
               servicePort: 80
-          {{- end }}
-{{- end }}
-{{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
 {{- end }}

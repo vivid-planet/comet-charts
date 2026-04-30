@@ -1,5 +1,5 @@
 {{- range $index, $i := .Values.ingresses }}
-{{ if or (kindIs "string" $i.hostname) (gt (len $i.hostname) 0) }}
+  {{ if or (kindIs "string" $i.hostname) (gt (len $i.hostname) 0) }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -14,52 +14,52 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  {{- if kindIs "slice" $i.hostname }}
-  {{- range $k := $i.hostname }}
-  - host: {{ $k }}
-    {{- if $i.service }}
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            {{ $i.service | toYaml | nindent 12 }}
-    {{- end }}
-  {{- end }}
-  {{- else }}
-  - host: {{ $i.hostname }}
-    {{- if $i.service }}
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            {{ $i.service | toYaml | nindent 12 }}
-    {{- end }}
-  {{- end }}
-  {{- if not (eq $i.tls false) }}
-  tls:
     {{- if kindIs "slice" $i.hostname }}
-    {{- range $j, $k := $i.hostname }}
+      {{- range $k := $i.hostname }}
+  - host: {{ $k }}
+        {{- if $i.service }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            {{ $i.service | toYaml | nindent 12 }}
+        {{- end }}
+      {{- end }}
+    {{- else }}
+  - host: {{ $i.hostname }}
+      {{- if $i.service }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            {{ $i.service | toYaml | nindent 12 }}
+      {{- end }}
+    {{- end }}
+    {{- if not (eq $i.tls false) }}
+  tls:
+      {{- if kindIs "slice" $i.hostname }}
+        {{- range $j, $k := $i.hostname }}
     - hosts:
       - {{ $k }}
-      {{- if $i.service }}
+          {{- if $i.service }}
       secretName: {{ $i.service.name }}-{{ $j }}-cert
-      {{- else }}
+          {{- else }}
       secretName: {{ include "comet-ingress.fullname" $ }}-{{ $index }}-{{ $j }}-cert
-      {{- end }}
-    {{- end }}
-    {{- else }}
+          {{- end }}
+        {{- end }}
+      {{- else }}
     - hosts:
       - {{ $i.hostname }}
-      {{- if $i.service }}
+        {{- if $i.service }}
       secretName: {{ $i.service.name }}-cert
-      {{- else }}
+        {{- else }}
       secretName: {{ include "comet-ingress.fullname" $ }}-{{ $index }}-cert
+        {{- end }}
       {{- end }}
     {{- end }}
   {{- end }}
-{{- end }}
 {{- end }}

@@ -34,14 +34,14 @@ spec:
       template:
         metadata:
           labels:
-            {{- range $key, $val := .Values.builder.additionalPodLabels }}
+  {{- range $key, $val := .Values.builder.additionalPodLabels }}
             {{ $key }}: {{ $val | quote }}
-            {{- end }}
+  {{- end }}
         spec:
-          {{- if .Values.image.pullSecret }}
+  {{- if .Values.image.pullSecret }}
           imagePullSecrets:
             - name: {{ include "comet-site.fullname" . }}-image-pull-secret
-          {{- end }}
+  {{- end }}
           restartPolicy: "Never"
           serviceAccountName: {{ include "comet-site.serviceAccountName" . }}
           securityContext:
@@ -51,11 +51,11 @@ spec:
             - name: {{ .Chart.Name }}-build
               securityContext:
                 {{- toYaml .Values.builder.securityContext | nindent 16 }}
-              {{- if .Values.image.tag }}
+  {{- if .Values.image.tag }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-              {{- else }}
+  {{- else }}
               image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
-              {{- end }}
+  {{- end }}
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               command: ["bash", "-c"]
               args:
@@ -72,26 +72,26 @@ spec:
               env:
                 - name: KUBECTL_VERSION
                   value: "{{ .Values.builder.kubectlVersion }}"
-              {{- with .Values.builder.extraEnv }}
+  {{- with .Values.builder.extraEnv }}
                 {{- toYaml . | nindent 16 }}
-              {{- end }}
+  {{- end }}
               envFrom:
-                {{- if .Values.env }}
+  {{- if .Values.env }}
                 - configMapRef:
                     name: {{ include "comet-site.fullname" . }}
-                {{- end }}
-                {{- range $key, $val := .Values.additionalConfigMapNames }}
+  {{- end }}
+  {{- range $key, $val := .Values.additionalConfigMapNames }}
                 - configMapRef:
                     name:  {{ $val }}
-                {{- end }}
-                {{- if .Values.secrets }}
+  {{- end }}
+  {{- if .Values.secrets }}
                 - secretRef:
                     name: {{ include "comet-site.fullname" . }}
-                {{- end }}
-                {{- range $key, $val := .Values.additionalSecretNames }}
+  {{- end }}
+  {{- range $key, $val := .Values.additionalSecretNames }}
                 - secretRef:
                     name:  {{ $val }}
-                {{- end }}
+  {{- end }}
               volumeMounts:
                 - mountPath: /opt/app-root/src/.next
                   name: document-root
@@ -99,30 +99,30 @@ spec:
                   name: generated-sites
                 - mountPath: /tmp
                   name: tmp
-                {{- if .Values.serviceAccount.create }}
+  {{- if .Values.serviceAccount.create }}
                 - mountPath: "/var/run/secrets/kubernetes.io/serviceaccount"
                   name: "service-account"
                   readOnly: true
-                {{- end }}
+  {{- end }}
               resources:
                 {{- toYaml .Values.builder.resources | nindent 16 }}
           volumes:
-            {{- if .Values.serviceAccount.create }}
+  {{- if .Values.serviceAccount.create }}
             - name: "service-account"
               secret:
                 secretName: {{ include "comet-site.fullname" . }}-service-account-token
-            {{- end }}
+  {{- end }}
             - name: document-root
               emptyDir: {}
             - name: tmp
               emptyDir: {}
             - name: generated-sites
               persistentVolumeClaim:
-{{- if and .Values.pvc.create .Values.pvc.name }}
+  {{- if and .Values.pvc.create .Values.pvc.name }}
                 claimName: {{ .Values.pvc.name }}
-{{- else if .Values.pvc.create }}
+  {{- else if .Values.pvc.create }}
                 claimName: {{ include "comet-site.fullname" . }}-build
-{{- else }}
+  {{- else }}
                 claimName: {{ .Values.persistence.existingClaim }}
-{{- end }}
+  {{- end }}
 {{- end }}

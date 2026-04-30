@@ -5,31 +5,31 @@ metadata:
   labels:
     {{- include "comet-admin.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
+{{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
+{{- end }}
   selector:
     matchLabels:
       {{- include "comet-admin.selectorMatchLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
-        {{- if .Values.image.pullSecret }}
+{{- if .Values.image.pullSecret }}
         checksum/image-pull-secret: {{ include (print $.Template.BasePath "/image-pull-secret.yaml") . | sha256sum }}
-        {{- end }}
-        {{- range $key, $val := .Values.podAnnotations }}
+{{- end }}
+{{- range $key, $val := .Values.podAnnotations }}
         {{ $key }}: {{ $val | quote }}
-        {{- end }}
+{{- end }}
       labels:
         {{- include "comet-admin.selectorLabels" . | nindent 8 }}
-        {{- range $key, $val := .Values.additionalPodLabels }}
+{{- range $key, $val := .Values.additionalPodLabels }}
         {{ $key }}: {{ $val | quote }}
-        {{- end }}
+{{- end }}
     spec:
-      {{- if .Values.image.pullSecret }}
+{{- if .Values.image.pullSecret }}
       imagePullSecrets:
         - name: {{ include "comet-admin.fullname" . }}-image-pull-secret
-      {{- end }}
+{{- end }}
       automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
@@ -37,21 +37,21 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          {{- if .Values.image.tag }}
+{{- if .Values.image.tag }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          {{- else }}
+{{- else }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
-          {{- end }}
+{{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 3000
               protocol: TCP
-            {{- if .Values.metrics.enabled }}
+{{- if .Values.metrics.enabled }}
             - name: metrics
               containerPort: {{ .Values.metrics.containerPorts.http }}
               protocol: TCP
-            {{- end }}
+{{- end }}
           env:
             - name: NODE_ENV
               value: "{{ .Values.nodeEnv }}"
@@ -59,10 +59,10 @@ spec:
               value: "{{ .Values.npmRun }}"
             - name: TZ
               value: "{{ .Values.timeZone }}"
-            {{- range $key, $val := .Values.env }}
+{{- range $key, $val := .Values.env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
-            {{- end }}
+{{- end }}
           livenessProbe:
             httpGet:
               path: /status/health
@@ -73,15 +73,15 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
+{{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
+{{- end }}
+{{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
+{{- end }}
+{{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
+{{- end }}

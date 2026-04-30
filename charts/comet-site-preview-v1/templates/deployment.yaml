@@ -12,25 +12,25 @@ spec:
   template:
     metadata:
       annotations:
-        {{- if .Values.env }}
+{{- if .Values.env }}
         checksum/config-map: {{ include (print $.Template.BasePath "/config-map.yaml") . | sha256sum }}
-        {{- end }}
-        {{- if .Values.image.pullSecret }}
+{{- end }}
+{{- if .Values.image.pullSecret }}
         checksum/image-pull-secret: {{ include (print $.Template.BasePath "/image-pull-secret.yaml") . | sha256sum }}
-        {{- end }}
-        {{- if .Values.secrets }}
+{{- end }}
+{{- if .Values.secrets }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
-        {{- end }}
+{{- end }}
       labels:
         {{- include "comet-site-preview.selectorLabels" . | nindent 8 }}
-        {{- range $key, $val := .Values.additionalPodLabels }}
+{{- range $key, $val := .Values.additionalPodLabels }}
         {{ $key }}: {{ $val | quote }}
-        {{- end }}
+{{- end }}
     spec:
-      {{- if .Values.image.pullSecret }}
+{{- if .Values.image.pullSecret }}
       imagePullSecrets:
         - name: {{ include "comet-site-preview.fullname" . }}-image-pull-secret
-      {{- end }}
+{{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
@@ -38,30 +38,30 @@ spec:
         - name: {{ .Chart.Name }}-build
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          {{- if .Values.image.tag }}
+{{- if .Values.image.tag }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          {{- else }}
+{{- else }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
-          {{- end }}
+{{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/bash", "-c", "next build"]
           envFrom:
-            {{- if .Values.env }}
+{{- if .Values.env }}
             - configMapRef:
                 name: {{ include "comet-site-preview.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMapNames }}
+{{- end }}
+{{- range $key, $val := .Values.additionalConfigMapNames }}
             - configMapRef:
                 name:  {{ $val }}
-            {{- end }}
-            {{- if .Values.secrets }}
+{{- end }}
+{{- if .Values.secrets }}
             - secretRef:
                 name: {{ include "comet-site-preview.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalSecretNames }}
+{{- end }}
+{{- range $key, $val := .Values.additionalSecretNames }}
             - secretRef:
                 name:  {{ $val }}
-            {{- end }}
+{{- end }}
           volumeMounts:
             - mountPath: /opt/app-root/src/.next
               name: document-root
@@ -71,29 +71,29 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          {{- if .Values.image.tag }}
+{{- if .Values.image.tag }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          {{- else }}
+{{- else }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
-          {{- end }}
+{{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
-            {{- if .Values.env }}
+{{- if .Values.env }}
             - configMapRef:
                 name: {{ include "comet-site-preview.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMapNames }}
+{{- end }}
+{{- range $key, $val := .Values.additionalConfigMapNames }}
             - configMapRef:
                 name:  {{ $val }}
-            {{- end }}
-            {{- if .Values.secrets }}
+{{- end }}
+{{- if .Values.secrets }}
             - secretRef:
                 name: {{ include "comet-site-preview.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalSecretNames }}
+{{- end }}
+{{- range $key, $val := .Values.additionalSecretNames }}
             - secretRef:
                 name:  {{ $val }}
-            {{- end }}
+{{- end }}
           env:
             - name: NPM_RUN
               value: "{{ .Values.npmRun }}"
@@ -114,18 +114,18 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
+{{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-    {{- with .Values.affinity }}
+{{- end }}
+{{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
+{{- end }}
+{{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+{{- end }}
       volumes:
         - name: document-root
           emptyDir: {}
