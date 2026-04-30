@@ -94,19 +94,19 @@ affinity: {}
 
 startupProbe: # Checks every periodSeconds for failureThreshold times
   httpGet:
-    path: /api/status/readiness
+    path: /api/healthcheck/ready
     port: http
   failureThreshold: 60
   periodSeconds: 3
 
 livenessProbe:
   httpGet:
-    path: /api/status/liveness
+    path: /api/healthcheck/live
     port: http
 
 readinessProbe:
   httpGet:
-    path: /api/status/readiness
+    path: /healthcheck/ready
     port: http
 
 cronJobs:

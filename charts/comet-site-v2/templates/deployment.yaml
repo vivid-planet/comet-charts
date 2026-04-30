@@ -158,14 +158,14 @@ spec:
             {{- end }}
           livenessProbe:
             httpGet:
-              path: /api/status
+              path: /healthcheck/live
               port: http
               httpHeaders:
               - name: x-cdn-origin-check
                 value: "{{ .Values.cdn.originHeader }}"
           readinessProbe:
             httpGet:
-              path: /api/status
+              path: /healthcheck/ready
               port: http
               httpHeaders:
               - name: x-cdn-origin-check

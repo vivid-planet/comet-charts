@@ -39,9 +39,9 @@ initContainer:
       memory: 512Mi
 
 livenessProbe:
-  path: "/site/api/status"
+  path: /site/healthcheck/live
 
 readinessProbe:
-  path: "/site/api/status"
+  path: /site/healthcheck/ready
 
 autoMountServiceAccountToken: false

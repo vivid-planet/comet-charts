@@ -58,12 +58,12 @@ spec:
           livenessProbe:
             initialDelaySeconds: 10
             httpGet:
-              path: /login/api/status
+              path: /login/healthcheck/live
               port: http
           readinessProbe:
             initialDelaySeconds: 10
             httpGet:
-              path: /login/api/status
+              path: /login/healthcheck/ready
               port: http
           resources:
             {{- toYaml .Values.prelogin.resources | nindent 12 }}
