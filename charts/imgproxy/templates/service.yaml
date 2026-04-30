@@ -8,9 +8,9 @@ metadata:
     heritage: {{ .Release.Service | quote }}
     imgproxy: "true"
     release: {{ .Release.Name | quote }}
-    {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
+{{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
     {{ $key }}: {{ $val | quote }}
-    {{- end }}
+{{- end }}
 {{- with .Values.resources.service }}
   {{- if .annotations }}
   annotations: {{ .annotations | toYaml | nindent 4 }}
@@ -19,16 +19,16 @@ spec:
   type: {{ .type | default "ClusterIP" | quote }}
   {{- if eq .type "LoadBalancer" }}
   loadBalancerIP: {{ .loadBalancerIP | default "" | quote }}
-  {{- if .loadBalancerSourceRanges }}
+    {{- if .loadBalancerSourceRanges }}
   loadBalancerSourceRanges: {{ .loadBalancerSourceRanges | toYaml | nindent 4 }}
-  {{- end }}
-  {{- if .externalTrafficPolicy }}
+    {{- end }}
+    {{- if .externalTrafficPolicy }}
   externalTrafficPolicy: {{ .externalTrafficPolicy | quote }}
-  {{- end }}
+    {{- end }}
   {{- else if eq .type "NodePort" }}
-  {{- if .externalTrafficPolicy }}
+    {{- if .externalTrafficPolicy }}
   externalTrafficPolicy: {{ .externalTrafficPolicy | quote }}
-  {{- end }}
+    {{- end }}
   {{- end }}
   selector:
     app: "{{ template "imgproxy.fullname" $ }}"
@@ -37,15 +37,15 @@ spec:
       port: {{ .port | default 80 }}
       protocol: TCP
       targetPort: 8080
-      {{- if eq .type "NodePort" }}
+  {{- if eq .type "NodePort" }}
       nodePort: {{ .nodePort | default "" }}
-      {{- end }}
-    {{- with $.Values.env }}
+  {{- end }}
+  {{- with $.Values.env }}
     {{- if .IMGPROXY_PROMETHEUS_BIND }}
     - name: metrics
       port: {{ mustRegexSplit ":" .IMGPROXY_PROMETHEUS_BIND -1 | mustLast | int }}
       protocol: TCP
       targetPort: {{ mustRegexSplit ":" .IMGPROXY_PROMETHEUS_BIND -1 | mustLast | int }}
     {{- end }}
-    {{- end }}
+  {{- end }}
 {{- end }}

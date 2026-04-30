@@ -1,6 +1,6 @@
 {{- $apiVersion := include "imgproxy.versions.ingress" . }}
 {{- with .Values.resources.ingress }}
-{{- if (.enabled | and $apiVersion) }}
+  {{- if (.enabled | and $apiVersion) }}
 ---
 apiVersion: {{ $apiVersion }}
 kind: Ingress
@@ -15,38 +15,38 @@ metadata:
     {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
     {{ $key }}: {{ $val | quote }}
     {{- end }}
-  {{- with .annotations }}
+    {{- with .annotations }}
   annotations:
-    {{- $tp := typeOf . }}
-    {{- if eq $tp "string" }}
+      {{- $tp := typeOf . }}
+      {{- if eq $tp "string" }}
       {{- tpl . $ | nindent 4 }}
-    {{- else }}
+      {{- else }}
       {{- toYaml . | nindent 4 }}
+      {{- end }}
     {{- end }}
-  {{- end }}
 spec:
-  {{- if .className }}
+    {{- if .className }}
   ingressClassName: {{ .className | quote }}
-  {{- end }}
-  {{- if .tls }}
+    {{- end }}
+    {{- if .tls }}
   tls:
-    {{- range .tls }}
+      {{- range .tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
         {{- end }}
       secretName: {{ .secretName }}
+      {{- end }}
     {{- end }}
-  {{- end }}
-  {{- $pathType := .pathType | default "ImplementationSpecific" }}
+    {{- $pathType := .pathType | default "ImplementationSpecific" }}
   rules:
     {{- range .hosts }}
     - host: {{ . | quote }}
       http:
         paths:
-          {{- $name := include "imgproxy.fullname" $ }}
-          {{- $path := include "imgproxy.ingressPath" $ }}
-          {{- if eq $apiVersion "networking.k8s.io/v1" }}
+      {{- $name := include "imgproxy.fullname" $ }}
+      {{- $path := include "imgproxy.ingressPath" $ }}
+      {{- if eq $apiVersion "networking.k8s.io/v1" }}
           - path: {{ $path | quote }}
             pathType: {{ $pathType | quote }}
             backend:
@@ -54,12 +54,12 @@ spec:
                 name: {{ $name | quote }}
                 port:
                   number: 80
-          {{- else }}
+      {{- else }}
           - path: {{ $path | quote }}
             backend:
               serviceName: {{ $name | quote }}
               servicePort: 80
-          {{- end }}
-{{- end }}
-{{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
 {{- end }}

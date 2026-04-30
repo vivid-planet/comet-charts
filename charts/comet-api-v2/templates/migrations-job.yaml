@@ -1,5 +1,5 @@
 {{- if .Values.migration.enabled }}
-{{- if .Values.image.pullSecret }}
+  {{- if .Values.image.pullSecret }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -13,9 +13,9 @@ metadata:
 data:
   .dockerconfigjson: {{ required "Missing image.pullSecret" .Values.image.pullSecret }}
 type: kubernetes.io/dockerconfigjson
-{{- end }}
+  {{- end }}
 ---
-{{- if .Values.secrets }}
+  {{- if .Values.secrets }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -28,12 +28,12 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation # Remove the secret before hook creation
 type: Opaque
 stringData:
-  {{- range $key, $val := .Values.secrets }}
+    {{- range $key, $val := .Values.secrets }}
   {{ $key }}: {{ $val | quote }}
+    {{- end }}
   {{- end }}
-{{- end }}
 ---
-{{- if .Values.env }}
+  {{- if .Values.env }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -46,10 +46,10 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation # Remove the secret before hook creation
 data:
   HELM_RELEASE: "{{ .Release.Name }}"
-  {{- range $key, $val := .Values.env }}
+    {{- range $key, $val := .Values.env }}
   {{ $key }}: {{ $val | quote }}
+    {{- end }}
   {{- end }}
-{{- end }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -64,38 +64,38 @@ spec:
   template:
     spec:
       restartPolicy: Never # Do not restart the job on failure
-      {{- if .Values.image.pullSecret }}
+  {{- if .Values.image.pullSecret }}
       imagePullSecrets:
         - name: {{ include "comet-api.fullname" . }}-migrations-image-pull-secret
-      {{- end }}
+  {{- end }}
       containers:
         - name: {{ .Chart.Name }}-migrations
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          {{- if .Values.image.tag }}
+  {{- if .Values.image.tag }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          {{- else }}
+  {{- else }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
-          {{- end }}
+  {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["bash", "-c", {{ .Values.migration.command }}]
           envFrom:
-            {{- if .Values.env }}
+  {{- if .Values.env }}
             - configMapRef:
                 name: {{ include "comet-api.fullname" . }}-migrations
-            {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMapNames }}
+  {{- end }}
+  {{- range $key, $val := .Values.additionalConfigMapNames }}
             - configMapRef:
                 name: {{ $val }}
-            {{- end }}
-            {{- if .Values.secrets }}
+  {{- end }}
+  {{- if .Values.secrets }}
             - secretRef:
                 name: {{ include "comet-api.fullname" . }}-migrations
-            {{- end }}
-            {{- range $key, $val := .Values.additionalSecretNames }}
+  {{- end }}
+  {{- range $key, $val := .Values.additionalSecretNames }}
             - secretRef:
                 name: {{ $val }}
-            {{- end }}
+  {{- end }}
           resources:
             {{- toYaml .Values.migration.resources | nindent 12 }}
-  {{- end}}
+{{- end}}

@@ -19,8 +19,25 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install helmfmt
+        env:
+          HELMFMT_VERSION: v0.5.0
+        run: |
+          curl -fsSL "https://github.com/digitalstudium/helmfmt/releases/download/${HELMFMT_VERSION}/helmfmt_Linux_x86_64.tar.gz" \
+            | sudo tar -xzf - -C /usr/local/bin/ helmfmt
+
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
       - name: Run Prettier
         run: npx prettier -c .
+
+      - name: Run Helmfmt
+        run: |
+          set -e
+          fail=0
+          for chart in charts/*/; do
+            echo "Checking $chart"
+            helmfmt --check "$chart" || fail=1
+          done
+          exit $fail
