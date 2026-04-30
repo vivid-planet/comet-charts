@@ -1,0 +1,32 @@
+{{- if .Values.serviceAccount.create -}}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "comet-api.serviceAccountName" . }}
+  labels:
+    {{- include "comet-api.labels" . | nindent 4 }}
+  {{- with .Values.serviceAccount.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "comet-api.serviceAccountName" . }}-restricted
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "comet-api.serviceAccountName" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "comet-api.serviceAccountName" . }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "comet-api.fullname" . }}-service-account-token
+  annotations:
+    kubernetes.io/service-account.name: {{ include "comet-api.serviceAccountName" . }}
+type: kubernetes.io/service-account-token
+{{- end }}

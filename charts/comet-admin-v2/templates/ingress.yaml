@@ -1,0 +1,29 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "comet-admin.fullname" . }}
+  labels:
+    {{- include "comet-admin.labels" . | nindent 4 }}
+  annotations:
+    {{- range $key, $val := .Values.ingress.annotations }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "{{ .Values.domain }}"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "comet-admin.fullname" . }}
+            port:
+              number: 3000
+  tls:
+  - hosts:
+    - "{{ .Values.domain }}"
+    secretName: {{ include "comet-admin.fullname" . }}-cert
+{{- end }}
