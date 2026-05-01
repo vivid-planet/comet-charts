@@ -1,0 +1,82 @@
+{{- if .Values.prelogin.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "comet-site.fullname" . }}-prelogin
+  labels:
+    {{- include "comet-site.prelogin.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.prelogin.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "comet-site.prelogin.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- if and (.Values.prelogin.enabled) (.Values.prelogin.secrets) }}
+        checksum/prelogin-secret: {{ include (print $.Template.BasePath "/prelogin-secret.yaml") . | sha256sum }}
+        {{- end }}
+      labels:
+        {{- include "comet-site.prelogin.selectorLabels" . | nindent 8 }}
+        {{- range $key, $val := .Values.prelogin.additionalPodLabels }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
+    spec:
+      {{- if .Values.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ include "comet-site.fullname" . }}-image-pull-secret
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.prelogin.podSecurityContext | nindent 8 }}
+      automountServiceAccountToken: {{ .Values.prelogin.autoMountServiceAccountToken }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.prelogin.securityContext | nindent 12 }}
+          {{- if .Values.prelogin.image.tag }}
+          image: "{{ .Values.prelogin.image.repository }}:{{ .Values.prelogin.image.tag }}"
+          {{- else }}
+          image: "{{ .Values.prelogin.image.repository }}@{{ .Values.prelogin.image.hash }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.prelogin.image.pullPolicy }}
+          env:
+            -   name: NODE_ENV
+                value: "production"
+            -   name: NPM_RUN
+                value: "start"
+            {{- range $key, $val := .Values.prelogin.env }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+            {{- end }}
+          envFrom:
+            - secretRef:
+                name: {{ include "comet-site.fullname" . }}-prelogin
+          ports:
+            - name: http
+              containerPort: 3010
+              protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: /login/healthcheck/live
+              port: http
+          readinessProbe:
+            initialDelaySeconds: 10
+            httpGet:
+              path: /login/healthcheck/ready
+              port: http
+          resources:
+            {{- toYaml .Values.prelogin.resources | nindent 12 }}
+      {{- with .Values.prelogin.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.prelogin.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.prelogin.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+{{- end }}
