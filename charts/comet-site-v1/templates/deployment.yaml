@@ -5,51 +5,51 @@ metadata:
   labels:
     {{- include "comet-site.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
+{{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
+{{- end }}
   selector:
     matchLabels:
       {{- include "comet-site.selectorMatchLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
-        {{- if .Values.env }}
+{{- if .Values.env }}
         checksum/config-map: {{ include (print $.Template.BasePath "/config-map.yaml") . | sha256sum }}
-        {{- end }}
-        {{- if .Values.image.pullSecret }}
+{{- end }}
+{{- if .Values.image.pullSecret }}
         checksum/image-pull-secret: {{ include (print $.Template.BasePath "/image-pull-secret.yaml") . | sha256sum }}
-        {{- end }}
-        {{- if .Values.secrets }}
+{{- end }}
+{{- if .Values.secrets }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
-        {{- end }}
-        {{- range $key, $val := .Values.podAnnotations }}
+{{- end }}
+{{- range $key, $val := .Values.podAnnotations }}
         {{ $key }}: {{ $val | quote }}
-        {{- end }}
+{{- end }}
       labels:
         {{- include "comet-site.selectorLabels" . | nindent 8 }}
-        {{- range $key, $val := .Values.additionalPodLabels }}
+{{- range $key, $val := .Values.additionalPodLabels }}
         {{ $key }}: {{ $val | quote }}
-        {{- end }}
+{{- end }}
     spec:
-      {{- if .Values.image.pullSecret }}
+{{- if .Values.image.pullSecret }}
       imagePullSecrets:
         - name: {{ include "comet-site.fullname" . }}-image-pull-secret
-      {{- end }}
+{{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       automountServiceAccountToken: {{ .Values.autoMountServiceAccountToken }}
       serviceAccountName: {{ include "comet-site.serviceAccountName" . }}
-      {{- if or (.Values.builder.enabled) (.Values.initContainer.enabled) }}
+{{- if or (.Values.builder.enabled) (.Values.initContainer.enabled) }}
       initContainers:
         - name: {{ .Chart.Name }}-copy
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          {{- if .Values.image.tag }}
+  {{- if .Values.image.tag }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          {{- else }}
+  {{- else }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
-          {{- end }}
+  {{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/bash", "-c"]
           args:
@@ -66,96 +66,96 @@ spec:
                 rm -r /tmp/site-build;
               fi;
           envFrom:
-            {{- if .Values.env }}
+  {{- if .Values.env }}
             - configMapRef:
                 name: {{ include "comet-site.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMapNames }}
+  {{- end }}
+  {{- range $key, $val := .Values.additionalConfigMapNames }}
             - configMapRef:
                 name:  {{ $val }}
-            {{- end }}
-            {{- if .Values.secrets }}
+  {{- end }}
+  {{- if .Values.secrets }}
             - secretRef:
                 name: {{ include "comet-site.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalSecretNames }}
+  {{- end }}
+  {{- range $key, $val := .Values.additionalSecretNames }}
             - secretRef:
                 name:  {{ $val }}
-            {{- end }}
-          {{- with .Values.initContainer.extraEnv }}
+  {{- end }}
+  {{- with .Values.initContainer.extraEnv }}
           env:
             {{- toYaml . | nindent 12 }}
-          {{- end }}
+  {{- end }}
           volumeMounts:
-          {{- if .Values.builder.enabled }}
+  {{- if .Values.builder.enabled }}
             - mountPath: /mnt/generated-sites/
               name: generated-sites
             - mountPath: /tmp
               name: tmp
-          {{- end }}
-          {{- if .Values.mountEmptyDirAsNextFolder }}
+  {{- end }}
+  {{- if .Values.mountEmptyDirAsNextFolder }}
             - mountPath: /opt/app-root/src/.next
               name: document-root
-          {{- end }}
+  {{- end }}
           resources:
             {{- toYaml .Values.initContainer.resources | nindent 12 }}
-      {{- end }}
+{{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          {{- if .Values.image.tag }}
+{{- if .Values.image.tag }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          {{- else }}
+{{- else }}
           image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
-          {{- end }}
+{{- end }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
-            {{- if .Values.env }}
+{{- if .Values.env }}
             - configMapRef:
                 name: {{ include "comet-site.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalConfigMapNames }}
+{{- end }}
+{{- range $key, $val := .Values.additionalConfigMapNames }}
             - configMapRef:
                 name:  {{ $val }}
-            {{- end }}
-            {{- if .Values.secrets }}
+{{- end }}
+{{- if .Values.secrets }}
             - secretRef:
                 name: {{ include "comet-site.fullname" . }}
-            {{- end }}
-            {{- range $key, $val := .Values.additionalSecretNames }}
+{{- end }}
+{{- range $key, $val := .Values.additionalSecretNames }}
             - secretRef:
                 name:  {{ $val }}
-            {{- end }}
+{{- end }}
           env:
             - name: NPM_RUN
               value: "{{ .Values.npmRun }}"
-          {{- with .Values.extraEnv }}
+{{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
-          {{- end }}
+{{- end }}
           volumeMounts:
-          {{- if .Values.builder.enabled }}
+{{- if .Values.builder.enabled }}
             - mountPath: /mnt/generated-sites/
               name: generated-sites
-          {{- end }}
-          {{- if .Values.mountEmptyDirAsNextFolder }}
+{{- end }}
+{{- if .Values.mountEmptyDirAsNextFolder }}
             - mountPath: /opt/app-root/src/.next
               name: document-root
-          {{- end }}
-          {{- if .Values.serviceAccount.create }}
+{{- end }}
+{{- if .Values.serviceAccount.create }}
             - mountPath: "/var/run/secrets/kubernetes.io/serviceaccount"
               name: "service-account"
               readOnly: true
-          {{- end }}
+{{- end }}
           ports:
             - name: http
               containerPort: 3000
               protocol: TCP
-            {{- if .Values.metrics.enabled }}
+{{- if .Values.metrics.enabled }}
             - name: metrics
               containerPort: {{ .Values.metrics.containerPorts.http }}
               protocol: TCP
-            {{- end }}
+{{- end }}
           livenessProbe:
             httpGet:
               path: /api/status
@@ -172,38 +172,38 @@ spec:
                 value: "{{ .Values.cdn.originHeader }}"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
+{{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-    {{- with .Values.affinity }}
+{{- end }}
+{{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
+{{- end }}
+{{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+{{- end }}
       volumes:
-        {{- if .Values.serviceAccount.create }}
+{{- if .Values.serviceAccount.create }}
         - name: "service-account"
           secret:
             secretName: {{ include "comet-site.fullname" . }}-service-account-token
-        {{- end }}
-    {{- if .Values.builder.enabled }}
+{{- end }}
+{{- if .Values.builder.enabled }}
         - name: generated-sites
           persistentVolumeClaim:
-          {{- if and .Values.pvc.create .Values.pvc.name }}
+  {{- if and .Values.pvc.create .Values.pvc.name }}
             claimName: {{ .Values.pvc.name }}
-          {{- else if .Values.pvc.create }}
+  {{- else if .Values.pvc.create }}
             claimName: {{ include "comet-site.fullname" . }}-build
-          {{- else }}
+  {{- else }}
             claimName: {{ .Values.persistence.existingClaim }}
-          {{- end }}
+  {{- end }}
         - name: tmp
           emptyDir: {}
-    {{- end }}
-    {{- if .Values.mountEmptyDirAsNextFolder }}
+{{- end }}
+{{- if .Values.mountEmptyDirAsNextFolder }}
         - name: document-root
           emptyDir: {}
-    {{- end }}
+{{- end }}

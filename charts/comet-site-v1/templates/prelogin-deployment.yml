@@ -13,19 +13,19 @@ spec:
   template:
     metadata:
       annotations:
-        {{- if and (.Values.prelogin.enabled) (.Values.prelogin.secrets) }}
+  {{- if and (.Values.prelogin.enabled) (.Values.prelogin.secrets) }}
         checksum/prelogin-secret: {{ include (print $.Template.BasePath "/prelogin-secret.yaml") . | sha256sum }}
-        {{- end }}
+  {{- end }}
       labels:
         {{- include "comet-site.prelogin.selectorLabels" . | nindent 8 }}
-        {{- range $key, $val := .Values.prelogin.additionalPodLabels }}
+  {{- range $key, $val := .Values.prelogin.additionalPodLabels }}
         {{ $key }}: {{ $val | quote }}
-        {{- end }}
+  {{- end }}
     spec:
-      {{- if .Values.image.pullSecret }}
+  {{- if .Values.image.pullSecret }}
       imagePullSecrets:
         - name: {{ include "comet-site.fullname" . }}-image-pull-secret
-      {{- end }}
+  {{- end }}
       securityContext:
         {{- toYaml .Values.prelogin.podSecurityContext | nindent 8 }}
       automountServiceAccountToken: {{ .Values.prelogin.autoMountServiceAccountToken }}
@@ -33,21 +33,21 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.prelogin.securityContext | nindent 12 }}
-          {{- if .Values.prelogin.image.tag }}
+  {{- if .Values.prelogin.image.tag }}
           image: "{{ .Values.prelogin.image.repository }}:{{ .Values.prelogin.image.tag }}"
-          {{- else }}
+  {{- else }}
           image: "{{ .Values.prelogin.image.repository }}@{{ .Values.prelogin.image.hash }}"
-          {{- end }}
+  {{- end }}
           imagePullPolicy: {{ .Values.prelogin.image.pullPolicy }}
           env:
             -   name: NODE_ENV
                 value: "production"
             -   name: NPM_RUN
                 value: "start"
-            {{- range $key, $val := .Values.prelogin.env }}
+  {{- range $key, $val := .Values.prelogin.env }}
             - name: {{ $key }}
               value: {{ $val | quote }}
-            {{- end }}
+  {{- end }}
           envFrom:
             - secretRef:
                 name: {{ include "comet-site.fullname" . }}-prelogin
@@ -67,16 +67,16 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.prelogin.resources | nindent 12 }}
-      {{- with .Values.prelogin.nodeSelector }}
+  {{- with .Values.prelogin.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
-    {{- with .Values.prelogin.affinity }}
+  {{- end }}
+  {{- with .Values.prelogin.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
-    {{- with .Values.prelogin.tolerations }}
+  {{- end }}
+  {{- with .Values.prelogin.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+  {{- end }}
 {{- end }}

@@ -6,15 +6,15 @@ metadata:
   labels:
     {{- include "comet-site.labels" . | nindent 4 }}
   annotations:
-    {{- range $key, $val := .Values.ingress.annotations }}
+  {{- range $key, $val := .Values.ingress.annotations }}
     {{ $key }}: {{ $val | quote }}
-    {{- end }}
+  {{- end }}
 
 spec:
   ingressClassName: nginx
   rules:
   {{- if .Values.domains }}
-  {{- range .Values.domains }}
+    {{- range .Values.domains }}
   - host: "{{ . }}"
     http:
       paths:
@@ -25,7 +25,7 @@ spec:
             name: {{ include "comet-site.fullname" $ }}
             port:
               number: 3000
-  {{- end }}
+    {{- end }}
   {{- else if .Values.cdn.enabled }}
   - host: "{{ .Values.internalDomain }}"
   {{- else }}
@@ -37,24 +37,24 @@ spec:
         pathType: Prefix
         backend:
           service:
-          {{- if .Values.prelogin.enabled }}
+  {{- if .Values.prelogin.enabled }}
             name: {{ include "comet-site.fullname" . }}-prelogin
-          {{- else }}
+  {{- else }}
             name: {{ include "comet-site.fullname" . }}
-          {{- end }}
+  {{- end }}
             port:
               number: 3000
 
   tls:
   - hosts:
-{{- if .Values.domains }}
-  {{- range .Values.domains }}
+  {{- if .Values.domains }}
+    {{- range .Values.domains }}
     - "{{ . }}"
-  {{- end }}
-{{- else if .Values.cdn.enabled }}
+    {{- end }}
+  {{- else if .Values.cdn.enabled }}
     - "{{ .Values.internalDomain }}"
-{{- else }}
+  {{- else }}
     - "{{ .Values.domain }}"
-{{- end }}
+  {{- end }}
     secretName: {{ include "comet-site.fullname" . }}-main-cert
 {{- end }}

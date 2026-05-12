@@ -1,6 +1,6 @@
 {{- $apiVersion := include "imgproxy.versions.podDisruptionBudget" . }}
 {{- with .Values.resources.podDisruptionBudget -}}
-{{- if (.enabled | and $apiVersion) }}
+  {{- if (.enabled | and $apiVersion) }}
 ---
 apiVersion: {{ $apiVersion }}
 kind: PodDisruptionBudget
@@ -12,14 +12,14 @@ metadata:
     {{ $key }}: {{ $val | quote }}
     {{- end }}
 spec:
-  {{- if .minAvailable }}
+    {{- if .minAvailable }}
   minAvailable: {{ .minAvailable }}
-  {{- end }}
-  {{- if .maxUnavailable }}
+    {{- end }}
+    {{- if .maxUnavailable }}
   maxUnavailable: {{ .maxUnavailable }}
-  {{- end }}
+    {{- end }}
   selector:
     matchLabels:
       app: {{ template "imgproxy.fullname" $ }}
-{{- end -}}
+  {{- end -}}
 {{- end }}

@@ -5,23 +5,23 @@ metadata:
   labels:
     {{- include "comet-site.labels" . | nindent 4 }}
 spec:
-  {{- if .Values.service.sessionAffinityTimeoutSeconds }}
+{{- if .Values.service.sessionAffinityTimeoutSeconds }}
   sessionAffinity: ClientIP
   sessionAffinityConfig:
     clientIP:
       timeoutSeconds: {{ .Values.service.sessionAffinityTimeoutSeconds }}
-  {{- end }}
+{{- end }}
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
       targetPort: http
       protocol: TCP
       name: http
-    {{- if .Values.metrics.enabled }}
+{{- if .Values.metrics.enabled }}
     - name: metrics
       protocol: TCP
       port: {{ .Values.metrics.containerPorts.http }}
       targetPort: metrics
-    {{- end }}
+{{- end }}
   selector:
     {{- include "comet-site.selectorLabels" . | nindent 4 }}
