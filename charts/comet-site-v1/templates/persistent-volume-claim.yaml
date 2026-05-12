@@ -9,9 +9,9 @@ metadata:
   {{- end }}
   labels:
     {{- include "comet-site.labels" . | nindent 4 }}
-    {{- if .Values.pvc.additionalLabels }}
+  {{- if .Values.pvc.additionalLabels }}
     {{- toYaml .Values.pvc.additionalLabels | nindent 4 }}
-    {{- end }}
+  {{- end }}
   {{- with .Values.pvc.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -19,9 +19,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-{{- if .Values.pvc.storageClass }}
+  {{- if .Values.pvc.storageClass }}
   storageClassName: {{ .Values.pvc.storageClass }}
-{{- end }}
+  {{- end }}
   resources:
     requests:
       storage: 10Gi
