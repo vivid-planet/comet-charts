@@ -1,0 +1,101 @@
+{{- if .Values.migration.enabled }}
+{{- if .Values.image.pullSecret }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "comet-api.fullname" . }}-migrations-image-pull-secret
+  labels:
+    {{- include "comet-api.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install, pre-upgrade # Execute this hook before install and upgrade so migrations can authenticate to the registry
+    "helm.sh/hook-weight": "-3" # Ensure this hook runs first by giving it a high priority (lower weight runs earlier)
+    "helm.sh/hook-delete-policy": before-hook-creation # Remove the secret before hook creation
+data:
+  .dockerconfigjson: {{ required "Missing image.pullSecret" .Values.image.pullSecret }}
+type: kubernetes.io/dockerconfigjson
+{{- end }}
+---
+{{- if .Values.secrets }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "comet-api.fullname" . }}-migrations
+  labels:
+    {{- include "comet-api.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install, pre-upgrade # Execute this hook before install and upgrade so migrations can access the secrets
+    "helm.sh/hook-weight": "-2" # Ensure this hook runs first by giving it a high priority (lower weight runs earlier)
+    "helm.sh/hook-delete-policy": before-hook-creation # Remove the secret before hook creation
+type: Opaque
+stringData:
+  {{- range $key, $val := .Values.secrets }}
+  {{ $key }}: {{ $val | quote }}
+  {{- end }}
+{{- end }}
+---
+{{- if .Values.env }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "comet-api.fullname" . }}-migrations
+  labels:
+    {{- include "comet-api.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install, pre-upgrade # Execute this hook before install and upgrade so migrations can access the configmap
+    "helm.sh/hook-weight": "-1" # Ensure this hook runs first by giving it a high priority (lower weight runs earlier)
+    "helm.sh/hook-delete-policy": before-hook-creation # Remove the secret before hook creation
+data:
+  HELM_RELEASE: "{{ .Release.Name }}"
+  {{- range $key, $val := .Values.env }}
+  {{ $key }}: {{ $val | quote }}
+  {{- end }}
+{{- end }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "comet-api.fullname" . }}-migrations
+  annotations:
+    "helm.sh/hook": pre-install, pre-upgrade # Run migrations before install and upgrade
+    "helm.sh/hook-weight": "0" # Default weight
+    "helm.sh/hook-delete-policy": before-hook-creation # Delete previous job before creating a new one
+spec:
+  backoffLimit: 0 # Do not retry on failure
+  template:
+    spec:
+      restartPolicy: Never # Do not restart the job on failure
+      {{- if .Values.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ include "comet-api.fullname" . }}-migrations-image-pull-secret
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}-migrations
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- if .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          {{- else }}
+          image: "{{ .Values.image.repository }}@{{ .Values.image.hash }}"
+          {{- end }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["bash", "-c", {{ .Values.migration.command }}]
+          envFrom:
+            {{- if .Values.env }}
+            - configMapRef:
+                name: {{ include "comet-api.fullname" . }}-migrations
+            {{- end }}
+            {{- range $key, $val := .Values.additionalConfigMapNames }}
+            - configMapRef:
+                name: {{ $val }}
+            {{- end }}
+            {{- if .Values.secrets }}
+            - secretRef:
+                name: {{ include "comet-api.fullname" . }}-migrations
+            {{- end }}
+            {{- range $key, $val := .Values.additionalSecretNames }}
+            - secretRef:
+                name: {{ $val }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.migration.resources | nindent 12 }}
+  {{- end}}

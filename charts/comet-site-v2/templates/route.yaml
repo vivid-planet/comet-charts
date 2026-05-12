@@ -1,0 +1,38 @@
+{{- if .Values.route.enabled -}}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "comet-site.fullname" . }}
+  labels:
+    {{- include "comet-site.labels" . | nindent 4 }}
+  annotations:
+    {{- range $key, $val := .Values.route.annotations }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
+spec:
+{{- if .Values.cdn.enabled }}
+  host: "{{ .Values.internalDomain }}"
+{{- else }}
+  host: "{{ .Values.domain }}"
+{{- end }}
+  {{- if .Values.route.tls.enabled }}
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  {{- end }}
+{{- if .Values.prelogin.enabled }}
+  port:
+    targetPort: 3010
+  to:
+      kind: Service
+      name: {{ include "comet-site.fullname" . }}-prelogin
+      weight: 100
+{{ else }}
+  port:
+    targetPort: 3000
+  to:
+    kind: Service
+    name: {{ include "comet-site.fullname" . }}
+    weight: 100
+{{- end }}
+{{- end }}

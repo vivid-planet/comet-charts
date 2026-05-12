@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "comet-api.fullname" . }}
+  labels:
+    {{- include "comet-api.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    {{- if .Values.metrics.enabled }}
+    - name: metrics
+      protocol: TCP
+      port: {{ .Values.metrics.containerPorts.http }}
+      targetPort: metrics
+    {{- end }}
+  selector:
+    {{- include "comet-api.selectorLabels" . | nindent 4 }}
