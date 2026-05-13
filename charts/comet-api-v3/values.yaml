@@ -106,7 +106,7 @@ livenessProbe:
 
 readinessProbe:
   httpGet:
-    path: /healthcheck/ready
+    path: /api/healthcheck/ready
     port: http
 
 cronJobs:
