@@ -37,14 +37,9 @@ spec:
         pathType: Prefix
         backend:
           service:
-  {{- if .Values.prelogin.enabled }}
-            name: {{ include "comet-site.fullname" . }}-prelogin
-  {{- else }}
             name: {{ include "comet-site.fullname" . }}
-  {{- end }}
             port:
               number: 3000
-
   tls:
   - hosts:
   {{- if .Values.domains }}

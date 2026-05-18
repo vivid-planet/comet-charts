@@ -20,19 +20,10 @@ spec:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge
   {{- end }}
-  {{- if .Values.prelogin.enabled }}
-  port:
-    targetPort: 3010
-  to:
-      kind: Service
-      name: {{ include "comet-site.fullname" . }}-prelogin
-      weight: 100
-  {{ else }}
   port:
     targetPort: 3000
   to:
     kind: Service
     name: {{ include "comet-site.fullname" . }}
     weight: 100
-  {{- end }}
 {{- end }}
