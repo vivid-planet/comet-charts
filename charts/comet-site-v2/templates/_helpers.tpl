@@ -61,27 +61,6 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-Prelogin Common labels
-*/}}
-{{- define "comet-site.prelogin.labels" -}}
-helm.sh/chart: {{ include "comet-site.chart" . }}
-{{ include "comet-site.prelogin.selectorLabels" . }}
-  {{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-  {{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
-{{- end }}
-
-{{/*
-Prelogin Selector labels
-*/}}
-{{- define "comet-site.prelogin.selectorLabels" -}}
-app: {{ include "comet-site.fullname" . }}-prelogin
-app.kubernetes.io/name: {{ include "comet-site.name" . }}-prelogin
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
 Create the name of the service account to use
 */}}
 {{- define "comet-site.serviceAccountName" -}}

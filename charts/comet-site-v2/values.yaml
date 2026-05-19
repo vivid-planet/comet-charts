@@ -89,41 +89,6 @@ builder:
       cpu: 500m
       memory: 512Mi
 
-prelogin:
-  enabled: false
-  replicaCount: 1
-  requiredUserDomain: ""
-  autoMountServiceAccountToken: false
-  additionalPodLabels: {}
-  secrets: {}
-
-  image:
-    repository: "" # will be overwritten by CI
-    hash: v2 # will be overwritten by CI
-    pullPolicy: IfNotPresent
-    pullSecret: "" # will be overwritten by CI
-
-  securityContext:
-    {}
-    # capabilities:
-    #   drop:
-    #   - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
-    # runAsUser: 1000
-
-  service:
-    type: ClusterIP
-    port: 3000
-
-  resources:
-    limits:
-      memory: 128Mi
-      cpu: "500m"
-    requests:
-      cpu: 50m
-      memory: 128Mi
-
 autoMountServiceAccountToken: false
 
 route:
