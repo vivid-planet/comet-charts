@@ -60,13 +60,13 @@ spec:
               protocol: TCP
 {{- end }}
           envFrom:
-{{- if .Values.env }}
-            - configMapRef:
-                name: {{ include "comet-api.fullname" . }}
-{{- end }}
 {{- range $key, $val := .Values.additionalConfigMapNames }}
             - configMapRef:
                 name:  {{ $val }}
+{{- end }}
+{{- if .Values.env }}
+            - configMapRef:
+                name: {{ include "comet-api.fullname" . }}
 {{- end }}
 {{- if .Values.secrets }}
             - secretRef:
