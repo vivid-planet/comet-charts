@@ -170,3 +170,4 @@ additionalConfigMapNames: {}
 secrets: {}
 additionalSecretNames: {}
 additionalPodLabels: {}
+additionalDeploymentLabels: {}

@@ -9,6 +9,7 @@ additionalConfigMapNames: []
 secrets: {}
 additionalSecretNames: []
 additionalPodLabels: {}
+additionalDeploymentLabels: {}
 
 replicaCount: 1
 
@@ -95,6 +96,7 @@ prelogin:
   requiredUserDomain: ""
   autoMountServiceAccountToken: false
   additionalPodLabels: {}
+  additionalDeploymentLabels: {}
   secrets: {}
 
   image:

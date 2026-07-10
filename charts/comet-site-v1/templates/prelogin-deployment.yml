@@ -5,6 +5,9 @@ metadata:
   name: {{ include "comet-site.fullname" . }}-prelogin
   labels:
     {{- include "comet-site.prelogin.labels" . | nindent 4 }}
+{{- range $key, $val := .Values.prelogin.additionalDeploymentLabels }}
+    {{ $key }}: {{ $val | quote }}
+{{- end }}
 spec:
   replicas: {{ .Values.prelogin.replicaCount }}
   selector:

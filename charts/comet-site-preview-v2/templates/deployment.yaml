@@ -4,6 +4,9 @@ metadata:
   name: {{ include "comet-site-preview.fullname" . }}
   labels:
     {{- include "comet-site-preview.labels" . | nindent 4 }}
+{{- range $key, $val := .Values.additionalDeploymentLabels }}
+    {{ $key }}: {{ $val | quote }}
+{{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:

@@ -74,3 +74,4 @@ tolerations: []
 affinity: {}
 
 additionalPodLabels: {}
+additionalDeploymentLabels: {}

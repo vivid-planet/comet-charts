@@ -4,6 +4,9 @@ metadata:
   name: {{ include "comet-admin.fullname" . }}
   labels:
     {{- include "comet-admin.labels" . | nindent 4 }}
+{{- range $key, $val := .Values.additionalDeploymentLabels }}
+    {{ $key }}: {{ $val | quote }}
+{{- end }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}

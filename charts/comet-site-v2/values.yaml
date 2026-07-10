@@ -9,6 +9,7 @@ additionalConfigMapNames: []
 secrets: {}
 additionalSecretNames: []
 additionalPodLabels: {}
+additionalDeploymentLabels: {}
 
 replicaCount: 1
 
