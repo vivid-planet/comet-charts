@@ -1,5 +1,11 @@
 # comet-admin-v1
 
+## 1.9.0
+
+### Minor Changes
+
+-   6394740: Add `additionalDeploymentLabels` value to set custom labels on the Deployment metadata (e.g. `sablier.enable`/`sablier.group`)
+
 ## 1.8.1
 
 ### Patch Changes

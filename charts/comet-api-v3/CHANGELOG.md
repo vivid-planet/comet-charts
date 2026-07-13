@@ -1,5 +1,11 @@
 # comet-api-v2
 
+## 3.1.0
+
+### Minor Changes
+
+-   6394740: Add `additionalDeploymentLabels` value to set custom labels on the Deployment metadata (e.g. `sablier.enable`/`sablier.group`)
+
 ## 3.0.2
 
 ### Patch Changes
