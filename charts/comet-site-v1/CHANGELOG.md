@@ -1,5 +1,11 @@
 # comet-site-v1
 
+## 1.14.0
+
+### Minor Changes
+
+-   6394740: Add `additionalDeploymentLabels` value to set custom labels on the Deployment metadata (e.g. `sablier.enable`/`sablier.group`)
+
 ## 1.13.0
 
 ### Minor Changes
