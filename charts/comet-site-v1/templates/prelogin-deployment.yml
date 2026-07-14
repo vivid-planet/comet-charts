@@ -8,6 +8,12 @@ metadata:
 {{- range $key, $val := .Values.prelogin.additionalDeploymentLabels }}
     {{ $key }}: {{ $val | quote }}
 {{- end }}
+{{- with .Values.prelogin.additionalDeploymentAnnotations }}
+  annotations:
+{{- range $key, $val := . }}
+    {{ $key }}: {{ $val | quote }}
+{{- end }}
+{{- end }}
 spec:
   replicas: {{ .Values.prelogin.replicaCount }}
   selector:

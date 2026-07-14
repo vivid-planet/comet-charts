@@ -7,6 +7,12 @@ metadata:
 {{- range $key, $val := .Values.additionalDeploymentLabels }}
     {{ $key }}: {{ $val | quote }}
 {{- end }}
+{{- with .Values.additionalDeploymentAnnotations }}
+  annotations:
+{{- range $key, $val := . }}
+    {{ $key }}: {{ $val | quote }}
+{{- end }}
+{{- end }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}

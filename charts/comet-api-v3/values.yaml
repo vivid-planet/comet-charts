@@ -171,3 +171,4 @@ secrets: {}
 additionalSecretNames: {}
 additionalPodLabels: {}
 additionalDeploymentLabels: {}
+additionalDeploymentAnnotations: {}
