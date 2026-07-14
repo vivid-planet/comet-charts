@@ -5,6 +5,30 @@
 annotations:
   cert-manager.io/cluster-issuer: "letsencrypt"
   nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
+
+# Scale-to-zero support via Sablier (https://sablierapp.dev): renders a
+# Traefik middleware that starts the deployments of the configured Sablier
+# group on demand and attaches it to all ingresses of this chart. Requires a
+# Sablier instance and the Sablier Traefik plugin in the cluster.
+zeroScaling:
+  enabled: false
+  # URL of the central Sablier instance
+  sablierUrl: "http://sablier-networking.networking:10000"
+  # Sablier group to start; defaults to the release namespace, so all workloads
+  # in the namespace labeled with sablier.group=<namespace> wake up together
+  group: ""
+  # How long the group stays up after the last request
+  sessionDuration: "30m"
+  # Pass requests through to the backend when Sablier is unreachable instead
+  # of failing the request
+  failOpen: true
+  # Requests whose User-Agent matches any of these Go regexps are passed
+  # through without starting or extending a session (e.g. uptime checks)
+  ignoreUserAgent: []
+  dynamic:
+    # Title of the waiting page shown while the group starts;
+    # defaults to the release name
+    displayName: ""
 # Example Ingress configuration:
 # ingresses:
 #   - hostname: admin.comet-dxp.com

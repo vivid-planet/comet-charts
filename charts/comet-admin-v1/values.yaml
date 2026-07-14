@@ -75,3 +75,4 @@ affinity: {}
 
 additionalPodLabels: {}
 additionalDeploymentLabels: {}
+additionalDeploymentAnnotations: {}

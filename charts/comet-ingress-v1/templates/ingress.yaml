@@ -11,6 +11,9 @@ metadata:
     {{- range $key, $val := $.Values.annotations }}
     {{ $key }}: {{ $val | quote }}
     {{- end }}
+    {{- if $.Values.zeroScaling.enabled }}
+    traefik.ingress.kubernetes.io/router.middlewares: {{ $.Release.Namespace }}-{{ include "comet-ingress.fullname" $ }}-zero-scaling@kubernetescrd
+    {{- end }}
 spec:
   ingressClassName: nginx
   rules:
