@@ -1,0 +1,21 @@
+{{- if .Values.zeroScaling.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ include "comet-ingress.fullname" . }}-zero-scaling
+  labels:
+    {{- include "comet-ingress.labels" . | nindent 4 }}
+spec:
+  plugin:
+    sablier:
+      sablierUrl: {{ .Values.zeroScaling.sablierUrl | quote }}
+      group: {{ .Values.zeroScaling.group | default .Release.Namespace | quote }}
+      sessionDuration: {{ .Values.zeroScaling.sessionDuration | quote }}
+      failOpen: {{ .Values.zeroScaling.failOpen }}
+      {{- with .Values.zeroScaling.ignoreUserAgent }}
+      ignoreUserAgent:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      dynamic:
+        displayName: {{ .Values.zeroScaling.dynamic.displayName | default .Release.Name | quote }}
+{{- end }}
