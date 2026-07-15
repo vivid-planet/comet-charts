@@ -8,12 +8,14 @@ metadata:
   labels:
     {{- include "comet-ingress.labels" $ | nindent 4 }}
   annotations:
-    {{- range $key, $val := $.Values.annotations }}
-    {{ $key }}: {{ $val | quote }}
-    {{- end }}
+    {{- $annotations := deepCopy ($.Values.annotations | default dict) }}
     {{- if $.Values.zeroScaling.enabled }}
-    traefik.ingress.kubernetes.io/router.middlewares: {{ $.Release.Namespace }}-{{ include "comet-ingress.fullname" $ }}-zero-scaling@kubernetescrd
+    {{- /* append to an existing router.middlewares annotation instead of emitting a duplicate key */}}
+    {{- $middlewaresKey := "traefik.ingress.kubernetes.io/router.middlewares" }}
+    {{- $zeroScalingMiddleware := printf "%s-%s-zero-scaling@kubernetescrd" $.Release.Namespace (include "comet-ingress.fullname" $) }}
+    {{- $_ := set $annotations $middlewaresKey (compact (list (get $annotations $middlewaresKey) $zeroScalingMiddleware) | join ",") }}
     {{- end }}
+    {{- toYaml $annotations | nindent 4 }}
 spec:
   ingressClassName: nginx
   rules:
