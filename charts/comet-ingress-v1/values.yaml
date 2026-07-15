@@ -8,7 +8,9 @@ annotations:
 
 # Scale-to-zero support via Sablier (https://sablierapp.dev): renders a
 # Traefik middleware that starts the deployments of the configured Sablier
-# group on demand and attaches it to all ingresses of this chart. Requires a
+# group on demand and attaches it to all ingresses of this chart. If the
+# annotations above already contain traefik.ingress.kubernetes.io/router.middlewares,
+# the zero-scaling middleware is appended to the existing list. Requires a
 # Sablier instance and the Sablier Traefik plugin in the cluster.
 zeroScaling:
   enabled: false
