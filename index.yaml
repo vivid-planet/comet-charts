@@ -1146,6 +1146,28 @@ entries:
     version: 0.0.0
   comet-ingress:
   - apiVersion: v2
+    created: "2026-07-15T12:33:10.327327363Z"
+    description: Helm chart for Ingresses on COMET-Microservices
+    digest: cffa1e6bfc509716d818822a422159844f61d0175cd81c533c0c5dd219e55daf
+    home: https://www.comet-dxp.com
+    icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+    maintainers:
+    - email: daniel.karnutsch@vivid-planet.com
+      name: Daniel Karnutsch
+    - email: georg.schreglmann@vivid-planet.com
+      name: Georg Schreglmann
+    - email: franz.unger@vivid-planet.com
+      name: Franz Unger
+    - email: alexander.kaufmann@vivid-planet.com
+      name: Alexander Kaufmann
+    - email: philipp.pregernigg@vivid-planet.com
+      name: Philipp Pregernigg
+    name: comet-ingress
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-ingress-1.3.1/comet-ingress-1.3.1.tgz
+    version: 1.3.1
+  - apiVersion: v2
     created: "2026-07-14T06:51:39.208810218Z"
     description: Helm chart for Ingresses on COMET-Microservices
     digest: 5a2558c00a9a10de6323fc08c3233372c696fa3367f50106b74426a160b15f5b
@@ -2145,4 +2167,4 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.10.2/imgproxy-0.10.2.tgz
     version: 0.10.2
-generated: "2026-07-14T06:51:39.777666327Z"
+generated: "2026-07-15T12:33:10.327606053Z"
