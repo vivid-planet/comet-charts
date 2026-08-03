@@ -119,6 +119,8 @@ cronJobs:
     instanceNameOverride: ""
     additionalAnnotations: {}
     additionalPodLabels: {}
+    extraVolumeMounts: []
+    extraVolumes: []
     activeDeadlineSeconds: 600
     resources:
       limits:
@@ -136,6 +138,8 @@ cronJobs:
     additionalAnnotations: {}
     additionalLabels: {}
     additionalPodLabels: {}
+    extraVolumeMounts: []
+    extraVolumes: []
     resources:
       limits:
         cpu: 100m
@@ -153,6 +157,8 @@ cronJobs:
     additionalAnnotations: {}
     additionalLabels: {}
     additionalPodLabels: {}
+    extraVolumeMounts: []
+    extraVolumes: []
     resources:
       limits:
         cpu: 2
