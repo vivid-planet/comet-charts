@@ -1358,6 +1358,28 @@ entries:
     version: 1.0.0
   comet-site:
   - apiVersion: v2
+    created: "2026-09-24T06:28:28.789498478Z"
+    description: Helm chart for a Comet Site Microservice
+    digest: 81e46ac80fe0c860c7c750cefc4e43a5a95e3dba02b3a59c175184d92c3c6407
+    home: https://www.comet-dxp.com
+    icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+    maintainers:
+    - email: daniel.karnutsch@vivid-planet.com
+      name: Daniel Karnutsch
+    - email: georg.schreglmann@vivid-planet.com
+      name: Georg Schreglmann
+    - email: franz.unger@vivid-planet.com
+      name: Franz Unger
+    - email: alexander.kaufmann@vivid-planet.com
+      name: Alexander Kaufmann
+    - email: philipp.pregernigg@vivid-planet.com
+      name: Philipp Pregernigg
+    name: comet-site
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-2.2.1/comet-site-2.2.1.tgz
+    version: 2.2.1
+  - apiVersion: v2
     created: "2026-07-14T06:51:39.491668925Z"
     description: Helm chart for a Comet Site Microservice
     digest: 7a0c94003efd1dbb8d53d67c4965694393a8b38c56664e79de69970b335df9b0
@@ -1441,6 +1463,28 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-2.0.0/comet-site-2.0.0.tgz
     version: 2.0.0
+  - apiVersion: v2
+    created: "2026-09-24T06:28:28.588289212Z"
+    description: Helm chart for a Comet Site Microservice
+    digest: 7aabc313a7bee2dd718ee9068ce25749f9db745f11a64727b5397f2bb8129ba4
+    home: https://www.comet-dxp.com
+    icon: https://avatars.githubusercontent.com/u/1012348?s=200&v=4
+    maintainers:
+    - email: daniel.karnutsch@vivid-planet.com
+      name: Daniel Karnutsch
+    - email: georg.schreglmann@vivid-planet.com
+      name: Georg Schreglmann
+    - email: franz.unger@vivid-planet.com
+      name: Franz Unger
+    - email: alexander.kaufmann@vivid-planet.com
+      name: Alexander Kaufmann
+    - email: philipp.pregernigg@vivid-planet.com
+      name: Philipp Pregernigg
+    name: comet-site
+    type: application
+    urls:
+    - https://github.com/vivid-planet/comet-charts/releases/download/comet-site-1.15.1/comet-site-1.15.1.tgz
+    version: 1.15.1
   - apiVersion: v2
     created: "2026-07-14T06:51:39.353418349Z"
     description: Helm chart for a Comet Site Microservice
@@ -2189,4 +2233,4 @@ entries:
     urls:
     - https://github.com/vivid-planet/comet-charts/releases/download/imgproxy-0.10.2/imgproxy-0.10.2.tgz
     version: 0.10.2
-generated: "2026-08-03T11:31:41.106090869Z"
+generated: "2026-09-24T06:28:28.789738343Z"
