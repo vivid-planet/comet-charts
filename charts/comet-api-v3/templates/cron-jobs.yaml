@@ -16,7 +16,13 @@ metadata:
       {{- tpl ($job.additionalLabels | toYaml) . | nindent 4 }}
       {{- end }}
 spec:
+  {{- if $job.schedule }}
   schedule: {{ $job.schedule | quote }}
+  {{- else if $job.suspend }}
+  schedule: "0 0 1 1 *" # no schedule given while suspended — placeholder, never evaluated (Kubernetes' CronJob API always requires some valid cron expression here, regardless of suspend)
+  {{- else }}
+  {{ fail (printf "cronJobs.%s.schedule is required unless suspend: true — Kubernetes' CronJob API always requires a schedule; either set one or set suspend: true for a manual-trigger-only job" $name) }}
+  {{- end }}
   suspend: {{ $job.suspend | default false }}
   timeZone: {{ $job.timeZone | default "Europe/Vienna" }}
   successfulJobsHistoryLimit: {{ $job.successfulJobsHistoryLimit | default 2 }}
