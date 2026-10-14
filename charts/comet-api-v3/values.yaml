@@ -67,6 +67,10 @@ resources:
     cpu: 50m
     memory: 256Mi
 
+# emptyDir mounted at /tmp (e.g. for temporary files of large DAM uploads)
+tmpVolume:
+  sizeLimit: 1Gi
+
 initContainers: []
 
 migration:

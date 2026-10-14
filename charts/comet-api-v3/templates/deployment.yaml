@@ -120,7 +120,7 @@ spec:
       volumes:
         - name: tmp
           emptyDir:
-            sizeLimit: "1Gi"
+            sizeLimit: {{ .Values.tmpVolume.sizeLimit | default "1Gi" | quote }}
 {{- if .Values.serviceAccount.create }}
         - name: "service-account"
           secret:
