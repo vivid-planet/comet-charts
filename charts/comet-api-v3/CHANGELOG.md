@@ -1,5 +1,11 @@
 # comet-api-v2
 
+## 3.4.0
+
+### Minor Changes
+
+-   65175b4: Make the size limit of the `/tmp` emptyDir configurable via `tmpVolume.sizeLimit` (default: `1Gi`, as before), e.g. to allow temporary files of large DAM uploads
+
 ## 3.3.0
 
 ### Minor Changes
